@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mAccount.dao.MAccountDAO">
+<insert id="insert" parameterType="mAccountVO">
+	insert into hf_m_account(bank, account_no, nickname)
+		values(#{bank}, #{accountNo}, #{nickname})
+</insert>
+
+<!-- <update id="registerPwd" parameterType="map"> -->
+<!-- 	update hf_member set tranz_pwd = #{tranzPwd} -->
+<!-- 		where nickname = #{nickname} -->
+<!-- </update> -->
+
+<!-- <select id="login" parameterType="memberVO" resultType="memberVO"> -->
+<!-- 	select id, password -->
+<!-- 	from t_member -->
+<!-- 	where id=#{id} and password=#{password} -->
+
+
+<!-- </select> -->
+
+</mapper>

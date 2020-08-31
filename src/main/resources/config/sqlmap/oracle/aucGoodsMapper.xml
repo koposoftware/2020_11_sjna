@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="auction.dao.AucGoodsDAO">
+
+<resultMap type="aucGoodsVO" id="aucGoodsMap">
+		<result column="start_price" property="startPrice" />
+		<result column="reg_date" property="regDate" />
+		<result column="start_date" property="startDate" />
+		<result column="end_date" property="endDate" />
+		<result column="member_nick" property="memberNick" />
+	
+</resultMap>
+	
+<resultMap type="goodsPhotoVO" id="goodsPhotoMap">
+		<result column="ori_name" property="oriName" />
+		<result column="save_name" property="saveName" />
+		<result column="file_size" property="fileSize" />
+		<result column="auc_no" property="aucNo" />
+</resultMap>
+	
+	<insert id="insertAucGoods" parameterType="aucGoodsVO">
+		insert into hf_auc_goods(no, reg_date, name, method, category,
+			start_price, start_date, end_date, detail, member_nick)
+		values(#{no}, #{regDate}, #{name}, #{method}, #{category}, #{startPrice}, #{startDate}, #{endDate},
+			#{detail}, #{memberNick})
+	</insert>
+	
+	<insert id="insertGoodsPhoto" parameterType="goodsPhotoVO">
+			insert into hf_goods_photo(no, ori_name, save_name,
+				file_size, auc_no)
+			values
+			(
+			 seq_hf_goods_photo_no.nextval,
+				#{oriName}, #{saveName}, #{fileSize}, #{aucNo}
+			)
+	</insert>
+
+	<select id="genAucNo" parameterType="int" resultType="int">
+		select seq_hf_auc_goods_no.nextval from dual
+	</select>
+	
+	<select id="selectAucGoodsByNo" resultType="aucGoodsVO" resultMap="aucGoodsMap">      
+		select no, name, category, reg_date, start_date, end_date, start_price, member_nick, method, detail
+		 from hf_auc_goods
+			where no = #{aucNo}                                        
+	</select>    
+	
+<!-- 		<select id="selectByNo" resultMap="boardMap" parameterType="int"> -->
+<!-- 		select no, title, writer, content, view_cnt -->
+<!-- 			,reg_date -->
+<!-- 		from t_board -->
+<!-- 		where no = #{no} -->
+<!-- 	</select> -->
+	                                                 
+	<select id="selectAllAucContents" resultType="aucGoodsVO" resultMap="aucGoodsMap">      
+		select no, name, category, reg_date, start_date, end_date, start_price, member_nick, method, detail
+		 from hf_auc_goods
+	</select>                                                     
+	                                                              
+	<select id="selectPhotoListByAucNo" resultMap="goodsPhotoMap" parameterType="int">      
+		select no, ori_name, save_name, auc_no
+		 from hf_goods_photo
+		 where auc_no = #{aucNo}
+	</select>                  
+	                                   
+<!-- 	<select id="selectFirstPhotoByAucNo" parameterType="int" resultType="String">       -->
+<!-- 		select save_name from  -->
+<!-- (select * from hf_goods_photo where auc_no = #{aucNo} order by no) where rownum = 1 -->
+<!-- 	</select>                                                      -->
+	                                                              
+<!-- 	<update id="registerPwd" parameterType="map"> -->         
+<!-- 		update hf_member set tranz_pwd = #{tranzPwd} -->      
+<!-- 		where nickname = #{nickname} -->                      
+<!-- 	</update> -->                                                	
+
+	<!-- <select id="login" parameterType="memberVO" resultType="memberVO"> -->
+	<!-- select id, password -->
+	<!-- from t_member -->
+	<!-- where id=#{id} and password=#{password} -->
+
+
+	<!-- </select> -->
+</mapper>
+
+
