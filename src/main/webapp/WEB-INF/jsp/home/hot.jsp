@@ -130,6 +130,8 @@ background: rgb(231, 76, 60);
 background: rgb(190, 190, 190);
 }
 
+
+
 </style>
 
 
@@ -162,10 +164,12 @@ background: rgb(190, 190, 190);
 		<tbody>
 		
 		<c:forEach items="${aucMap}" var="auc">
-			<tr onclick="location.href='https://www.naver.com/'">
+			<tr onclick="goDetail(${auc.value.no})">
 				<th scope="row">
 					<span class="ongoing" style="display: table; font-size: 0.8rem; margin-left: 0.4rem;" > 진행중 </span>
-					<img src="${pageContext.request.contextPath}/resources/img/k580.jpg">
+<%-- 					<img src="<%=request.getContextPath()%>/upload/${auc.key}"> --%>
+					<img src="${pageContext.request.contextPath }/upload/${auc.key}">
+
 				</th>
 				<td>
 					<div style="font-weight: bold; font-size: 1rem;">${auc.value.name }</div>
@@ -174,54 +178,6 @@ background: rgb(190, 190, 190);
 				</td>
 			</tr>
 			</c:forEach>
-			
-			
-<!-- 			<tr onclick="location.href='https://www.naver.com/'"> -->
-<!-- 				<th scope="row"> -->
-<!-- 					<span class="waiting" style="display: table; font-size: 0.8rem; margin-left: 0.4rem;" > 대기 </span> -->
-<%-- 					<img src="${pageContext.request.contextPath}/resources/img/k580.jpg"> --%>
-<!-- 				</th> -->
-<!-- 				<td> -->
-<!-- 					<div style="font-weight: bold; font-size: 1rem;">로지텍 K580 새거</div> -->
-<!-- 					<div style="display:table; font-size:0.8rem; background: rgb(224, 224, 224);">마감: 2020-08-31 13:50:00</div> -->
-<!-- 					<div style="margin-top:0.4rem; font-weight: bold; font-size: 1rem;">현재가: 45,000 원</div> -->
-<!-- 				</td> -->
-<!-- 			</tr> -->
-<!-- 			<tr onclick="location.href='https://www.naver.com/'"> -->
-<!-- 				<th scope="row"> -->
-<!-- 					<span class="urgent" style="display: table; font-size: 0.8rem; margin-left: 0.4rem;" > 임박 </span> -->
-<%-- 					<img src="${pageContext.request.contextPath}/resources/img/k580.jpg"> --%>
-<!-- 				</th> -->
-<!-- 				<td> -->
-<!-- 					<div style="font-weight: bold; font-size: 1rem;">로지텍 K580 새거</div> -->
-<!-- 					<div style="display:table; font-size:0.8rem; background: rgb(224, 224, 224);">마감: 2020-08-31 13:50:00</div> -->
-<!-- 					<div style="margin-top:0.4rem; font-weight: bold; font-size: 1rem;">현재가: 45,000 원</div> -->
-<!-- 				</td> -->
-<!-- 			</tr> -->
-<!-- 			<tr onclick="location.href='https://www.naver.com/'"> -->
-<!-- 				<th scope="row"> -->
-<!-- 					<span class="ongoing" style="display: table; font-size: 0.8rem; margin-left: 0.4rem;" > 진행중 </span> -->
-<%-- 					<img src="${pageContext.request.contextPath}/resources/img/k580.jpg"> --%>
-<!-- 				</th> -->
-<!-- 				<td> -->
-<!-- 					<div style="font-weight: bold; font-size: 1rem;">로지텍 K580 새거</div> -->
-<!-- 					<div style="display:table; font-size:0.8rem; background: rgb(224, 224, 224);">마감: 2020-08-31 13:50:00</div> -->
-<!-- 					<div style="margin-top:0.4rem; font-weight: bold; font-size: 1rem;">현재가: 45,000 원</div> -->
-<!-- 				</td> -->
-<!-- 			</tr> -->
-<!-- 			<tr onclick="location.href='https://www.naver.com/'"> -->
-<!-- 				<th scope="row"> -->
-<!-- 					<span style=" background: rgb(26, 188, 156); display: table; font-size: 0.8rem; margin-left: 0.4rem;" > 진행중 </span> -->
-<%-- 					<img src="${pageContext.request.contextPath}/resources/img/k580.jpg"> --%>
-<!-- 				</th> -->
-<!-- 				<td> -->
-<!-- 					<div style="font-weight: bold; font-size: 1rem;">로지텍 K580 새거</div> -->
-<!-- 					<div style="display:table; font-size:0.8rem; background: rgb(224, 224, 224);">마감: 2020-08-31 13:50:00</div> -->
-<!-- 					<div style="margin-top:0.4rem; font-weight: bold; font-size: 1rem;">현재가: 45,000 원</div> -->
-<!-- 				</td> -->
-<!-- 			</tr> -->
-			
-			
 			
 		</tbody>
 	</table>
@@ -237,6 +193,10 @@ background: rgb(190, 190, 190);
 
     <jsp:include page="/WEB-INF/jsp/include/lib/botLibs.jsp"></jsp:include>
   <script type="text/javascript">
+  function goDetail(aucNo) {
+	  location.href= "${pageContext.request.contextPath}/goodsDetail/"+ aucNo;
+}
+  
 	  $('.na-nav a').on('click',function(){
 		 $(this).addClass('top-on');
 		 $(this).siblings().removeClass('top-on');

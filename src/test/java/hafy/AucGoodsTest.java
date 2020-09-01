@@ -1,8 +1,5 @@
 package hafy;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -19,7 +16,7 @@ import hafy.aucGoods.vo.GoodsPhotoVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(locations = {"classpath:config/spring/spring-mvc.xml"})
-@ContextConfiguration(locations = {"classpath:config/spring/*.xml"})
+@ContextConfiguration(locations = {"classpath:config/**/*.xml"})
 public class AucGoodsTest {
 	
 	@Autowired
@@ -34,7 +31,7 @@ public class AucGoodsTest {
 		System.out.println(ds);
 	}
 	
-//	@Ignore
+	@Ignore
 	@Test
 	public void 세션테스트() {
 		
@@ -62,17 +59,32 @@ public class AucGoodsTest {
 	public void selectPhotoListByAucNo() throws Exception {
 		// TODO Auto-generated method stub
 		
-		List<GoodsPhotoVO> photoList = sqlSession.selectList("auction.dao.AucGoodsDAO.selectPhotoListByAucNo", 120);
 		
+//		List<String> nameList = sqlSession.selectList("auction.dao.AucGoodsDAO.selectPhotoNameByAucNo",120);
+//		for (String n : nameList) {
+//			System.out.println(n);
+//		}
+//		
+//		System.out.println("첫번째사진: " +nameList.get(0));
 		
 //		String firstPhoto = sqlSession.selectOne("auction.dao.AucGoodsDAO.selectFirstPhotoByAucNo", 120);
 		
 //		System.out.println("하단에 출력됨");
 //		System.out.println("첫번쨰사진: " + firstPhoto);
 		
+		
+		List<GoodsPhotoVO> photoList = sqlSession.selectList("auction.dao.AucGoodsDAO.selectPhotoListByAucNo", 120);
 		for(GoodsPhotoVO p : photoList) {
 			System.out.println(p);
 		}
+		
+//		List<Map<String, Object>> photoList = sqlSession.selectList("auction.dao.AucGoodsDAO.selectPhotoListByAucNo", 120);
+//		for(Map<String, Object> map : photoList) {
+//			Set<String> keys = map.keySet();
+//			for(String key : keys) {
+//				System.out.println(key + " : " + map.get(key));
+//			}
+//		}
 		
 	}
 

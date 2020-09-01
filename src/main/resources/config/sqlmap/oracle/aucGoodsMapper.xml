@@ -11,6 +11,8 @@
 		<result column="start_date" property="startDate" />
 		<result column="end_date" property="endDate" />
 		<result column="member_nick" property="memberNick" />
+		<result column="view_cnt" property="viewCnt" />
+		<result column="like_cnt" property="likeCnt" />
 	
 </resultMap>
 	
@@ -20,6 +22,48 @@
 		<result column="file_size" property="fileSize" />
 		<result column="auc_no" property="aucNo" />
 </resultMap>
+
+<resultMap type="likeVO" id="likeMap">
+		<result column="member_nick" property="memberNick" />
+		<result column="auc_no" property="aucNo" />
+</resultMap>
+
+
+	<select id="selectIsLike" parameterType="likeVO" resultMap="likeMap">
+		select member_nick, auc_no
+			from hf_like
+		where member_nick = #{memberNick} and auc_no = #{aucNo}
+	
+	</select>
+
+	<insert id="insertLike" parameterType="likeVO">
+		insert into hf_like(member_nick, auc_no) 
+			values(#{memberNick}, #{aucNo})
+	</insert>
+
+	<delete id="deleteLike" parameterType="likeVO">
+		delete hf_like 
+			where member_nick = #{memberNick} and auc_no = #{aucNo}
+	</delete>
+
+
+	<update id="decrementLikeCnt" parameterType="int">
+		update hf_auc_goods 
+			set like_cnt = like_cnt - 1
+		where no = #{no}
+	</update>
+	
+	<update id="incrementLikeCnt" parameterType="int">
+		update hf_auc_goods 
+			set like_cnt = like_cnt + 1
+		where no = #{no}
+	</update>
+	
+	<update id="incrementViewCnt" parameterType="int">
+		update hf_auc_goods 
+			set view_cnt = view_cnt + 1
+		where no = #{no}
+	</update>
 	
 	<insert id="insertAucGoods" parameterType="aucGoodsVO">
 		insert into hf_auc_goods(no, reg_date, name, method, category,
@@ -43,33 +87,30 @@
 	</select>
 	
 	<select id="selectAucGoodsByNo" resultType="aucGoodsVO" resultMap="aucGoodsMap">      
-		select no, name, category, reg_date, start_date, end_date, start_price, member_nick, method, detail
+		select no, name, category, reg_date, start_date, end_date, start_price, member_nick, method, detail,
+				view_cnt, like_cnt 
 		 from hf_auc_goods
 			where no = #{aucNo}                                        
 	</select>    
 	
-<!-- 		<select id="selectByNo" resultMap="boardMap" parameterType="int"> -->
-<!-- 		select no, title, writer, content, view_cnt -->
-<!-- 			,reg_date -->
-<!-- 		from t_board -->
-<!-- 		where no = #{no} -->
-<!-- 	</select> -->
-	                                                 
 	<select id="selectAllAucContents" resultType="aucGoodsVO" resultMap="aucGoodsMap">      
-		select no, name, category, reg_date, start_date, end_date, start_price, member_nick, method, detail
+		select no, name, category, reg_date, start_date, end_date, start_price, member_nick, method, detail,
+				view_cnt, like_cnt 
 		 from hf_auc_goods
 	</select>                                                     
-	                                                              
-	<select id="selectPhotoListByAucNo" resultMap="goodsPhotoMap" parameterType="int">      
-		select no, ori_name, save_name, auc_no
+	            
+	            
+	     <!-- 사진 파일 리스트 VO로 받아오려는거 성공...자바빈클래스의 특징인 기본생성자 미씽 문제 -->                                                  
+	<select id="selectPhotoListByAucNo" parameterType="int" resultType="goodsPhotoVO" >      
+		select no, auc_no as aucNo, save_name as saveName, ori_name as oriName, file_size as fileSize
 		 from hf_goods_photo
 		 where auc_no = #{aucNo}
 	</select>                  
 	                                   
-<!-- 	<select id="selectFirstPhotoByAucNo" parameterType="int" resultType="String">       -->
-<!-- 		select save_name from  -->
-<!-- (select * from hf_goods_photo where auc_no = #{aucNo} order by no) where rownum = 1 -->
-<!-- 	</select>                                                      -->
+	                                                     
+	<select id="selectPhotoNameByAucNo" parameterType="int" resultType="String">
+		select save_name from hf_goods_photo where auc_no = #{aucNo} order by no
+	</select>                                                     
 	                                                              
 <!-- 	<update id="registerPwd" parameterType="map"> -->         
 <!-- 		update hf_member set tranz_pwd = #{tranzPwd} -->      

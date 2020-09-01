@@ -1,5 +1,8 @@
 package hafy.mAccount.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,6 +14,23 @@ public class MAccountDAOImpl implements MAccountDAO{
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+
+	
+	
+	@Override
+	public void bidMoney(Map<String, Object> bidInfo) {
+		// TODO Auto-generated method stub
+		sqlSession.update("mAccount.dao.MAccountDAO.withdrawMAccount", bidInfo);
+	}
+
+	@Override
+	public List<MAccountVO> selectMAccountList(String memberNick) {
+		// TODO Auto-generated method stub
+		List<MAccountVO> mAccountList = sqlSession.selectList("mAccount.dao.MAccountDAO.selectMAccountList", memberNick);
+		return mAccountList;
+	}
+
+
 
 	@Override
 	public void insertMAccount(MAccountVO mAccountVO) {

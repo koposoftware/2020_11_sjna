@@ -5,10 +5,15 @@ public class GoodsPhotoVO {
 	private int no;
 	private String oriName;
 	private String saveName;
-	private int fileSize;	
+	private long fileSize;	
 	private int aucNo;
 	
-	public GoodsPhotoVO(String oriName, String saveName, int fileSize, int aucNo) {
+	
+	public GoodsPhotoVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public GoodsPhotoVO(String oriName, String saveName, long fileSize, int aucNo) {
 		super();
 		this.oriName = oriName;
 		this.saveName = saveName;
@@ -33,10 +38,10 @@ public class GoodsPhotoVO {
 	public void setSaveName(String saveName) {
 		this.saveName = saveName;
 	}
-	public int getFileSize() {
+	public long getFileSize() {
 		return fileSize;
 	}
-	public void setFileSize(int fileSize) {
+	public void setFileSize(long fileSize) {
 		this.fileSize = fileSize;
 	}
 	public int getAucNo() {

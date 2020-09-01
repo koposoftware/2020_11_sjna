@@ -17,7 +17,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -26,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import hafy.aucGoods.service.AucGoodsService;
 import hafy.aucGoods.vo.AucGoodsVO;
 import hafy.aucGoods.vo.GoodsPhotoVO;
+import hafy.aucGoods.vo.LikeVO;
 import hafy.member.vo.MemberVO;
 
 @Controller
@@ -35,6 +38,37 @@ public class AucGoodsController {
 	private AucGoodsService aucGoodsService;
 	@Autowired
 	private ServletContext servletContext;
+	
+	
+	
+	@GetMapping("goodsDetail/{aucNo}")
+	public String  goodsDetail(@PathVariable("aucNo")int aucNo, HttpServletRequest request, HttpSession session) {
+		
+		Map<AucGoodsVO, List<GoodsPhotoVO>> aucMap = aucGoodsService.selectAucByNo(aucNo);
+		request.setAttribute("aucMap", aucMap);
+		
+		// 로그인한 멤버 닉네임 가져오기
+		MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+		String memberNick = memberVO.getNickname();
+		
+		// 좋아요 한 상품인지 확인
+		LikeVO likeVO = new LikeVO(memberNick, aucNo);
+		LikeVO isLikeVO = aucGoodsService.selectIsLike(likeVO);
+		boolean isLike = false;
+		if (isLikeVO != null) {
+			isLike = true;
+		}
+		request.setAttribute("isLike", isLike);
+		
+//		for (AucGoodsVO key : aucMap.keySet()) {
+//			List<GoodsPhotoVO> photoList = aucMap.get(key);
+//			for(GoodsPhotoVO g : photoList) {
+//				System.out.println("key: " + key + "g: " + g);
+//			}
+//		}
+	
+		return "/detail/goodsDetail";
+	}
 
 	@RequestMapping("/hot")
 	public String mainHot(HttpServletRequest request) {
@@ -45,11 +79,14 @@ public class AucGoodsController {
 		
 		Map<String, AucGoodsVO> aucMap = aucGoodsService.selectAllAuc();
 		
+//		for (String key : aucMap.keySet()) {
+//			AucGoodsVO vo = aucMap.get(key);
+//			System.out.println("key: "+key + ", vo: " + vo);
+//		}
 		
 //		ModelAndView mav = new ModelAndView("/home/hot");
 		request.setAttribute("aucMap", aucMap);
 //		request.setAttribute("list", list);
-		
 //		mav.addObject("aucList", aucList);
 
 		return "/home/hot";
@@ -98,10 +135,11 @@ public class AucGoodsController {
 		aucGoodsVO.setEndDate(rEndDate);
 		
 //		System.out.println("경매번호: "+aucNo);
-
 		
 		// 실행되는 웹어플리케이션의 실제 경로 가져오기
 		String uploadDir = servletContext.getRealPath("/upload/");
+//		String uploadDir = servletContext.getRealPath("/upload/");
+		
 		System.out.println(uploadDir);
 		
 //				ModelAndView mav = new ModelAndView("file/uploadResult");

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import hafy.aucGoods.vo.AucGoodsVO;
 import hafy.aucGoods.vo.GoodsPhotoVO;
+import hafy.aucGoods.vo.LikeVO;
 
 public interface AucGoodsDAO {
 	
@@ -14,6 +15,14 @@ public interface AucGoodsDAO {
 	AucGoodsVO selectAucGoodsByNo(int aucNo);
 	List<AucGoodsVO> selectAllAucContents();
 //	List<GoodsPhotoVO> selectPhotoListByAucNo(int aucNo);
-	String selectFirstPhotoByAucNo(int aucNo);
+	List<String> selectPhotoNameByAucNo(int aucNo);
+	List<GoodsPhotoVO> selectPhotoListByAucNo(int aucNo);
+	void incrementViewCnt(int aucNo);
+	void incrementLikeCnt(int aucNo);
+	void decrementLikeCnt(int aucNo);
+	void insertLike(LikeVO likeVO);
+	void deleteLike(LikeVO likeVO);
+	LikeVO selectIsLike(LikeVO likeVO);
+	
 
 }

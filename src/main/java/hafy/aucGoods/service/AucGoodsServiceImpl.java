@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import hafy.aucGoods.dao.AucGoodsDAO;
 import hafy.aucGoods.vo.AucGoodsVO;
 import hafy.aucGoods.vo.GoodsPhotoVO;
+import hafy.aucGoods.vo.LikeVO;
 
 
 @Service
@@ -20,6 +21,61 @@ public class AucGoodsServiceImpl implements AucGoodsService{
 	@Autowired
 	private AucGoodsDAO aucGoodsDAO;
 	
+	
+	
+	
+	@Override
+	public LikeVO selectIsLike(LikeVO likeVO) {
+		// TODO Auto-generated method stub
+		LikeVO isLikeVO = aucGoodsDAO.selectIsLike(likeVO);
+		return isLikeVO;
+	}
+
+	@Override
+	public void insertLike(LikeVO likeVO) {
+		// TODO Auto-generated method stub
+		aucGoodsDAO.insertLike(likeVO);
+		
+	}
+
+	@Override
+	public void deleteLike(LikeVO likeVO) {
+		// TODO Auto-generated method stub
+		aucGoodsDAO.deleteLike(likeVO);
+
+	}
+
+	@Override
+	public void decrementLikeCnt(int aucNo) {
+		// TODO Auto-generated method stub
+		aucGoodsDAO.decrementLikeCnt(aucNo);
+
+		
+	}
+
+	@Override
+	public void incrementLikeCnt(int aucNo) {
+		// TODO Auto-generated method stub
+		aucGoodsDAO.incrementLikeCnt(aucNo);
+		
+	}
+
+	@Override
+	public Map<AucGoodsVO, List<GoodsPhotoVO>> selectAucByNo(int aucNo) {
+		// TODO Auto-generated method stub
+		
+		aucGoodsDAO.incrementViewCnt(aucNo);
+		
+		Map<AucGoodsVO, List<GoodsPhotoVO>> aucMap = new HashMap<AucGoodsVO, List<GoodsPhotoVO>>();
+		
+		AucGoodsVO aucGoodsVO = aucGoodsDAO.selectAucGoodsByNo(aucNo);
+		List<GoodsPhotoVO> goodsPhotoList = aucGoodsDAO.selectPhotoListByAucNo(aucNo);
+		
+		aucMap.put(aucGoodsVO, goodsPhotoList);
+		
+		return aucMap;
+	}
+
 	@Override
 	public void insertAucGoods(AucGoodsVO aucGoodsVO) {
 		// TODO Auto-generated method stub
@@ -60,21 +116,23 @@ public class AucGoodsServiceImpl implements AucGoodsService{
 		
 		Map<String, AucGoodsVO> aucMap = new HashMap<>();
 		List<AucGoodsVO> aucList = aucGoodsDAO.selectAllAucContents();
-		for(AucGoodsVO a : aucList) {
-			System.out.println(a);
-		}
+//		for(AucGoodsVO a : aucList) {
+//			System.out.println(a);
+//		}
 		
 		
 		for(AucGoodsVO auc : aucList) {
 			
 			int aucNo = auc.getNo();
-			System.out.println("다음경매번호는? " +aucNo);
+//			System.out.println("다음경매번호는? " +aucNo);
 			
 //			List<GoodsPhotoVO> photoList = new ArrayList<GoodsPhotoVO>();
 //			List<GoodsPhotoVO> photoList =  aucGoodsDAO.selectPhotoListByAucNo(aucNo);
-			String firstPhoto =  aucGoodsDAO.selectFirstPhotoByAucNo(aucNo);
+			List<String> photoList =  aucGoodsDAO.selectPhotoNameByAucNo(aucNo);
+			String firstPhoto = photoList.get(0); 
+//			System.out.println("다음 첫사진은? " + firstPhoto);
 //			photoList  = aucGoodsDAO.selectPhotoListByAucNo(aucNo);
-			System.out.println("service에서 다음 포토 ? "+ firstPhoto);
+//			System.out.println("service에서 다음 포토 ? "+ firstPhoto);
 			
 //			for(GoodsPhotoVO p : photoList) {
 //				System.out.println("다음 포토는? " + p);

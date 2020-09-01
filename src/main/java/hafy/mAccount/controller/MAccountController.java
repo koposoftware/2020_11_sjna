@@ -25,6 +25,7 @@ public class MAccountController {
 	@RequestMapping("/registerAccForm")
 	public String registerAccForm(HttpSession session) {
 		
+		// 테스트 용
 //		MemberVO memberVO = new MemberVO("nacastle","나성주","920193","서울시","송파구","SKT","01042119382","1","0101t");
 //		session.setAttribute("memberVO", memberVO);
 		
@@ -36,7 +37,7 @@ public class MAccountController {
 		
 		MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 		String nickname = memberVO.getNickname();
-		mAccountVO.setNickname(nickname);
+		mAccountVO.setMemberNick(nickname);
 		
 		mAccountService.insertMAccount(mAccountVO);
 		model.addAttribute("mAccountVO",mAccountVO);
