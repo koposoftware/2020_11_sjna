@@ -162,7 +162,7 @@ table th img {
    <nav class="navbar fixed-top" style="height:3rem; background:white; color:black; padding: .5rem 1rem;border-bottom: 0.1rem solid rgb(224, 224, 224)">
    		<div style="float: left;">
     	  <a href="${pageContext.request.contextPath}/goodsDetail/${aucGoodsVO.no}" style="color: black; margin-right: -3rem;"><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></a>
-    	  <a  href="#" style="font-size: 1.25rem; position:relative; top:0.2rem; left: 4rem; font-weight: bold; color:black;">입찰하기</a>
+    	  <span style="font-size: 1.25rem; position:relative; top:0.2rem; left: 4rem; font-weight: bold; color:black;">입찰하기</span>
   	 	</div>
 
 		<div class="col-4 d-flex justify-content-end align-items-right"
@@ -184,6 +184,10 @@ table th img {
               	name ="bForm" method="post" onsubmit="return checkBidMoney(${highestBid})">
               	<table>
               		<tr>
+              			<th>경매번호</th>
+						<td>${aucGoodsVO.no }</td>
+					</tr>
+              		<tr>
               			<th>상품명</th>
 						<td> ${aucGoodsVO.name }</td>
 					</tr>	              		
@@ -201,10 +205,7 @@ table th img {
               			<th> 입찰방식	</th>
 						<td>${aucGoodsVO.method }</td>
 					</tr>	              		
-              		<tr>
-              			<th>경매번호</th>
-						<td>${aucGoodsVO.no }</td>
-					</tr>	              		
+              			              		
               	</table>
               	<br>
               	

@@ -105,6 +105,57 @@ public class AucGoodsController {
 		return "/category/goodsCategory";
 	}
 
+	@GetMapping("displayDetail/{aucNo}")
+	public String displayDetail(@PathVariable("aucNo") int aucNo, HttpServletRequest request, HttpSession session) {
+		
+		Map<AucGoodsVO, List<GoodsPhotoVO>> aucMap = aucGoodsService.selectAucByNo(aucNo);
+		request.setAttribute("aucMap", aucMap);
+		
+		// 로그인한 멤버 닉네임 가져오기
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+		String memberNick = memberVO.getNickname();
+		
+		// 좋아요 한 상품인지 확인
+		LikeVO likeVO = new LikeVO(memberNick, aucNo);
+		LikeVO isLikeVO = aucGoodsService.selectIsLike(likeVO);
+		boolean isLike = false;
+		if (isLikeVO != null) {
+			isLike = true;
+		}
+		
+		// 최고 입찰가 구하기
+		// 입찰 기록이 없는 경우 시작가를 최고입찰액으로 설정
+		//// 입찰목록 불러오기
+		List<AAccountVO> bidderList = new ArrayList<AAccountVO>();
+		bidderList = bidService.selectAAccount(aucNo);
+		// 시작가 구하기
+		AucGoodsVO aucGoodsVO = aucGoodsService.selectAucGoodsByNo(aucNo);
+		int startPrice = aucGoodsVO.getStartPrice();
+		
+		int highestBid = 0;
+		if (bidderList.isEmpty()) {
+			highestBid = startPrice;
+//			System.out.println("시작가가 최고입찰가: " + highestBid);
+		} else {
+			// 입찰 인원수 구하기
+			request.setAttribute("bidderCnt", bidderList.size());
+			
+			highestBid = bidderList.get(0).getBidMoney();
+			for (int i = 1; i < bidderList.size(); i++) {
+				if (bidderList.get(i).getBidMoney() >= highestBid) {
+					
+					highestBid = bidderList.get(i).getBidMoney();
+				}
+			}
+//			System.out.println("쌓아둔게 최고입찰가: " + highestBid);
+		}
+		
+		request.setAttribute("highestBid", highestBid);
+		request.setAttribute("isLike", isLike);
+		
+		return "/display/displayDetail";
+	}
+	
 	@GetMapping("goodsDetail/{aucNo}")
 	public String goodsDetail(@PathVariable("aucNo") int aucNo, HttpServletRequest request, HttpSession session) {
 

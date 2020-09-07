@@ -210,6 +210,8 @@ background: rgb(190, 190, 190);
 					$("#noData").show()
 				} else {
 				
+					$("#hafy").hide()
+					$("#noData").hide()
 					let map = JSON.parse(data);
 // 					console.log(map)
 

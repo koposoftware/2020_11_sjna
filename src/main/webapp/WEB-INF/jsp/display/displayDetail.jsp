@@ -191,8 +191,8 @@ height: 16rem!important;
 
   <nav class="navbar fixed-top" style="height:3rem; background:white; color:black; padding: .5rem 1rem;border-bottom: 0.1rem solid rgb(224, 224, 224)">
    		<div style="float: left;">
-<%--     	  <a href="${pageContext.request.contextPath}/hot" style="color: black; margin-right: -3rem;"><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></a> --%>
-    	  <a href="javascript:history.back()" style="color: black; margin-right: -3rem;"><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></a>
+    	  <a href="${pageContext.request.contextPath}/hot" style="color: black; margin-right: -3rem;"><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></a>
+<!--     	  <a href="javascript:history.back()" style="color: black; margin-right: -3rem;"><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></a> -->
   	 	</div>
       
       	<div class="col-4 d-flex justify-content-end align-items-right" style="margin-top: 0.5rem; margin-right: -1rem;">
@@ -261,12 +261,7 @@ height: 16rem!important;
 				style="margin-right: -1%; margin-top: -0.2rem; float: right; color: white; font-weight: bold; background: orange; 
 				border: orange; vertical-align: middle; height: 2.2rem; width: 7.8rem;">입찰하기</button>
 		</div>
-
-		<!-- 		<a class="p-2 bottom-on" href="#"> <div><i class="fa fa-home fa-lg"></i></div> 홈</a>  -->
-<!-- 		<a class="p-2" href="#" ><div><i class="fa fa-bars fa-lg"></i></div> 카테고리</a>  -->
-<!-- 		<a class="p-2" href="#" ><div><i class="fa fa-arrow-circle-up fa-lg"></i></div>출품하기</a>  -->
-<!-- 		<a class="p-2" href="#" ><div><i class="fa fa-user fa-lg"></i></div>MY</a>  -->
-    </nav>
+	</nav>
     
     </c:forEach>
 
@@ -283,12 +278,12 @@ height: 16rem!important;
 <%--       alert(<%= request.() %>) --%>
 <%--       alert(<%= pageContext.get %>) --%>
 
-
 		function goAAcount(aucNo) {
-	  		console.log("경매번호: " + aucNo)
-	  		location.href = "${pageContext.request.contextPath}/bidHistory/"+aucNo;
-	
+			console.log("경매번호: " + aucNo)
+			location.href = "${pageContext.request.contextPath}/bidHistory/"+aucNo;
+
 		}
+
       
       if (${empty bidderCnt }) {
     	  $("#bidderCnt").html("0명 입찰중&nbsp;&nbsp;")

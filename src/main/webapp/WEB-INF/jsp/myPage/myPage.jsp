@@ -216,7 +216,7 @@ input[type="datetime-local"]:valid::before {
 	<nav class="navbar fixed-top" style=" background:white; color:black; padding: .1rem 1rem; height: 3rem; border-bottom: 0.1rem solid rgb(224, 224, 224) ">
    		<div style="float: left;">
 <!--     	  <a href="#" style="color: black; margin-right: -3rem;">출품완료</a> -->
-    	  <a  href="#" style="font-size: 1.25rem; position:relative; top:0.2rem; left: 0rem; font-weight: bold; color:black;">MY</a>
+    	  <span  style="font-size: 1.25rem; position:relative; top:0.2rem; left: 0rem; font-weight: bold; color:black;">MY</span>
   	 	</div>
   	 	
   	 	<div class="col-4 d-flex justify-content-end align-items-right" style="margin-top: 0.5rem; margin-right: -1rem;">
