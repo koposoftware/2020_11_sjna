@@ -45,6 +45,18 @@ public class AucGoodsController {
 	private BidService bidService;
 
 	
+	@GetMapping("/likeAuction")
+	public String likeAuction(Model model, HttpSession session) {
+		
+		MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+		
+		Map<String, AucGoodsVO> likeMap = aucGoodsService.selectLikeMap(memberVO);
+		
+		model.addAttribute("likeMap", likeMap);
+		
+		return "/myPage/likeAuction";
+	}
+	
 	@GetMapping("/myAuction")
 	public String myAuction(Model model, HttpSession session) {
 		
@@ -101,7 +113,7 @@ public class AucGoodsController {
 		int highestBid = 0;
 		if (bidderList.isEmpty()) {
 			highestBid = startPrice;
-			System.out.println("시작가가 최고입찰가: " + highestBid);
+//			System.out.println("시작가가 최고입찰가: " + highestBid);
 		} else {
 			// 입찰 인원수 구하기
 			request.setAttribute("bidderCnt", bidderList.size());
@@ -113,7 +125,7 @@ public class AucGoodsController {
 					highestBid = bidderList.get(i).getBidMoney();
 				}
 			}
-			System.out.println("쌓아둔게 최고입찰가: " + highestBid);
+//			System.out.println("쌓아둔게 최고입찰가: " + highestBid);
 		}
 
 		request.setAttribute("highestBid", highestBid);
@@ -122,6 +134,39 @@ public class AucGoodsController {
 		return "/detail/goodsDetail";
 	}
 
+	@RequestMapping("/goodsCategory/{category}")
+	public String specificCategory(@PathVariable("category")String category, HttpServletRequest request) {
+		
+		Map<String, AucGoodsVO> specCategoryMap = aucGoodsService.selectSpecificCategory(category);
+		
+		// uriname(category)으로 카테고리이름 가져오기
+		CodeVO codeVO = aucGoodsService.selectCodeVO(category);
+		String categoryName = codeVO.getCodeName();
+		
+		request.setAttribute("specCategoryMap", specCategoryMap);
+		request.setAttribute("categoryName", categoryName);
+		
+		return "/category/specificCategory";
+	}
+	
+	@RequestMapping("/goodsCategory/recommend")
+	public String categoryRecommend(HttpServletRequest request) {
+		
+		Map<String, AucGoodsVO> aucMap = aucGoodsService.selectAllAuc();
+		request.setAttribute("aucMap", aucMap);
+		
+		return "/category/recommend";
+	}
+	
+	@RequestMapping("/goodsCategory/hot")
+	public String categoryHot(HttpServletRequest request) {
+		
+		Map<String, AucGoodsVO> aucMap = aucGoodsService.selectAllAuc();
+		request.setAttribute("aucMap", aucMap);
+		
+		return "/category/hot";
+	}
+	
 	@RequestMapping("/hot")
 	public String mainHot(HttpServletRequest request) {
 
@@ -227,10 +272,10 @@ public class AucGoodsController {
 
 	@RequestMapping("/displaySuccess/{no}")
 	public String displaySuccess(@PathVariable("no") int aucNo, Model model) throws Exception {
-		System.out.println("경매번호: " + aucNo);
+//		System.out.println("경매번호: " + aucNo);
 		AucGoodsVO aucGoodsVO = aucGoodsService.selectAucGoodsByNo(aucNo);
 
-		System.out.println(aucGoodsVO);
+//		System.out.println(aucGoodsVO);
 		model.addAttribute("aucGoodsVO", aucGoodsVO);
 
 		return "/display/displaySuccess";

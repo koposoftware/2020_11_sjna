@@ -217,11 +217,12 @@ table th img {
 			
 			<tr>
 				<th>입찰금액</th>
-				<td>현재 <strong>${highestBid}</strong> 원부터 <br>	입찰하실 수 있습니다.
+				<td style="padding: 0.6rem">
+				현재 <strong>${highestBid}</strong> 원부터 <br>	입찰하실 수 있습니다.
 					
-						<div class="input-group">
+						<div class="input-group" style="padding-top: 0.6rem;">
 							<!-- 				<span class="input-group-addon">\</span>  -->
-							<input type="number" name="bidMoney" class="form-control" style="width: 80%;"
+							<input type="number" name="bidMoney" class="form-control" style="width: 80%; "
 								placeholder="입찰가" onkeypress="modifyBid()"> &nbsp;&nbsp; 
 								<span style="margin-top: 1rem;">원</span>
 						</div>

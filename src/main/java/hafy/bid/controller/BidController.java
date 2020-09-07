@@ -46,7 +46,8 @@ public class BidController {
 	public String bidHistory(@PathVariable("aucNo") int aucNo, HttpServletRequest request) {
 
 		// 특정 경매의 입출금 내역 구하기
-		List<ATranzVO> aTranzList = bidService.selectATranzByAucNo(aucNo);
+		List<ATranzVO> aTranzList = new ArrayList<ATranzVO>(); 
+		aTranzList = bidService.selectATranzByAucNo(aucNo);
 		request.setAttribute("aTranzList", aTranzList);
 
 		// 특정 경매의 모임통장 정보 가져오기 (경매자, 입찰액)
@@ -69,7 +70,7 @@ public class BidController {
 	
 
 	@GetMapping("bidForm/{aucNo}")
-	public String bidForm(@PathVariable("aucNo") int aucNo, HttpServletRequest request, HttpSession session) {
+	public String bidForm(@PathVariable("aucNo")int aucNo, HttpServletRequest request, HttpSession session) {
 
 		// 상품 정보 불러오기
 		AucGoodsVO aucGoodsVO = aucGoodsService.selectAucGoodsByNo(aucNo);

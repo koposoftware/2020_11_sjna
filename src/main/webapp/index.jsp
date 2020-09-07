@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -8,16 +9,13 @@
 	<jsp:include page="/WEB-INF/jsp/include/lib/topLibs.jsp"></jsp:include>
 <title>하피 - 모두를 위한 경매</title>
     <link href="${pageContext.request.contextPath }/resources/bootstrap-4.0.0/docs/4.0/examples/navbar-fixed/navbar-top-fixed.css" rel="stylesheet">
-    <style type="text/css">
+<style type="text/css">
 a {
 	text-decoration: none !important;
 }
 
 body {
 	min-height: 0;
-	padding-top: 3.2rem;
-	padding-bottom: 4rem;
-	
 }
 
 .na-nav {
@@ -73,12 +71,6 @@ body {
 /* nav div a:nth-child(3).on ~ span {	left: 200px; opacity: 1;} */
 /* nav div a:nth-child(4).on ~ span {	left: 300px; opacity: 1;} */
 /* nav div a:nth-child(5).on ~ span {	left: 400px; opacity: 1;} */
-
-.na-nav2 {
-	height: 3rem;
-
-}
-
 .na-nav2 a {
 	font-size: 0.7rem;
 	width: 20%;
@@ -91,194 +83,127 @@ body {
 	margin-bottom: 0.3rem;
 }
 
-
 .na-nav2 a.bottom-on {
 	color: white;
 }
 
- 
- 
- .na-content {
- margin: 1rem 1rem;
-/*  text-align: center; */
- display: flow-root;
- 
- }
- 
- 
- .ttitle {
-/*      margin-left: 4%; */
-     font-weight: bold;
- }
- 
-  hr { width: 90vw  }   
- 
- label { margin: 0; }
- 
-/*  input[type="date"]:not(.has-value):before{ */
-/*   color: lightgray; */
-/*   content: attr(placeholder); */
-/* } */
-
-input[type="datetime-local"]::before {
-	color: #999999;
-	content: attr(placeholder);
-}
-input[type="datetime-local"] {
-	color: #ffffff;
-}
-input[type="datetime-local"]:focus,
-input[type="datetime-local"]:valid {
-	color: #666666;
-}
-input[type="datetime-local"]:focus::before,
-input[type="datetime-local"]:valid::before {
-	content: "" !important;
+.table {
+	margin-bottom: 2.9rem;
 }
 
-table {
-width: 100%;
-}
-
-tr {
-	border: 0.1rem solid rgb(190, 190, 190);
-	border-left: 0;
-    border-right: 0;
-}
-
-th {
-	padding-left: 1rem;
+.table th {
+	width: 40%;
 	height: 5rem;
-	
-}
-
-td {
- text-align: right;
- padding-right: 1rem;
-}
-
-.yn {
- 	width: 50%; 
-/* 	border: 0.1rem solid rgb(224, 224, 224); */
+ 	vertical-align: middle; 
+ 	padding: 0; 
 	text-align: center;
-	padding: 0;
-	font-size: 1rem;
-	height: 2.4rem;
-/* 	float: left; */
 }
+
+.table td {
+
+padding: 0.3rem;
+padding-top: 0.5rem;
+
+}
+
+ 
+ table th img {
+	max-width: 100%;
+	max-height: 100%;
+/* 	width: 100%; */
+	padding: 0.3rem;
+}
+
+.ongoing {
+background: rgb(26, 188, 156);
+}
+
+.waiting {
+background: rgb(243, 156, 18);
+}
+
+.urgent {
+background: rgb(231, 76, 60);
+}
+
+.closed {
+background: rgb(190, 190, 190);
+}
+
 
 
 </style>
+
+
 </head>
 <body>
-
-<nav class="navbar fixed-top" style="height:3rem; background:white; color:black; padding: .5rem 1rem;border-bottom: 0.1rem solid rgb(224, 224, 224)">
+  <nav class="navbar fixed-top" style="height:3rem; background:white; color:black; padding: .5rem 1rem;">
    		<div style="float: left;">
-    	  <a href="${pageContext.request.contextPath}/myPage" style="color: black; margin-right: -3rem;"><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></a>
+<!--     	  <a href="#" style="color: black; margin-right: -3rem;"><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></a> -->
+    	  <a  href="#" style="font-size: 1.25rem; position:relative; top:0.2rem; /* left: 4rem; */ font-weight: bold; color:black;">홈</a>
   	 	</div>
+  	 	<div class="col-4 d-flex justify-content-end align-items-right" style="margin-top: 0.5rem; margin-right: -1rem;">
+      			<a href="#" style="float: right; color:black;" ><i class="fa fa-search fa-lg" aria-hidden="true"></i></a>
+      			&nbsp;&nbsp;&nbsp;
+      			<a href="#" style="float: right; color:black;" ><i class="fa fa-bell-o fa-lg" aria-hidden="true"></i></a>
+		</div>
       
-<!--       	<div class="col-4 d-flex justify-content-end align-items-right" style="margin-top: 0.5rem; margin-right: -1rem;"> -->
-<!--       			<a style="float: right; font-weight: bold; font-size: 1.25rem; color:black;margin-top: -0.3rem;" -->
-<%--       			href="${pageContext.request.contextPath}/myAccountMng">관리</a> --%>
-<!-- 		</div> -->
     </nav>
     
+	<table class="table table-hover" style="margin-top: 0.7rem;">
+		<tbody>
+		
+		<c:forEach items="${aucMap}" var="auc">
+			<tr onclick="goDetail(${auc.value.no})">
+				<th scope="row">
+					<span class="ongoing" style="display: table; font-size: 0.8rem; margin-left: 0.4rem;" > 진행중 </span>
+<%-- 					<img src="<%=request.getContextPath()%>/upload/${auc.key}"> --%>
+					<img src="${pageContext.request.contextPath }/upload/${auc.key}">
 
-<div class="na-content">
-
-	<div style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.5rem; ">${memberVO.name } 님의 계좌</div>
-
-	<table class="table-hover">
-<%-- 		<c:forEach items="${mAccountList }" var="mAccount"> --%>
-		<tr style="border-bottom: 0;">
-			<th>
-				<div>하나은행</div>
-				<div>123-123-123</div>
-			</th>
-			
-			<td>
-				<div>90000  원</div>
-			</td>
-		</tr>
-		<tr style="border-top: 0;">
-			<td colspan="2" style="text-align: center; padding-right: 0;">
-				<button data-toggle="modal" data-target="#confirmModal" onclick="openModal()" class="btn btn-danger btn-block">계좌 삭제</button>
-			</td>
-				
-		</tr>	
-<%-- 		</c:forEach> --%>
-	</table>
-</div>
-
-<!-- 계좌삭제 모달창 -->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog"
-   aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top: 10rem;">
-   <div class="modal-dialog"><!--  큰창:<div class="modal-dialog modal-lg"> 작은창 :<div class="modal-dialog modal-sm">  -->
-      <div class="modal-content">
-         <div class="modal-body" style="text-align: center; margin: 1rem;">
-            정말 삭제하시겠습니까?
-         </div>
-        
-         <div class="modal-footer" style="border-top:0; padding:0; ">
-          		<table style="margin-bottom: 0;">
-			<tr>
-				<td class="yn" id="yes" onclick="yes()" data-dismiss="modal" style="border-right: 0.1rem solid rgb(224, 224, 224);">예</td>
-				<td class="yn" id="no" data-dismiss="modal" onclick="no()">아니오</td>
+				</th>
+				<td>
+					<div style="font-weight: bold; font-size: 1rem;">${auc.value.name }</div>
+					<div style="display:table; font-size:0.8rem; background: rgb(224, 224, 224);">마감: ${auc.value.endDate }</div>
+					<c:choose>
+						<c:when test="${auc.value.winningBid == 0}">
+							<div style="margin-top:0.4rem; font-weight: bold; font-size: 1rem;">현재가: ${auc.value.startPrice } 원</div>
+						</c:when>
+						<c:otherwise>
+							<div style="margin-top:0.4rem; font-weight: bold; font-size: 1rem;">현재가: ${auc.value.winningBid } 원</div>
+						</c:otherwise>
+					</c:choose>
+				</td>
 			</tr>
-		</table>
-         </div>
-      </div>
-   </div>
-</div>
+			</c:forEach>
+			
+		</tbody>
+	</table>
 
-<nav class="na-nav2 navbar fixed-bottom navbar-expand-sm navbar-dark" style="background: #27b2a5; padding: .1rem 0rem; height: 3rem;">
+	<nav class="na-nav2 navbar fixed-bottom navbar-expand-sm navbar-dark" style="background: #27b2a5; padding: .1rem 0rem; height: 3rem;">
 
-		<a class="p-2 " href="${pageContext.request.contextPath}/hot"><div><i class="fa fa-home fa-lg"></i></div> 홈</a> 
+		<a class="p-2 bottom-on" href="${pageContext.request.contextPath}/hot"><div><i class="fa fa-home fa-lg"></i></div> 홈</a> 
 		<a class="p-2" href="${pageContext.request.contextPath}/goodsCategory" ><div><i class="fa fa-bars fa-lg"></i></div> 카테고리</a>
 		<a class="p-2 " href="${pageContext.request.contextPath}/myAuction" ><div><i class="fa fa-hourglass-half fa-lg" aria-hidden="true"></i></div>내 경매</a>
 		<a class="p-2" href="${pageContext.request.contextPath}/displayForm" ><div><i class="fa fa-arrow-circle-up fa-lg"></i></div>출품하기</a> 
-		<a class="p-2 bottom-on" href="${pageContext.request.contextPath}/myPage" ><div><i class="fa fa-user fa-lg"></i></div>MY</a> 
+		<a class="p-2" href="${pageContext.request.contextPath}/myPage" ><div><i class="fa fa-user fa-lg"></i></div>MY</a> 
 
     </nav>
 
 
-
-
     <jsp:include page="/WEB-INF/jsp/include/lib/botLibs.jsp"></jsp:include>
-      <script type="text/javascript">
-      
-      function openModal() {
-    		$("#yes").css("background","white")
-    	  	$("#no").css("background","white")
-	}
-      
-      function yes() {
-  	  	$("#yes").css("background","rgb(224, 224, 224)")
-//   		$.ajax({
-//   			url: "${pageContext.request.contextPath}/logout",
-//   			type: 'post',
-//   			success: function() {
-//   				location.href= "${pageContext.request.contextPath}/login"
-  				
-//   			},
-//   			error: function() {
-//   			}
-//   		})
-  }
-     
-     function no() {
-  	  	$("#no").css("background","rgb(224, 224, 224)")
-  }
-     
-      
-      function goMyInfo() {
-    	  location.href = "${pageContext.request.contextPath}/myInfo"
-		
-	}
+  <script type="text/javascript">
+  
+//   console.log(${memberVO.name})
+  
+  function goDetail(aucNo) {
+	  location.href= "${pageContext.request.contextPath}/goodsDetail/"+ aucNo;
+}
+  
 	  $('.na-nav a').on('click',function(){
 		 $(this).addClass('top-on');
 		 $(this).siblings().removeClass('top-on');
 		});
+	  
 	  $('.na-nav2 a').on('click',function(){
 		 $(this).addClass('bottom-on');
 		 $(this).siblings().removeClass('bottom-on');

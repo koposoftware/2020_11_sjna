@@ -1,5 +1,6 @@
 package hafy.bid.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ public class BidServiceImpl implements BidService {
 	@Override
 	public List<ATranzVO> selectATranzByAucNo(int aucNo) {
 		// TODO Auto-generated method stub
-		List<ATranzVO> aTranzList = bidDAO.selectATranzByAucNo(aucNo);
+		List<ATranzVO> aTranzList = new ArrayList<ATranzVO>(); 
+		aTranzList = bidDAO.selectATranzByAucNo(aucNo);
 		
 		return aTranzList;
 	}
