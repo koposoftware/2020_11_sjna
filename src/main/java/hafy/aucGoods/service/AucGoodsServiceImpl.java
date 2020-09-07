@@ -210,6 +210,27 @@ public class AucGoodsServiceImpl implements AucGoodsService{
 		return specCategoryMap;
 
 	}
+	
+	
+	@Transactional
+	@Override
+	public Map<String, AucGoodsVO> selectAucSearchWord(String searchWord) {
+		// TODO Auto-generated method stub
+		Map<String, AucGoodsVO> aucSearchMap = new LinkedHashMap<String, AucGoodsVO>();
+		List<AucGoodsVO> aucList = new ArrayList<AucGoodsVO>();
+		aucList = aucGoodsDAO.selectAucSearchWord(searchWord);
+		
+		for(AucGoodsVO auc : aucList) {
+			
+			int aucNo = auc.getNo();
+			List<String> photoList =  aucGoodsDAO.selectPhotoNameByAucNo(aucNo);
+			String firstPhoto = photoList.get(0); 
+			
+			aucSearchMap.put(firstPhoto, auc);
+		}
+		return aucSearchMap;
+
+	}
 
 	@Transactional
 	@Override

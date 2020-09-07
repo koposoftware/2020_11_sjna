@@ -33,20 +33,18 @@ public class BidController {
 	private MAccountService mAccountService;
 	@Autowired
 	private BidService bidService;
-	
-	
+
 //	@Scheduled(cron = "0 37 16 * * *")
 //	public void schedulerTest() {
 //		System.out.println("스케쥴러가 잘 작동하나?");
 //		
 //	}
-	
-	
+
 	@GetMapping("/bidHistory/{aucNo}")
 	public String bidHistory(@PathVariable("aucNo") int aucNo, HttpServletRequest request) {
 
 		// 특정 경매의 입출금 내역 구하기
-		List<ATranzVO> aTranzList = new ArrayList<ATranzVO>(); 
+		List<ATranzVO> aTranzList = new ArrayList<ATranzVO>();
 		aTranzList = bidService.selectATranzByAucNo(aucNo);
 		request.setAttribute("aTranzList", aTranzList);
 
@@ -67,10 +65,9 @@ public class BidController {
 
 		return "/aAccount/bidHistory";
 	}
-	
 
 	@GetMapping("bidForm/{aucNo}")
-	public String bidForm(@PathVariable("aucNo")int aucNo, HttpServletRequest request, HttpSession session) {
+	public String bidForm(@PathVariable("aucNo") int aucNo, HttpServletRequest request, HttpSession session) {
 
 		// 상품 정보 불러오기
 		AucGoodsVO aucGoodsVO = aucGoodsService.selectAucGoodsByNo(aucNo);
@@ -80,13 +77,25 @@ public class BidController {
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 		String memberNick = memberVO.getNickname();
 		List<MAccountVO> mAccountList = mAccountService.selectMAccountList(memberNick);
-		request.setAttribute("mAccountList", mAccountList);
+
+		// 현 로그인한 회원이 여태 입찰한 금액 불러오기
+		int pastBidMoney = 0;
+		
+		List<AAccountVO> bidderList = new ArrayList<AAccountVO>();
+		bidderList = bidService.selectAAccount(aucNo);
+
+		if (bidderList != null) {
+			for (AAccountVO a : bidderList) {
+				if(a.getBidderNick().equals(memberNick)) {
+					pastBidMoney = a.getBidMoney();
+					break;
+				}
+			}
+		}
 
 		// 최고 입찰가 구하기
 		// 입찰 기록이 없는 경우 시작가를 최고입찰액으로 설정
 		//// 입찰목록 불러오기
-		List<AAccountVO> bidderList = new ArrayList<AAccountVO>();
-		bidderList = bidService.selectAAccount(aucNo);
 		System.out.println(bidderList);
 		//// 시작가
 		int startPrice = aucGoodsVO.getStartPrice();
@@ -105,6 +114,10 @@ public class BidController {
 			}
 			System.out.println("쌓아둔게 최고입찰가: " + highestBid);
 		}
+		
+		System.out.println("과거 입찰액: " +pastBidMoney);
+		request.setAttribute("pastBidMoney", pastBidMoney);
+		request.setAttribute("mAccountList", mAccountList);
 		request.setAttribute("highestBid", highestBid);
 
 		return "/bid/bidForm";
@@ -137,8 +150,7 @@ public class BidController {
 
 	@PostMapping("/bidSuccess/{aucNo}")
 	public String bidSuccess(@PathVariable("aucNo") int aucNo, HttpServletRequest request, HttpSession session) {
-		
-		
+
 		// 경매번호 계속 전달해주기
 		request.setAttribute("aucNo", aucNo);
 

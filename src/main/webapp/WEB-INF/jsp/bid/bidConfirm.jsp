@@ -187,8 +187,8 @@ table th img {
               <img style="width: 8rem; margin-top: 3rem; margin-bottom: .5rem; " src="${pageContext.request.contextPath}/resources/img/hafy.png">
               <div style="margin-bottom:0rem; font-size: 1.6rem;">	
               ${bidMoney } 원으로<br>
-              	입찰합니다.<br><br>
-              <div style="font-size: 1rem;">
+              	입찰합니다.<br>
+              <div style="font-size: 1rem; margin-top: 1rem;">
               ${bidBank }<br> 
               ${bidAccountNo }<br>
               </div>
@@ -197,7 +197,7 @@ table th img {
 
 	</div>
 	
-	<footer class="footer" style="text-align: center; bottom: 3rem; background: none">
+	<footer class="footer" style="text-align: center; bottom: 2rem; background: none">
 <!-- 		<div style="width: 100%; text-align: center;"> -->
 			<button type="button" class="btn btn-success" onclick="goPwdInput(${aucNo})"
 				style="background: rgb(22, 160, 133); font-weight: bold; width: 35%;">입찰하기</button>

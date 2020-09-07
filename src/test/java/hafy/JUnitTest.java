@@ -52,6 +52,17 @@ public class JUnitTest {
 	}
 	
 	@Test
+	public void 검색테스트() {
+		List<AucGoodsVO> aucList = new ArrayList<AucGoodsVO>();
+		aucList = sqlSession.selectList("auction.dao.AucGoodsDAO.selectAucSearchWord","사진");
+		
+		for(AucGoodsVO a : aucList) {
+			System.out.println(a);
+		}
+	}
+	
+	@Ignore
+	@Test
 	public void 전체경매내용리스트불러오기() {
 //		List<AucGoodsVO> aucList = sqlSession.selectList("auction.dao.AucGoodsDAO.selectAllAucContents");
 		

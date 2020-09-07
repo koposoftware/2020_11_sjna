@@ -1,5 +1,6 @@
 package hafy.aucGoods.service;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,4 +29,5 @@ public interface AucGoodsService {
 	Map<String, AucGoodsVO> selectDisplayMap(MemberVO memberVO);
 	Map<String, AucGoodsVO> selectLikeMap(MemberVO memberVO);
 	CodeVO selectCodeVO(String category);
+	Map<String, AucGoodsVO> selectAucSearchWord(String searchWord);
 }

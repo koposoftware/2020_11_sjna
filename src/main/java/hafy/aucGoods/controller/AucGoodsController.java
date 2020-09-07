@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -45,12 +47,30 @@ public class AucGoodsController {
 	private BidService bidService;
 
 	
+	@ResponseBody
+	@GetMapping("/aucSearch/{searchWord}")
+	public Map<String, AucGoodsVO>  doAucSearch(@PathVariable("searchWord")String searchWord) {
+		
+		System.out.println(searchWord);
+		
+		Map<String, AucGoodsVO> aucSearchMap = new LinkedHashMap<String, AucGoodsVO>();
+		aucSearchMap = aucGoodsService.selectAucSearchWord(searchWord);
+		
+		return aucSearchMap;
+	}
+	
+	@GetMapping("/aucSearch")
+	public String aucSearchForm() {
+		return "/search/aucSearch";
+	}
+	
 	@GetMapping("/likeAuction")
 	public String likeAuction(Model model, HttpSession session) {
 		
 		MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 		
-		Map<String, AucGoodsVO> likeMap = aucGoodsService.selectLikeMap(memberVO);
+		Map<String, AucGoodsVO> likeMap = new LinkedHashMap<String, AucGoodsVO>();
+		likeMap = aucGoodsService.selectLikeMap(memberVO);
 		
 		model.addAttribute("likeMap", likeMap);
 		
@@ -63,10 +83,12 @@ public class AucGoodsController {
 		MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 		
 		// 사용자가 입찰한 목록 가져오기 (첫째 사진 파일 이름과 함께)
-		Map<String, AucGoodsVO> bidMap = aucGoodsService.selectBidMap(memberVO);
+		Map<String, AucGoodsVO> bidMap = new LinkedHashMap<String, AucGoodsVO>(); 
+		bidMap = aucGoodsService.selectBidMap(memberVO);
 		
 		// 사용자가 출품한 목록 가져오기 (첫째 사진 파일 이름과 함께)
-		Map<String, AucGoodsVO> displayMap = aucGoodsService.selectDisplayMap(memberVO);
+		Map<String, AucGoodsVO> displayMap = new LinkedHashMap<String, AucGoodsVO>(); 
+		displayMap = aucGoodsService.selectDisplayMap(memberVO);
 		
 		model.addAttribute("bidMap", bidMap);
 		model.addAttribute("displayMap", displayMap);
@@ -137,7 +159,8 @@ public class AucGoodsController {
 	@RequestMapping("/goodsCategory/{category}")
 	public String specificCategory(@PathVariable("category")String category, HttpServletRequest request) {
 		
-		Map<String, AucGoodsVO> specCategoryMap = aucGoodsService.selectSpecificCategory(category);
+		Map<String, AucGoodsVO> specCategoryMap = new LinkedHashMap<String, AucGoodsVO>(); 
+		specCategoryMap = aucGoodsService.selectSpecificCategory(category);
 		
 		// uriname(category)으로 카테고리이름 가져오기
 		CodeVO codeVO = aucGoodsService.selectCodeVO(category);
@@ -152,7 +175,8 @@ public class AucGoodsController {
 	@RequestMapping("/goodsCategory/recommend")
 	public String categoryRecommend(HttpServletRequest request) {
 		
-		Map<String, AucGoodsVO> aucMap = aucGoodsService.selectAllAuc();
+		Map<String, AucGoodsVO> aucMap = new LinkedHashMap<String, AucGoodsVO>(); 
+		aucMap = aucGoodsService.selectAllAuc();
 		request.setAttribute("aucMap", aucMap);
 		
 		return "/category/recommend";
@@ -161,7 +185,8 @@ public class AucGoodsController {
 	@RequestMapping("/goodsCategory/hot")
 	public String categoryHot(HttpServletRequest request) {
 		
-		Map<String, AucGoodsVO> aucMap = aucGoodsService.selectAllAuc();
+		Map<String, AucGoodsVO> aucMap = new LinkedHashMap<String, AucGoodsVO>(); 
+		aucMap = aucGoodsService.selectAllAuc();
 		request.setAttribute("aucMap", aucMap);
 		
 		return "/category/hot";
@@ -170,7 +195,8 @@ public class AucGoodsController {
 	@RequestMapping("/hot")
 	public String mainHot(HttpServletRequest request) {
 
-		Map<String, AucGoodsVO> aucMap = aucGoodsService.selectAllAuc();
+		Map<String, AucGoodsVO> aucMap = new LinkedHashMap<String, AucGoodsVO>(); 
+		aucMap = aucGoodsService.selectAllAuc();
 		request.setAttribute("aucMap", aucMap);
 
 		return "/home/hot";

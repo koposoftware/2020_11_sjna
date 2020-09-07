@@ -115,6 +115,7 @@ public class MemberController {
 			// 로그인 성공
 //			HttpSession session = request.getSession();
 				String dest = (String)session.getAttribute("dest");
+				System.out.println("멤버 컨트롤러에서 dest: " +dest);
 				if(dest == null) {
 					mav.setViewName("redirect:/hot");
 				} else {

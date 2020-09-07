@@ -135,6 +135,12 @@
 			where no = #{aucNo}                                        
 	</select>
 	    
+	<select id="selectAucSearchWord" parameterType="String" resultMap="aucGoodsMap">      
+		select *
+		 from hf_auc_goods
+			where name like '%'||#{searchWord}||'%' or detail like '%'||#{searchWord}||'%'
+	</select>
+	    
 	<select id="selectBidList" parameterType="memberVO" resultMap="aAccountMap">      
 		select *
 		 from hf_a_account

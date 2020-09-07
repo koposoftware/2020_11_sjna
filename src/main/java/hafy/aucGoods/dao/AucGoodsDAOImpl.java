@@ -29,6 +29,18 @@ public class AucGoodsDAOImpl implements AucGoodsDAO{
 		return codeVO;
 	}
 
+	
+	
+	@Override
+	public List<AucGoodsVO> selectAucSearchWord(String searchWord) {
+		// TODO Auto-generated method stub
+		List<AucGoodsVO> aucList = new ArrayList<AucGoodsVO>();
+		aucList = sqlSession.selectList("auction.dao.AucGoodsDAO.selectAucSearchWord",searchWord);
+
+		return aucList;
+	}
+
+
 	@Override
 	public List<AucGoodsVO> selectSpecificCategory(String category) {
 		// TODO Auto-generated method stub

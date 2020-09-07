@@ -33,6 +33,7 @@ public interface AucGoodsDAO {
 	List<LikeVO> selectLikeList(MemberVO memberVO);
 	List<AucGoodsVO> selectSpecificCategory(String category);
 	CodeVO selectCodeVO(String category);
+	List<AucGoodsVO> selectAucSearchWord(String searchWord);
 	
 
 }

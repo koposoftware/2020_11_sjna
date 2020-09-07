@@ -212,13 +212,22 @@ table th img {
 		<table>
 			<tr>
 				<th>현 최고입찰가</th>
-				<td>${highestBid} 원</td>
+				<td style="font-weight: bold;">${highestBid} 원</td>
 			</tr>
 			
 			<tr>
 				<th>입찰금액</th>
 				<td style="padding: 0.6rem">
+				
+				<c:choose>	
+					<c:when test="${pastBidMoney != 0 }">			
+				현재까지 입찰하신 금액은<br>
+				<strong>${pastBidMoney}</strong> 원 입니다.
+					</c:when>
+					<c:otherwise>
 				현재 <strong>${highestBid}</strong> 원부터 <br>	입찰하실 수 있습니다.
+					</c:otherwise>
+				</c:choose>
 					
 						<div class="input-group" style="padding-top: 0.6rem;">
 							<!-- 				<span class="input-group-addon">\</span>  -->
@@ -258,7 +267,7 @@ table th img {
 		
 		let bidMoney = document.bForm.bidMoney.value
 		
-		if (bidMoney < highestBid) {
+		if (parseInt(bidMoney) + ${pastBidMoney} <= highestBid) {
 			$("#bidError").show();
 			return false;
 		}
