@@ -259,8 +259,8 @@ input[type="datetime-local"]:valid::before {
 
 		<div class="ttitle">상품</div>
 		<table class="table-hover">
-			<tr>
-				<td>낙찰확정</td>
+			<tr onclick="goConfirmPurchase()">
+				<td>매입확정</td>
 			</tr>
 			<tr>
 				<td>환불하기</td>
@@ -339,6 +339,10 @@ input[type="datetime-local"]:valid::before {
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script> -->
       <script type="text/javascript">
       
+      function goConfirmPurchase() {
+    	  location.href = "${pageContext.request.contextPath}/confirmPurchaseForm"
+		
+	}
       function goLikeList() {
     	  location.href = "${pageContext.request.contextPath}/likeAuction"
 		

@@ -226,7 +226,8 @@ input[type="datetime-local"]:valid::before {
     <script type="text/javascript">
     
     function goDetail(aucNo) {
-    	location.href = "${pageContext.request.contextPath}/displayDetail/"+aucNo
+    	location.href = "${pageContext.request.contextPath}/goodsDetail/"+aucNo
+//     	location.href = "${pageContext.request.contextPath}/displayDetail/"+aucNo
 		
 	}
     

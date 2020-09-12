@@ -155,8 +155,19 @@ background: rgb(190, 190, 190);
 		<c:forEach items="${specCategoryMap}" var="spec">
 			<tr onclick="goDetail(${spec.value.no})">
 				<th scope="row">
-					<span class="ongoing" style="display: table; font-size: 0.8rem; margin-left: 0.4rem;" > 진행중 </span>
+<!-- 					<span class="ongoing" style="display: table; font-size: 0.8rem; margin-left: 0.4rem;" > 진행중 </span> -->
 <%-- 					<img src="<%=request.getContextPath()%>/upload/${auc.key}"> --%>
+				<c:choose>
+					<c:when test="${spec.value.startDate > nowTime }">
+						<span class="waiting" style="display: table; font-size: 0.8rem; margin-left: 0.4rem;" > 대기중 </span>
+					</c:when>
+					<c:when test="${spec.value.startDate <= nowTime and  spec.value.endDate > nowTime  }">
+						<span class="ongoing" style="display: table; font-size: 0.8rem; margin-left: 0.4rem;" > 진행중</span>
+					</c:when>
+					<c:when test="${spec.value.endDate <= nowTime }">
+						<span class="closed" style="display: table; font-size: 0.8rem; margin-left: 0.4rem;" > 마감 </span>
+					</c:when>
+				</c:choose>
 					<img src="${pageContext.request.contextPath }/upload/${spec.key}">
 
 				</th>
