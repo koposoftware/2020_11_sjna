@@ -1,5 +1,6 @@
 package hafy.bid.service;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import hafy.aucGoods.vo.AucGoodsVO;
 import hafy.bid.dao.BidDAO;
 import hafy.bid.vo.AAccountVO;
 import hafy.bid.vo.ATranzVO;
+import hafy.bid.vo.NoticeVO;
 import hafy.mAccount.dao.MAccountDAO;
 import hafy.member.dao.MemberDAO;
 
@@ -29,8 +31,12 @@ public class BidServiceImpl implements BidService {
 	@Autowired
 	private MAccountDAO mAccountDAO;
 
-	
-	
+	@Override
+	public void insertNoti(NoticeVO noticeVO) {
+		// TODO Auto-generated method stub
+		bidDAO.insertNoti(noticeVO);
+	}
+
 	@Override
 	public AAccountVO isBidding(AAccountVO aAccountVO) {
 		// TODO Auto-generated method stub
@@ -40,10 +46,89 @@ public class BidServiceImpl implements BidService {
 
 	@Transactional
 	@Override
+	public void noticeImminentAucsByMin(int setMin) {
+		// TODO Auto-generated method stub
+		
+		// 마감 n분 남은 경매 목록 가져오기
+		List<AucGoodsVO> imminentAucs = new ArrayList<AucGoodsVO>();
+		imminentAucs = aucGoodsDAO.selectImminentAucsByMin(setMin);
+
+		if (imminentAucs.size() > 0) {
+			for (AucGoodsVO auc : imminentAucs) {
+
+				int aucNo = auc.getNo();
+
+				List<AAccountVO> aaList = bidDAO.selectAAccount(aucNo);
+				String notiBidderMsg = "회원님이 입찰하신 '" + auc.getName() + "' 경매" + "(번호: " + auc.getNo() + ")가 마감 "
+						+ setMin + "분 전입니다.";
+				// 입찰자들에게 경매 임박 알림
+				for (AAccountVO a : aaList) {
+					NoticeVO bidderNoticeVO = new NoticeVO(a.getBidderNick(), "goodsDetail", aucNo, notiBidderMsg);
+					bidDAO.insertNoti(bidderNoticeVO);
+				}
+			}
+		}
+	}
+
+	@Transactional
+	@Override
+	public void noticeClosedBid() {
+		// TODO Auto-generated method stub
+
+		// 환급절차 진행할 경매조건 : 마감된 + 미환급된 + 한번이라도 입찰이 진행된(winningBid가 0이 아닌)
+		List<Integer> notRefundAucList = new ArrayList<Integer>();
+		notRefundAucList = bidDAO.selectNotRefundAucList();
+
+		if (notRefundAucList.size() > 0) {
+			for (Integer aucNo : notRefundAucList) {
+				List<ATranzVO> bidResult = new ArrayList<ATranzVO>();
+				bidResult = bidDAO.selectBidResult(aucNo);
+
+				// 해당 경매 내용 가져오기
+				AucGoodsVO aucGoodsVO = aucGoodsDAO.selectAucGoodsByNo(aucNo);
+
+				DecimalFormat Commas = new DecimalFormat("#,###");
+				String rfWinningMoney = (String) Commas.format(bidResult.get(0).getMemberBalance());
+
+				// 출품자에게 경매 낙찰 알림
+				String notiSellerMsg = "회원님이 출품하신 '" + aucGoodsVO.getName() + "' 경매" + "(번호: " + aucNo + ")가 "
+						+ rfWinningMoney + " 원에 낙찰되었습니다!";
+				NoticeVO sellerNoticeVO = new NoticeVO(aucGoodsVO.getMemberNick(), "bidHistory", aucNo, notiSellerMsg);
+				bidDAO.insertNoti(sellerNoticeVO);
+
+				for (int i = 0; i < bidResult.size(); i++) {
+
+					if (i == 0) {
+
+						// 낙찰자에게 낙찰 알림
+						String notiWinnerMsg = "축하합니다! '" + aucGoodsVO.getName() + "' 경매" + "(번호: " + aucNo + ")의 "
+								+ " 낙찰자로 선정되셨습니다!";
+						NoticeVO winnerNoticeVO = new NoticeVO(bidResult.get(0).getTranzMemberNick(), "bidHistory",
+								aucNo, notiWinnerMsg);
+						bidDAO.insertNoti(winnerNoticeVO);
+
+					} else {
+						// 낙찰실패자들에게 실패 알림
+						String notiLoserMsg = "아쉽습니다... '" + aucGoodsVO.getName() + "' 경매" + "(번호: " + aucNo + ")의 "
+								+ " 낙찰자로 선정되지 못했습니다.";
+						NoticeVO loserNoticeVO = new NoticeVO(bidResult.get(i).getTranzMemberNick(), "bidHistory",
+								aucNo, notiLoserMsg);
+						bidDAO.insertNoti(loserNoticeVO);
+					}
+
+				}
+
+			}
+		}
+
+	}
+
+	@Transactional
+	@Override
 	public void refundBidMoney() {
 		// TODO Auto-generated method stub
 
-		// 환급절차 진행할 경매조건 : 마감된  + 미환급된 + 한번이라도 입찰이 진행된(winningBid가 0이 아닌)
+		// 환급절차 진행할 경매조건 : 마감된 + 미환급된 + 한번이라도 입찰이 진행된(winningBid가 0이 아닌)
 		List<Integer> notRefundAucList = new ArrayList<Integer>();
 		notRefundAucList = bidDAO.selectNotRefundAucList();
 
@@ -67,29 +152,30 @@ public class BidServiceImpl implements BidService {
 						int refundMoney = bidResult.get(i).getMemberBalance();
 
 						ATranzVO aTranzVO = new ATranzVO(aucNo, bidderAccountNo, -refundMoney, bidderNick, "출금");
-						
+
 						AAccountVO withdrawAAccountInfo = new AAccountVO();
 						withdrawAAccountInfo.setAucNo(aucNo);
 						withdrawAAccountInfo.setBidderNick(bidderNick);
 						withdrawAAccountInfo.setBidMoney(refundMoney);
-						
+
 						Map<String, Object> depositInfo = new HashMap<String, Object>();
-						depositInfo.put("winBidMoney",refundMoney);
-						depositInfo.put("mAccountNo",bidderAccountNo);
-						
+						depositInfo.put("winBidMoney", refundMoney);
+						depositInfo.put("mAccountNo", bidderAccountNo);
+
 						// 낙찰액 판매자 계좌로 입금되기
 //						Map<String, Object> depositInfo = new HashMap<String, Object>();
 //						depositInfo.put("mAccountNo",(String)transferMap.get("sellerAccount"));
 //						depositInfo.put("winBidMoney",(Integer)transferMap.get("winBidMoney"));
 //						mAccountDAO.depositMAccount(depositInfo);
-						
+
 						// 입출금내역에 출금 추가
 						bidDAO.insertBidTranz(aTranzVO);
 						// 낙찰액 제외 입찰액 모임계좌에서 빠져나가기
 						bidDAO.withdrawAAccount(withdrawAAccountInfo);
 
 						// 낙찰자 제외 입찰자의 회원계좌로 입금
-						System.out.println("환급돈(Integer)depositInfo.get(\"winBidMoney\")" + (Integer)depositInfo.get("winBidMoney"));
+						System.out.println("환급돈(Integer)depositInfo.get(\"winBidMoney\")"
+								+ (Integer) depositInfo.get("winBidMoney"));
 						System.out.println("환급돈 refundMoney" + refundMoney);
 						mAccountDAO.depositMAccount(depositInfo);
 					}
@@ -97,10 +183,10 @@ public class BidServiceImpl implements BidService {
 				LocalDateTime now = LocalDateTime.now();
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 				String nowTime = now.format(formatter);
-				
+
 				// 해당경매 환급상태 컬럼 '환급완료'로 바꾸기
 				aucGoodsDAO.updateRefundStatus(aucNo);
-				System.out.println(nowTime + "에 "+ aucNo +"번 경매 환급완료");
+				System.out.println(nowTime + "에 " + aucNo + "번 경매 환급완료");
 
 			}
 		} else {
@@ -118,6 +204,15 @@ public class BidServiceImpl implements BidService {
 	}
 
 	@Override
+	public List<ATranzVO> selectATranzLazyLoadByAucNo(Map<String, Object> loadInfo) {
+		// TODO Auto-generated method stub
+		List<ATranzVO> aTranzList = new ArrayList<ATranzVO>();
+		aTranzList = bidDAO.selectATranzLazyLoadByAucNo(loadInfo);
+
+		return aTranzList;
+	}
+
+	@Override
 	public List<ATranzVO> selectATranzByAucNo(int aucNo) {
 		// TODO Auto-generated method stub
 		List<ATranzVO> aTranzList = new ArrayList<ATranzVO>();
@@ -131,8 +226,6 @@ public class BidServiceImpl implements BidService {
 		// TODO Auto-generated method stub
 		return bidDAO.selectAAccount(aucNo);
 	}
-	
-	
 
 	@Transactional
 	@Override
@@ -183,14 +276,14 @@ public class BidServiceImpl implements BidService {
 		if (isBid == null) {
 			bidDAO.insertBidTranzNoBalance(aTranzVO);
 		} else {
-			
+
 			// 수정한부분
 			int pastBidMoney = isBid.getBidMoney();
 			int nowBidMoney = aTranzVO.getTranzMoney();
-			// 지금 입찰액과 과거 입찰액 차액만큼 입금액 추가 
+			// 지금 입찰액과 과거 입찰액 차액만큼 입금액 추가
 			aTranzVO.setTranzMoney(nowBidMoney - pastBidMoney);
 			// 여기까지해서
-			
+
 			bidDAO.insertBidTranz(aTranzVO);
 		}
 

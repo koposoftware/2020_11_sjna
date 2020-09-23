@@ -18,6 +18,7 @@ import hafy.aucGoods.vo.LikeVO;
 import hafy.bid.dao.BidDAO;
 import hafy.bid.vo.AAccountVO;
 import hafy.bid.vo.ATranzVO;
+import hafy.bid.vo.NoticeVO;
 import hafy.mAccount.dao.MAccountDAO;
 import hafy.mAccount.vo.MAccountVO;
 import hafy.member.vo.MemberVO;
@@ -34,6 +35,58 @@ public class AucGoodsServiceImpl implements AucGoodsService {
 
 	
 	
+	
+	@Override
+	public List<AucGoodsVO> selectImminentAucsByMin(int setMin) {
+		// TODO Auto-generated method stub
+		List<AucGoodsVO> aucGoodsVOs = aucGoodsDAO.selectImminentAucsByMin(setMin);
+		return aucGoodsVOs;
+	}
+
+	@Override
+	public void updateReadStatus(int notiNo) {
+		// TODO Auto-generated method stub
+		aucGoodsDAO.updateReadStatus(notiNo);
+	}
+
+	@Transactional
+	@Override
+	public Map<NoticeVO, String> selectNotiMap(String memberNick) {
+		// TODO Auto-generated method stub
+		Map<NoticeVO, String> notiMap = new LinkedHashMap<NoticeVO, String>();
+		List<NoticeVO> noticeList = aucGoodsDAO.selectNotiList(memberNick);
+		
+		for (NoticeVO n : noticeList) {
+			
+			System.out.println(n);
+			
+			if (n.getNotiType().equals("goodsDetail")) {
+				int aucNo = n.getNotiContentNo();
+				System.out.println("aucNo: " + aucNo);
+				List<String> photoList = aucGoodsDAO.selectPhotoNameByAucNo(aucNo);
+				String firstPhoto = photoList.get(0);
+				notiMap.put(n, firstPhoto);
+			} else if (n.getNotiType().equals("bidHistory")) {
+				notiMap.put(n,"bidHistory");
+			}
+		}
+		return notiMap;
+	}
+
+	@Override
+	public int selectUnreadNotiCnt(String memberNick) {
+		// TODO Auto-generated method stub
+		int notiCnt = aucGoodsDAO.selectUnreadNotiCnt(memberNick);
+		return notiCnt;
+	}
+
+	@Override
+	public int selectHotAucTotalCnt() {
+		// TODO Auto-generated method stub
+		int hotTotalCnt = aucGoodsDAO.selectHotAucTotalCnt();
+		return hotTotalCnt;
+	}
+
 	@Transactional
 	@Override
 	public void transferBidMoneySeller(Map<String, Object> transferMap) {
@@ -253,6 +306,26 @@ public class AucGoodsServiceImpl implements AucGoodsService {
 			
 		}
 		return hotAucMap;
+	}
+	
+	@Transactional
+	@Override
+	public Map<String, AucGoodsVO> selectRecentAucLazyLoad(Map<String, Object> loadInfo) {
+		// TODO Auto-generated method stub
+		Map<String, AucGoodsVO> recentAucMap = new LinkedHashMap<String, AucGoodsVO>();
+		List<AucGoodsVO> recentAucList = new ArrayList<AucGoodsVO>();
+		recentAucList = aucGoodsDAO.selectRecentAucContentsLazyLoad(loadInfo);
+		
+		for (AucGoodsVO auc : recentAucList) {
+			
+			int aucNo = auc.getNo();
+			List<String> photoList = aucGoodsDAO.selectPhotoNameByAucNo(aucNo);
+			String firstPhoto = photoList.get(0);
+			
+			recentAucMap.put(firstPhoto, auc);
+			
+		}
+		return recentAucMap;
 	}
 
 	@Transactional

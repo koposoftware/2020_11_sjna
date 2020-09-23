@@ -13,6 +13,7 @@ import hafy.aucGoods.vo.CodeVO;
 import hafy.aucGoods.vo.GoodsPhotoVO;
 import hafy.aucGoods.vo.LikeVO;
 import hafy.bid.vo.AAccountVO;
+import hafy.bid.vo.NoticeVO;
 import hafy.member.vo.MemberVO;
 
 @Repository
@@ -23,6 +24,44 @@ public class AucGoodsDAOImpl implements AucGoodsDAO{
 	
 	
 	
+	
+	@Override
+	public List<AucGoodsVO> selectImminentAucsByMin(int setMin) {
+		// TODO Auto-generated method stub
+		List<AucGoodsVO> aucList = sqlSession.selectList("auction.dao.AucGoodsDAO.selectImminentAucsByMin", setMin);
+		return aucList;
+	}
+
+	@Override
+	public void updateReadStatus(int notiNo) {
+		// TODO Auto-generated method stub
+		sqlSession.update("auction.dao.AucGoodsDAO.updateReadStatus",notiNo);
+		
+	}
+
+	@Override
+	public List<NoticeVO> selectNotiList(String memberNick) {
+		// TODO Auto-generated method stub
+		List<NoticeVO> noticeList = sqlSession.selectList("auction.dao.AucGoodsDAO.selectNotiList", memberNick);
+		return noticeList;
+	}
+
+	@Override
+	public int selectHotAucTotalCnt() {
+		// TODO Auto-generated method stub
+		int hotTotalCnt = sqlSession.selectOne("auction.dao.AucGoodsDAO.selectHotAucTotalCnt");
+		return hotTotalCnt;
+	}
+
+	@Override
+	public int selectUnreadNotiCnt(String memberNick) {
+		// TODO Auto-generated method stub
+		int notiCnt = sqlSession.selectOne("auction.dao.AucGoodsDAO.selectUnreadNotiCnt", memberNick);
+		return notiCnt;
+
+	}
+
+
 	@Override
 	public void updateRefundStatus(int aucNo) {
 		// TODO Auto-generated method stub
@@ -52,6 +91,17 @@ public class AucGoodsDAOImpl implements AucGoodsDAO{
 		List<AucGoodsVO> hotAucList = sqlSession.selectList("auction.dao.AucGoodsDAO.selectHotAucContentsLazyLoad", loadInfo);
 		return hotAucList;
 	}
+	
+	
+
+	@Override
+	public List<AucGoodsVO> selectRecentAucContentsLazyLoad(Map<String, Object> loadInfo) {
+		// TODO Auto-generated method stub
+		List<AucGoodsVO> recentAucList = sqlSession.selectList("auction.dao.AucGoodsDAO.selectRecentAucContentsLazyLoad", loadInfo);
+		return recentAucList;
+	}
+
+
 
 	@Override
 	public List<AucGoodsVO> selectRecentAucContents() {

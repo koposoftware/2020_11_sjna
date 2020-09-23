@@ -218,34 +218,13 @@ float: ri
 			<td><input id="imm" type="checkbox" checked data-toggle="toggle" data-onstyle="success"></td>
 		</tr>
 		<tr>
-			<td id="setMin" colspan="2">*마감 <input  type="number" class="form-control" style="width: 20%; display: inline-block;" value="5"> 분 전 알림 <button id="immSuccessModal" class="btn btn-primary">설정</button></td>
+			<td id="setMin" colspan="2">*마감 <input  type="number" class="form-control" style="width: 20%; display: inline-block;" value="5"> 분 전 <button class="btn btn-primary">설정</button></td>
 		</tr>
 		<tr>
 			<th>경매 마감</th>
 			<td><input id="test" type="checkbox" checked data-toggle="toggle" data-onstyle="success"></td>
 		</tr>
 	</table>
-	
-<!-- 	마감 알림시간 설정완료 안내 -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-   aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top: 10rem;">
-   <div class="modal-dialog"><!--  큰창:<div class="modal-dialog modal-lg"> 작은창 :<div class="modal-dialog modal-sm">  -->
-      <div class="modal-content">
-         <div class="modal-body" style="text-align: center; margin: 1rem;">
-            마감임박 알림 설정이 완료되었습니다.
-         </div>
-        
-         <div class="modal-footer" style="border-top:0; padding:0; ">
-          		<table style="margin-bottom: 0;">
-			<tr>
-				<td style="text-align: center;" id="confirm" data-dismiss="modal" onclick="no()">확인</td>
-			</tr>
-		</table>
-         </div>
-      </div>
-   </div>
-</div>
-
 	<br>
 	<div>출품자 알림</div>
 	
@@ -268,6 +247,36 @@ float: ri
 		</tr>
 	</table>
 	
+<!-- 		<div> -->
+<!-- 			<span>출품한 경매의 입찰 알림</span> -->
+<!-- 			<span class="toggleBtn" style="text-align: right;"><input id="test" type="checkbox" checked data-toggle="toggle" data-onstyle="success"></span> -->
+<!-- 		</div> -->
+<!-- 		<div> -->
+<!-- 			<span>입찰한 경매의 입찰 알림</span> -->
+<!-- 			<span class="toggleBtn" style="text-align: right;"><input id="test" type="checkbox" checked data-toggle="toggle" data-onstyle="success"></span> -->
+<!-- 		</div> -->
+<!-- 		<div> -->
+<!-- 			<span>출품한 경매의 좋아요 알림</span> -->
+<!-- 			<span class="toggleBtn" style="float: right;"><input id="test" type="checkbox" checked data-toggle="toggle" data-onstyle="success"></span> -->
+<!-- 		</div> -->
+<!-- 		<div> -->
+<!-- 			<span>출품한 경매의 매입확정 알림</span> -->
+<!-- 			<span class="toggleBtn" style="float: right;"><input id="test" type="checkbox" checked data-toggle="toggle" data-onstyle="success"></span> -->
+<!-- 		</div> -->
+<!-- 		<div> -->
+<!-- 			<span>마감임박한 경매 알림</span> -->
+<!-- 			<span class="toggleBtn" style="float: right;"><input id="test" type="checkbox" checked data-toggle="toggle" data-onstyle="success"></span> -->
+<!-- 		</div> -->
+<!-- 		<div> -->
+<!-- 			<span>출품한 경매의 낙찰 알림</span> -->
+<!-- 			<span class="toggleBtn" style="float: right;"><input id="test" type="checkbox" checked data-toggle="toggle" data-onstyle="success"></span> -->
+<!-- 		</div> -->
+
+<!-- 	</div> -->
+
+
+
+
     
 	<nav class="na-nav2 navbar fixed-bottom navbar-expand-sm navbar-dark" style="background: #27b2a5; padding: .1rem 0rem; height: 3rem;">
 
@@ -286,10 +295,6 @@ float: ri
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
       <script type="text/javascript">
       
-      $("#immSuccessModal").click(function() {
-    	  $(".modal").modal("show")
-		
-	})
       
       $("#imm").change(function(event) {
 		console.log(event.currentTarget.checked);

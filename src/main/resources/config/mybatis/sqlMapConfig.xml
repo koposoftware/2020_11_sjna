@@ -13,6 +13,7 @@
 		<typeAlias type="hafy.aucGoods.vo.LikeVO" alias="likeVO"/>
 		<typeAlias type="hafy.bid.vo.AAccountVO" alias="aAccountVO"/>
 		<typeAlias type="hafy.bid.vo.ATranzVO" alias="aTranzVO"/>
+		<typeAlias type="hafy.bid.vo.NoticeVO" alias="noticeVO"/>
 		
 	</typeAliases>
 	

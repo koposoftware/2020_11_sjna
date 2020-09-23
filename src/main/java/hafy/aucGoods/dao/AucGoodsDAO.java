@@ -10,6 +10,7 @@ import hafy.aucGoods.vo.CodeVO;
 import hafy.aucGoods.vo.GoodsPhotoVO;
 import hafy.aucGoods.vo.LikeVO;
 import hafy.bid.vo.AAccountVO;
+import hafy.bid.vo.NoticeVO;
 import hafy.member.vo.MemberVO;
 
 public interface AucGoodsDAO {
@@ -42,5 +43,14 @@ public interface AucGoodsDAO {
 	void updateRefundStatus(int aucNo);
 	
 	List<AucGoodsVO> selectHotAucContentsLazyLoad(Map<String, Object> loadInfo);
-
+	List<AucGoodsVO> selectRecentAucContentsLazyLoad(Map<String, Object> loadInfo);
+	
+	int selectHotAucTotalCnt();
+	
+	int selectUnreadNotiCnt(String memberNick);
+	
+	List<NoticeVO> selectNotiList(String memberNick);
+	void updateReadStatus(int notiNo);
+	
+	List<AucGoodsVO> selectImminentAucsByMin(int setMin);
 }
