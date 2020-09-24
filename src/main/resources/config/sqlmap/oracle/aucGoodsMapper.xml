@@ -65,6 +65,11 @@
 		where end_date = TO_CHAR(SYSDATE + #{setMin}/24/60 ,'yyyy-mm-dd hh24:mi')
 	</select>
 	
+	<select id="isImminentAucByMin" parameterType="map" resultMap="aucGoodsMap">
+		select * from hf_auc_goods
+		where no = #{aucNo} and end_date = TO_CHAR(SYSDATE + #{setMin}/24/60 ,'yyyy-mm-dd hh24:mi')
+	</select>
+	
 	<select id="selectGoodsCategory" parameterType="String" resultMap="codeMap">
 		select * 
 		from hf_detail_code 
@@ -133,6 +138,12 @@
 		update hf_notice 
 			set noti_read_datetime = to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss')
 		where noti_no = #{notiNo}
+	</update>
+	
+	<update id="updateNotiReadDatetime" parameterType="String">
+		update hf_notice 
+			set noti_read_datetime = to_char(sysdate, 'yyyy-mm-dd hh24:mi:ss')
+		where noti_member_nick = #{memberNick} and noti_read_datetime is null
 	</update>
 	
 	<insert id="insertAucGoods" parameterType="aucGoodsVO">
@@ -237,8 +248,25 @@ select * from
 		 from hf_auc_goods g
 		 where g.end_date > TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI')
 		 order by bidder_cnt desc, bid_cnt desc, like_cnt desc, view_cnt desc, reg_date desc
-	</select>          
-	                                           
+	</select>       
+	   
+	
+	<select id="selectNotiContentsLazyLoad" parameterType="map" resultMap="noticeMap">      
+				SELECT * 
+FROM
+    ( 
+    SELECT ROWNUM AS RNUM, A.* 
+    FROM (
+        select *
+		 from hf_notice
+		 where noti_member_nick = #{memberNick}
+		 order by noti_datetime desc
+            ) A 
+    WHERE ROWNUM  <![CDATA[ <= ]]> #{loadCnt} * #{scrollCnt}
+    )
+WHERE RNUM > #{loadCnt}*( #{scrollCnt} - 1)
+	</select>   
+	                                                  
 	<select id="selectHotAucContentsLazyLoad" parameterType="map" resultMap="aucGoodsMap">      
 				SELECT * 
 FROM
@@ -291,6 +319,13 @@ WHERE RNUM > #{loadCnt}*( #{scrollCnt} - 1)
 		 from hf_auc_goods
 		 where end_date > TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI')
 		 order by reg_date desc
+	</select>  
+	                                                   
+	<select id="selectOpenAucs" resultMap="aucGoodsMap">      
+		select *
+		 from hf_auc_goods
+		 where start_date <![CDATA[ <= ]]> TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI') and  
+		 		end_date > TO_CHAR(SYSDATE,'YYYY-MM-DD HH24:MI')
 	</select>                                                     
 	            
 	<select id="selectNotiList" parameterType="String" resultMap="noticeMap">      

@@ -42,6 +42,7 @@ import hafy.mAccount.service.MAccountService;
 import hafy.mAccount.vo.MAccountVO;
 import hafy.member.service.MemberService;
 import hafy.member.vo.MemberVO;
+import hafy.member.vo.NoticeSettingVO;
 
 @Controller
 public class AucGoodsController {
@@ -54,6 +55,8 @@ public class AucGoodsController {
 	private BidService bidService;
 	@Autowired
 	private MAccountService mAccountService;
+	@Autowired
+	private MemberService memberService;
 //	@Autowired
 //	private MemberService memberService;
 
@@ -102,6 +105,27 @@ public class AucGoodsController {
 		return mav;
 	}
 	
+	@ResponseBody
+	@GetMapping("/loadNotice/{notiScrollCnt}/{loadCnt}")
+	public ModelAndView loadNotice(HttpSession session, @PathVariable("notiScrollCnt") int scrollCnt,  @PathVariable("loadCnt") int loadCnt) {
+		
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+		String memberNick = memberVO.getNickname();
+
+		Map<NoticeVO, String> noticeMap = new LinkedHashMap<NoticeVO, String>();
+		
+		Map<String, Object> loadInfo = new HashMap<String, Object>();
+		loadInfo.put("scrollCnt", scrollCnt);
+		loadInfo.put("loadCnt", loadCnt);
+		loadInfo.put("memberNick", memberNick);
+		
+		noticeMap = aucGoodsService.selectNoticeLazyLoad(loadInfo);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/notice/beforeLoadNotice");
+		mav.addObject("noticeMap", noticeMap );
+		return mav;
+	}
 	@ResponseBody
 	@GetMapping("/loadRecentAucs/{recentScrollCnt}/{loadCnt}")
 	public ModelAndView loadRecentAucs(@PathVariable("recentScrollCnt") int scrollCnt,  @PathVariable("loadCnt") int loadCnt) {
@@ -158,11 +182,17 @@ public class AucGoodsController {
 		aucGoodsService.transferBidMoneySeller(transferMap);
 		
 		// 매입확정 정보 알림 테이블에 넣기
-		AucGoodsVO aucGoodsVO = aucGoodsService.selectAucGoodsByNo(aucNo);
-		String notiMsg= winner + " 님이 '" + aucGoodsVO.getName() + "' 경매" + 
-				"(번호: " + aucNo + ") 매입을 확정하였습니다.";
-		NoticeVO noticeVO = new NoticeVO(sellerNick, "goodsDetail", aucNo, notiMsg);
-		bidService.insertNoti(noticeVO);
+		NoticeSettingVO noticeSettingVO = memberService.selectNoticeSettingVOByNick(sellerNick);
+		String sellerPurchaseConfirmNotice = noticeSettingVO.getSellerPurchaseConfirmNotice();
+		
+		if (sellerPurchaseConfirmNotice.equals("true")) {
+			AucGoodsVO aucGoodsVO = aucGoodsService.selectAucGoodsByNo(aucNo);
+			String notiMsg= winner + " 님이 '" + aucGoodsVO.getName() + "' 경매" + 
+					"(번호: " + aucNo + ") 매입을 확정하였습니다.";
+			NoticeVO noticeVO = new NoticeVO(sellerNick, "goodsDetail", aucNo, notiMsg);
+			bidService.insertNoti(noticeVO);
+		}
+		
 	}
 	
 	@ResponseBody
@@ -483,7 +513,7 @@ public class AucGoodsController {
 		
 		int unreadNotiCnt = 0;
 		String memberNick = memberVO.getNickname();
-		System.out.println("memberNick" + memberNick);
+//		System.out.println("memberNick" + memberNick);
 		unreadNotiCnt = aucGoodsService.selectUnreadNotiCnt(memberNick);
 
 		Map<String, AucGoodsVO> hotAucMap = new LinkedHashMap<String, AucGoodsVO>();
@@ -525,6 +555,17 @@ public class AucGoodsController {
 		model.addAttribute("noticeMap", noticeMap);
 		
 		return "/notice/noticeContent";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/readAllNotice")
+	public void readAllNotice(HttpSession session) {
+		
+		MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+		String memberNick = memberVO.getNickname();
+		
+		System.out.println("읽을사람: " + memberNick);
+		aucGoodsService.updateNotiReadDatetime(memberNick);
 	}
 	
 	@ResponseBody

@@ -6,6 +6,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="hafy.member.vo.MemberVO" alias="memberVO"/>
+		<typeAlias type="hafy.member.vo.NoticeSettingVO" alias="noticeSettingVO"/>
 		<typeAlias type="hafy.mAccount.vo.MAccountVO" alias="mAccountVO"/>
 		<typeAlias type="hafy.aucGoods.vo.AucGoodsVO" alias="aucGoodsVO"/>
 		<typeAlias type="hafy.aucGoods.vo.GoodsPhotoVO" alias="goodsPhotoVO"/>

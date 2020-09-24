@@ -26,6 +26,26 @@ public class AucGoodsDAOImpl implements AucGoodsDAO{
 	
 	
 	@Override
+	public void updateNotiReadDatetime(String memberNick) {
+		// TODO Auto-generated method stub
+		sqlSession.update("auction.dao.AucGoodsDAO.updateNotiReadDatetime",memberNick);
+	}
+
+	@Override
+	public AucGoodsVO isImminentAucByMin(Map<String, Object> setMinMap) {
+		// TODO Auto-generated method stub
+		AucGoodsVO aucGoodsVO = sqlSession.selectOne("auction.dao.AucGoodsDAO.isImminentAucByMin", setMinMap);
+		return aucGoodsVO;
+	}
+
+	@Override
+	public List<AucGoodsVO> selectOpenAucs() {
+		// TODO Auto-generated method stub
+		List<AucGoodsVO> openAucList = sqlSession.selectList("auction.dao.AucGoodsDAO.selectOpenAucs");
+		return openAucList;	
+	}
+
+	@Override
 	public List<AucGoodsVO> selectImminentAucsByMin(int setMin) {
 		// TODO Auto-generated method stub
 		List<AucGoodsVO> aucList = sqlSession.selectList("auction.dao.AucGoodsDAO.selectImminentAucsByMin", setMin);
@@ -85,6 +105,13 @@ public class AucGoodsDAOImpl implements AucGoodsDAO{
 		return hotAucList;
 	}
 	
+	@Override
+	public List<NoticeVO> selectNotiContentsLazyLoad(Map<String, Object> loadInfo) {
+		// TODO Auto-generated method stub
+		List<NoticeVO> notiList = sqlSession.selectList("auction.dao.AucGoodsDAO.selectNotiContentsLazyLoad", loadInfo);
+		return notiList;
+	}
+
 	@Override
 	public List<AucGoodsVO> selectHotAucContentsLazyLoad(Map<String, Object> loadInfo) {
 		// TODO Auto-generated method stub

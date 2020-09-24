@@ -37,6 +37,12 @@ public class AucGoodsServiceImpl implements AucGoodsService {
 	
 	
 	@Override
+	public void updateNotiReadDatetime(String memberNick) {
+		// TODO Auto-generated method stub
+		aucGoodsDAO.updateNotiReadDatetime(memberNick);
+	}
+
+	@Override
 	public List<AucGoodsVO> selectImminentAucsByMin(int setMin) {
 		// TODO Auto-generated method stub
 		List<AucGoodsVO> aucGoodsVOs = aucGoodsDAO.selectImminentAucsByMin(setMin);
@@ -58,11 +64,11 @@ public class AucGoodsServiceImpl implements AucGoodsService {
 		
 		for (NoticeVO n : noticeList) {
 			
-			System.out.println(n);
+//			System.out.println(n);
 			
 			if (n.getNotiType().equals("goodsDetail")) {
 				int aucNo = n.getNotiContentNo();
-				System.out.println("aucNo: " + aucNo);
+//				System.out.println("aucNo: " + aucNo);
 				List<String> photoList = aucGoodsDAO.selectPhotoNameByAucNo(aucNo);
 				String firstPhoto = photoList.get(0);
 				notiMap.put(n, firstPhoto);
@@ -125,7 +131,7 @@ public class AucGoodsServiceImpl implements AucGoodsService {
 
 		// 사용자가 입찰한 경매중 마감된 경매번호 리스트 구하기
 		List<Integer> memberClosedAucs = bidDAO.selectMemberClosedAuc(memberNick);
-		System.out.println("입찰경매중 마감된것: " + memberClosedAucs);
+//		System.out.println("입찰경매중 마감된것: " + memberClosedAucs);
 
 		if (memberClosedAucs.size() != 0) {
 
@@ -136,7 +142,7 @@ public class AucGoodsServiceImpl implements AucGoodsService {
 				if (bidResultList.size() != 0) {
 
 					String winnerNick = bidResultList.get(0).getTranzMemberNick();
-					System.out.println("이 경매의 낙찰자: " + winnerNick);
+//					System.out.println("이 경매의 낙찰자: " + winnerNick);
 
 					if (memberNick.equals(winnerNick)) {
 
@@ -306,6 +312,33 @@ public class AucGoodsServiceImpl implements AucGoodsService {
 			
 		}
 		return hotAucMap;
+	}
+	
+	
+
+	@Transactional
+	@Override
+	public Map<NoticeVO, String> selectNoticeLazyLoad(Map<String, Object> loadInfo) {
+		// TODO Auto-generated method stub
+		Map<NoticeVO, String> notiMap = new LinkedHashMap<NoticeVO, String>();
+		List<NoticeVO> noticeList = new ArrayList<NoticeVO>();
+		noticeList = aucGoodsDAO.selectNotiContentsLazyLoad(loadInfo);
+		
+		for (NoticeVO n : noticeList) {
+			
+//			System.out.println(n);
+			
+			if (n.getNotiType().equals("goodsDetail")) {
+				int aucNo = n.getNotiContentNo();
+//				System.out.println("aucNo: " + aucNo);
+				List<String> photoList = aucGoodsDAO.selectPhotoNameByAucNo(aucNo);
+				String firstPhoto = photoList.get(0);
+				notiMap.put(n, firstPhoto);
+			} else if (n.getNotiType().equals("bidHistory")) {
+				notiMap.put(n,"bidHistory");
+			}
+		}
+		return notiMap;
 	}
 	
 	@Transactional

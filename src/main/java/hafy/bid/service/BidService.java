@@ -29,6 +29,6 @@ public interface BidService {
 	
 	void insertNoti(NoticeVO noticeVO);
 	void noticeClosedBid();
-	void noticeImminentAucsByMin(int setMin);
+	void noticeImminentAucs();
 	
 }

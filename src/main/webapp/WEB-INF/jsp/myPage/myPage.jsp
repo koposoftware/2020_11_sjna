@@ -349,7 +349,7 @@ input[type="datetime-local"]:valid::before {
       
       
       function goSetNotice() {
-    	  location.href = "${pageContext.request.contextPath}/setNotice"
+    	  location.href = "${pageContext.request.contextPath}/noticeSetting"
 	}
       function goConfirmPurchase() {
     	  location.href = "${pageContext.request.contextPath}/confirmPurchaseForm"

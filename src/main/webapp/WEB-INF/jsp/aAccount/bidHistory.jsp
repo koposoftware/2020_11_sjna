@@ -325,8 +325,11 @@ table th img {
 <%-- 			마감시간 전이면  / 후면--%>
 		<c:choose>
 			<c:when test="${nowTime < aucGoodsVO.endDate }">
+				<button type="button" class="btn btn-success" onclick="goGoodsDetail()"
+					style="background: rgb(46, 204, 113); border:rgb(46, 204, 113); font-weight: bold; width: 35%;">상품보기</button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<button type="button" class="btn btn-success" onclick="goBid()"
-					style="background: rgb(22, 160, 133); font-weight: bold; width: 45%;">입찰하기</button>
+					style="background: rgb(22, 160, 133); font-weight: bold; width: 35%;">입찰하기</button>
 			</c:when>
 			<c:otherwise>
 			
@@ -342,6 +345,10 @@ table th img {
     
 	new WOW().init();
 
+	function goGoodsDetail() {
+		location.href= "${pageContext.request.contextPath}/goodsDetail/" + ${aucNo};
+	}
+	 	
 	function result() {
 		$(".history").hide();
 		$(".rank").hide()

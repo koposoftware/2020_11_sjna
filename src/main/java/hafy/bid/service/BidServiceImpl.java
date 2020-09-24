@@ -20,6 +20,7 @@ import hafy.bid.vo.ATranzVO;
 import hafy.bid.vo.NoticeVO;
 import hafy.mAccount.dao.MAccountDAO;
 import hafy.member.dao.MemberDAO;
+import hafy.member.vo.NoticeSettingVO;
 
 @Service
 public class BidServiceImpl implements BidService {
@@ -30,6 +31,8 @@ public class BidServiceImpl implements BidService {
 	private AucGoodsDAO aucGoodsDAO;
 	@Autowired
 	private MAccountDAO mAccountDAO;
+	@Autowired
+	private MemberDAO memberDAO;
 
 	@Override
 	public void insertNoti(NoticeVO noticeVO) {
@@ -46,25 +49,51 @@ public class BidServiceImpl implements BidService {
 
 	@Transactional
 	@Override
-	public void noticeImminentAucsByMin(int setMin) {
+	public void noticeImminentAucs() {
 		// TODO Auto-generated method stub
-		
-		// 마감 n분 남은 경매 목록 가져오기
-		List<AucGoodsVO> imminentAucs = new ArrayList<AucGoodsVO>();
-		imminentAucs = aucGoodsDAO.selectImminentAucsByMin(setMin);
 
-		if (imminentAucs.size() > 0) {
-			for (AucGoodsVO auc : imminentAucs) {
+		// 마감 안된 경매 목록 가져오기
+		List<AucGoodsVO> openAucs = new ArrayList<AucGoodsVO>();
+		openAucs = aucGoodsDAO.selectOpenAucs();
+
+		if (openAucs.size() > 0) {
+			for (AucGoodsVO auc : openAucs) {
 
 				int aucNo = auc.getNo();
+//				System.out.println("마감안된 경매 " + aucNo);
 
+				// 마감 안된 경매의 입찰자 리스트 가져오기
 				List<AAccountVO> aaList = bidDAO.selectAAccount(aucNo);
-				String notiBidderMsg = "회원님이 입찰하신 '" + auc.getName() + "' 경매" + "(번호: " + auc.getNo() + ")가 마감 "
-						+ setMin + "분 전입니다.";
-				// 입찰자들에게 경매 임박 알림
+
 				for (AAccountVO a : aaList) {
-					NoticeVO bidderNoticeVO = new NoticeVO(a.getBidderNick(), "goodsDetail", aucNo, notiBidderMsg);
-					bidDAO.insertNoti(bidderNoticeVO);
+
+					// 해당 경매의 입찰자닉 하나하나씩 가져오기
+					String memberNick = a.getBidderNick();
+
+					// 그 멤버의 알림 세팅값 가져오기
+					NoticeSettingVO notiSettingVO = memberDAO.selectNoticeSettingVOByNick(memberNick);
+					String bidderImminentNotice = notiSettingVO.getBidderImminentNotice();
+
+					if (bidderImminentNotice.equals("true")) {
+
+						// 그 멤버의 마감임박 알림시간 설정값 가져오기
+						int setMin = notiSettingVO.getBidderImminentTime();
+
+						// 해당 경매번호가 마감임박시간이 도래한 건이면 그 vo 가져오기
+						Map<String, Object> setMinMap = new HashMap<String, Object>();
+						setMinMap.put("aucNo", aucNo);
+						setMinMap.put("setMin", setMin);
+						AucGoodsVO aucGoodsVO = aucGoodsDAO.isImminentAucByMin(setMinMap);
+
+						if (aucGoodsVO != null) {
+							String notiBidderMsg = "회원님이 입찰하신 '" + auc.getName() + "' 경매" + "(번호: " + aucNo + ")가 마감 "
+									+ setMin + "분 전입니다.";
+							NoticeVO bidderNoticeVO = new NoticeVO(memberNick, "goodsDetail", aucNo, notiBidderMsg);
+							// 입찰자들에게 경매 임박 알림메세지 삽입
+							bidDAO.insertNoti(bidderNoticeVO);
+							System.out.println(memberNick + notiBidderMsg);
+						}
+					}
 				}
 			}
 		}
@@ -91,29 +120,41 @@ public class BidServiceImpl implements BidService {
 				String rfWinningMoney = (String) Commas.format(bidResult.get(0).getMemberBalance());
 
 				// 출품자에게 경매 낙찰 알림
-				String notiSellerMsg = "회원님이 출품하신 '" + aucGoodsVO.getName() + "' 경매" + "(번호: " + aucNo + ")가 "
-						+ rfWinningMoney + " 원에 낙찰되었습니다!";
-				NoticeVO sellerNoticeVO = new NoticeVO(aucGoodsVO.getMemberNick(), "bidHistory", aucNo, notiSellerMsg);
-				bidDAO.insertNoti(sellerNoticeVO);
+				NoticeSettingVO sellerNoticeSettingVO = memberDAO
+						.selectNoticeSettingVOByNick(aucGoodsVO.getMemberNick());
+				String sellerClosedNotice = sellerNoticeSettingVO.getSellerClosedNotice();
+
+				if (sellerClosedNotice.equals("true")) {
+					String notiSellerMsg = "회원님이 출품하신 '" + aucGoodsVO.getName() + "' 경매" + "(번호: " + aucNo + ")가 "
+							+ rfWinningMoney + " 원에 낙찰되었습니다!";
+					NoticeVO sellerNoticeVO = new NoticeVO(aucGoodsVO.getMemberNick(), "bidHistory", aucNo,
+							notiSellerMsg);
+					bidDAO.insertNoti(sellerNoticeVO);
+				}
 
 				for (int i = 0; i < bidResult.size(); i++) {
 
-					if (i == 0) {
+					NoticeSettingVO bidderNoticeSettingVO = memberDAO.selectNoticeSettingVOByNick(bidResult.get(i).getTranzMemberNick());
+					String bidderClosedNotice = bidderNoticeSettingVO.getBidderClosedNotice();
 
-						// 낙찰자에게 낙찰 알림
-						String notiWinnerMsg = "축하합니다! '" + aucGoodsVO.getName() + "' 경매" + "(번호: " + aucNo + ")의 "
-								+ " 낙찰자로 선정되셨습니다!";
-						NoticeVO winnerNoticeVO = new NoticeVO(bidResult.get(0).getTranzMemberNick(), "bidHistory",
-								aucNo, notiWinnerMsg);
-						bidDAO.insertNoti(winnerNoticeVO);
+					if (bidderClosedNotice.equals("true")) {
+						if (i == 0) {
 
-					} else {
-						// 낙찰실패자들에게 실패 알림
-						String notiLoserMsg = "아쉽습니다... '" + aucGoodsVO.getName() + "' 경매" + "(번호: " + aucNo + ")의 "
-								+ " 낙찰자로 선정되지 못했습니다.";
-						NoticeVO loserNoticeVO = new NoticeVO(bidResult.get(i).getTranzMemberNick(), "bidHistory",
-								aucNo, notiLoserMsg);
-						bidDAO.insertNoti(loserNoticeVO);
+							// 낙찰자에게 낙찰 알림
+							String notiWinnerMsg = "축하합니다! '" + aucGoodsVO.getName() + "' 경매" + "(번호: " + aucNo + ")의 "
+									+ " 낙찰자로 선정되셨습니다!";
+							NoticeVO winnerNoticeVO = new NoticeVO(bidResult.get(0).getTranzMemberNick(), "bidHistory",
+									aucNo, notiWinnerMsg);
+							bidDAO.insertNoti(winnerNoticeVO);
+
+						} else {
+							// 낙찰실패자들에게 실패 알림
+							String notiLoserMsg = "아쉽습니다... '" + aucGoodsVO.getName() + "' 경매" + "(번호: " + aucNo + ")의 "
+									+ " 낙찰자로 선정되지 못했습니다.";
+							NoticeVO loserNoticeVO = new NoticeVO(bidResult.get(i).getTranzMemberNick(), "bidHistory",
+									aucNo, notiLoserMsg);
+							bidDAO.insertNoti(loserNoticeVO);
+						}
 					}
 
 				}

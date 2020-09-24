@@ -59,4 +59,10 @@ public interface AucGoodsService {
 	void updateReadStatus(int notiNo);
 	
 	List<AucGoodsVO> selectImminentAucsByMin(int setMin);
+	
+	void updateNotiReadDatetime(String memberNick);
+	
+	Map<NoticeVO, String> noticeMap = new LinkedHashMap<NoticeVO, String>();
+	
+	Map<NoticeVO, String> selectNoticeLazyLoad(Map<String, Object> loadInfo);
 }

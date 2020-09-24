@@ -31,7 +31,9 @@ import hafy.bid.vo.ATranzVO;
 import hafy.bid.vo.NoticeVO;
 import hafy.mAccount.service.MAccountService;
 import hafy.mAccount.vo.MAccountVO;
+import hafy.member.service.MemberService;
 import hafy.member.vo.MemberVO;
+import hafy.member.vo.NoticeSettingVO;
 
 @Controller
 public class BidController {
@@ -42,6 +44,8 @@ public class BidController {
 	private MAccountService mAccountService;
 	@Autowired
 	private BidService bidService;
+	@Autowired
+	private MemberService memberService;
 
 	/**
 	 * 1. 경매가 마감된건들에 대하여 2. 낙찰액을 제외한 입찰액들을 3. 본래 입찰자 계좌로 환급 (사용자들은 적어도 한 계좌 이상이 어플에
@@ -55,12 +59,16 @@ public class BidController {
 	}
 
 	@Scheduled(cron = "0 * * * * *")
-	public void noticeClosedBid() {
-		System.out.println("매분 0초에 경매마감 알림 알고리즘 도는중...");
+	public void noticeWithScheduler() {
+		System.out.println("매분 0초에 경매마감/경매마감임박 알림 알고리즘 도는중...");
+
+		// 마감임박한 경매 알림 (bidders)
+		bidService.noticeImminentAucs();
+
 		// 마감된 경매 알림 (seller, bidders(winner, losers))
 		bidService.noticeClosedBid();
 	}
-	
+
 	// 마감된 경매 알림 (seller, bidders(winner, losers))
 //	@Scheduled(cron = "0 * * * * *")
 //	public void selectImminentAucsByMin() {
@@ -69,7 +77,6 @@ public class BidController {
 //		System.out.println("매분 0초에 경매마감임박" + setMin + "분전 알림 알고리즘 도는중...");
 //		bidService.noticeImminentAucsByMin(setMin);
 //	}
-
 
 	@ResponseBody
 	@GetMapping("/loadBidHistory/{historyScrollCnt}/{loadCnt}/{aucNo}")
@@ -274,35 +281,44 @@ public class BidController {
 		bidService.bidding(aAccountVO);
 
 		// 알림 테이블에 데이터 삽입
-		//// 판매자에게 알림
+		//// 판매자에게 입찰자의 입찰 알림
 		AucGoodsVO aucGoodsVO = aucGoodsService.selectAucGoodsByNo(aucNo);
+		NoticeSettingVO sellerNoticeSettingVO = memberService.selectNoticeSettingVOByNick(aucGoodsVO.getMemberNick());
+		String sellerBidNotice = sellerNoticeSettingVO.getSellerBidNotice();
 
 		DecimalFormat Commas = new DecimalFormat("#,###");
 		String rfBidMoney = (String) Commas.format(bidMoney);
 
-		String notiType = "bidHistory";
-		String notiSellerMsg = bidderNick + " 님이 '" + aucGoodsVO.getName() + "' 경매" + "(번호: " + aucNo + ")에 "
-				+ rfBidMoney + " 원으로 입찰하셨습니다.";
+		if (sellerBidNotice.equals("true")) {
 
-		NoticeVO noticeVO = new NoticeVO(aucGoodsVO.getMemberNick(), notiType, aucNo, notiSellerMsg);
-		bidService.insertNoti(noticeVO);
+			String notiType = "bidHistory";
+			String notiSellerMsg = bidderNick + " 님이 '" + aucGoodsVO.getName() + "' 경매" + "(번호: " + aucNo + ")에 "
+					+ rfBidMoney + " 원으로 입찰하셨습니다.";
 
-		//// 다른 입찰자들에게 알림
+			NoticeVO noticeVO = new NoticeVO(aucGoodsVO.getMemberNick(), notiType, aucNo, notiSellerMsg);
+			bidService.insertNoti(noticeVO);
+		}
+
+		//// 다른 입찰자들에게 입찰 알림
 		List<AAccountVO> aacList = bidService.selectAAccount(aucNo);
 		String notiBidderMsg = "";
 		for (AAccountVO a : aacList) {
+			NoticeSettingVO bidderNoticeSettingVO = memberService.selectNoticeSettingVOByNick(a.getBidderNick());
+			String bidderBidNotice = bidderNoticeSettingVO.getBidderBidNotice();
 
-			if (bidderNick.equals(a.getBidderNick())) {
-				notiBidderMsg = "회원님이 '" + aucGoodsVO.getName() + "' 경매" + "(번호: " + aucNo + ")에 " + rfBidMoney
-						+ " 원으로 최고입찰자가 되었습니다.";
-			} else {
-				notiBidderMsg = bidderNick + " 님이 '" + aucGoodsVO.getName() + "' 경매" + "(번호: " + aucNo + ")에 "
-						+ rfBidMoney + " 원으로 최고입찰자가 되었습니다.";
+			if (bidderBidNotice.equals("true")) {
+
+				if (bidderNick.equals(a.getBidderNick())) {
+					notiBidderMsg = "회원님이 '" + aucGoodsVO.getName() + "' 경매" + "(번호: " + aucNo + ")에 " + rfBidMoney
+							+ " 원으로 최고입찰자가 되었습니다.";
+				} else {
+					notiBidderMsg = bidderNick + " 님이 '" + aucGoodsVO.getName() + "' 경매" + "(번호: " + aucNo + ")에 "
+							+ rfBidMoney + " 원으로 최고입찰자가 되었습니다.";
+				}
+				NoticeVO noVo = new NoticeVO(a.getBidderNick(), "bidHistory", aucNo, notiBidderMsg);
+				bidService.insertNoti(noVo);
 			}
-			NoticeVO noVo = new NoticeVO(a.getBidderNick(), "bidHistory", aucNo, notiBidderMsg);
-			bidService.insertNoti(noVo);
 		}
-
 		request.setAttribute("bidMoney", bidMoney);
 		session.removeAttribute("bidMoney");
 		session.removeAttribute("bidAccountNo");
