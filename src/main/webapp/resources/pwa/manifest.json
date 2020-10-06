@@ -1,0 +1,13 @@
+{
+  "name": "hafy",
+  "short_name": "hafy",
+  "icons": [{
+    "src": "/resources/img/hafy.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }],
+  "start_url": "/index.jsp",
+  "display": "standalone",
+  "background_color": "#27b2a5",
+  "theme_color": "#27b2a5"
+}

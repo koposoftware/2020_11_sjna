@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="hafy.member.vo.MemberVO" alias="memberVO"/>
+		<typeAlias type="hafy.member.vo.NoticeSettingVO" alias="noticeSettingVO"/>
+		<typeAlias type="hafy.mAccount.vo.MAccountVO" alias="mAccountVO"/>
+		<typeAlias type="hafy.aucGoods.vo.AucGoodsVO" alias="aucGoodsVO"/>
+		<typeAlias type="hafy.aucGoods.vo.GoodsPhotoVO" alias="goodsPhotoVO"/>
+		<typeAlias type="hafy.aucGoods.vo.CodeVO" alias="codeVO"/>
+		<typeAlias type="hafy.aucGoods.vo.LikeVO" alias="likeVO"/>
+		<typeAlias type="hafy.aucGoods.vo.ReturnGoodsVO" alias="returnGoodsVO"/>
+		<typeAlias type="hafy.bid.vo.AAccountVO" alias="aAccountVO"/>
+		<typeAlias type="hafy.bid.vo.ATranzVO" alias="aTranzVO"/>
+		<typeAlias type="hafy.bid.vo.NoticeVO" alias="noticeVO"/>
+		
+	</typeAliases>
+	
+
+</configuration>
