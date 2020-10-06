@@ -42,6 +42,7 @@ public class JUnitTest {
 	@Autowired
 	private AucGoodsService aucGoodsService;
 
+<<<<<<< HEAD
 //	@Ignore
 	@Test
 	public void 입찰하기_경매모임통장잔고() {
@@ -49,6 +50,9 @@ public class JUnitTest {
 		AAccountVO aAccountVO = new AAccountVO(1, "test2", 40000);
 		sqlSession.selectList("bid.dao.BidDAO.insertAAccountBid", aAccountVO);
 	}
+=======
+	
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	
 	
 	@Ignore
@@ -75,7 +79,11 @@ public class JUnitTest {
 		}
 	}
 	
+<<<<<<< HEAD
 	@Ignore
+=======
+//	@Ignore
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	@Test
 	public void 사용자가낙찰성공한_경매구하기() {
 		// TODO Auto-generated method stub

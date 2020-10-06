@@ -2,12 +2,18 @@ package hafy.member.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+<<<<<<< HEAD
 import java.util.Random;
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+<<<<<<< HEAD
 import org.json.simple.JSONObject;
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,14 +26,22 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+<<<<<<< HEAD
 import hafy.SMSUtil.Coolsms;
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 import hafy.aucGoods.service.AucGoodsService;
 import hafy.member.service.MemberService;
 import hafy.member.vo.MemberVO;
 import hafy.member.vo.NoticeSettingVO;
+<<<<<<< HEAD
 //import net.nurigo.java_sdk.Coolsms;
 
 @SessionAttributes({ "memberVO" }) // addObject했을때 loginVO객체를 session공유영역에 등록 (여러개 들어올수있음...배열형태{}) 하지만 이방식은
+=======
+
+@SessionAttributes({ "memberVO" })	// addObject했을때 loginVO객체를 session공유영역에 등록 (여러개 들어올수있음...배열형태{}) 하지만 이방식은
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 // invalidate로 세션 삭제 안됨
 @Controller
 public class MemberController {
@@ -37,6 +51,7 @@ public class MemberController {
 	@Autowired
 	private AucGoodsService aucGoodsService;
 
+<<<<<<< HEAD
 	@ResponseBody
 	@PostMapping("/submitAuthNo")
 	public boolean submitAuthNo(HttpServletRequest request, HttpSession session) {
@@ -132,6 +147,8 @@ public class MemberController {
 		}
 	}
 
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	@GetMapping("/noticeSetting")
 	public String noticeSetting(HttpSession session, Model model) {
 
@@ -222,13 +239,21 @@ public class MemberController {
 //
 //		session.removeAttribute("memberVO");
 //	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	@PostMapping("/logout")
 	@ResponseBody
 	public void logout(SessionStatus status) {
 
 //		session.invalidate();
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		// session 내 값 지우기
 		status.setComplete();
 		System.out.println(status.isComplete()); // false면 아직 session에 값이 남아있다는 뜻 / true면 값이 다 사라진것
@@ -237,6 +262,7 @@ public class MemberController {
 	@ResponseBody
 	@PostMapping("/checkID")
 	public boolean checkID(HttpServletRequest request) {
+<<<<<<< HEAD
 
 		String inputID = request.getParameter("inputID");
 		System.out.println("inputID: " + inputID);
@@ -245,18 +271,39 @@ public class MemberController {
 
 		boolean isExist = false;
 
+=======
+		
+		String inputID = request.getParameter("inputID");
+		System.out.println("inputID: " + inputID);
+		
+		MemberVO isMember = memberService.checkID(inputID);
+		
+		boolean isExist = false;
+		
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		if (isMember != null) {
 			isExist = true;
 		}
 		return isExist;
+<<<<<<< HEAD
 
 	}
 
+=======
+		
+	}
+	
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	@RequestMapping("/signOut")
 	public String signOut() {
 
 		return "/myPage/signOut";
 	}
+<<<<<<< HEAD
+=======
+	
+	
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 	@PostMapping("/login")
 	public ModelAndView loginProcess(MemberVO inputMemberVO, HttpSession session) {
@@ -286,7 +333,11 @@ public class MemberController {
 				mav.setViewName("redirect:/hot");
 			} else {
 				mav.setViewName("redirect:" + dest);
+<<<<<<< HEAD
 				session.removeAttribute("dest");
+=======
+				session.removeAttribute(dest);
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 			}
 			mav.addObject("memberVO", memberVO);
@@ -322,7 +373,20 @@ public class MemberController {
 	}
 
 	@RequestMapping("/myPage")
+<<<<<<< HEAD
 	public String myPage() {
+=======
+	public String myPage(HttpSession session, HttpServletRequest request) {
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+//		System.out.println("hot에서 멤버"+memberVO);
+
+		int unreadNotiCnt = 0;
+		String memberNick = memberVO.getNickname();
+//		System.out.println("memberNick" + memberNick);
+		unreadNotiCnt = aucGoodsService.selectUnreadNotiCnt(memberNick);
+
+		request.setAttribute("unreadNotiCnt", unreadNotiCnt);
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 		return "/myPage/myPage";
 	}
@@ -341,6 +405,7 @@ public class MemberController {
 	public String myModifyComplete(HttpSession session, HttpServletRequest request) {
 
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+<<<<<<< HEAD
 		
 		String phone = request.getParameter("phone");
 		String address1 = request.getParameter("address1");
@@ -360,6 +425,24 @@ public class MemberController {
 
 		session.removeAttribute("memberVO");
 		session.setAttribute("memberVO", memberVO);
+=======
+		String phone = request.getParameter("phone");
+		String address1 = request.getParameter("address1");
+		String address2 = request.getParameter("address2");
+
+		MemberVO modMemberVO = new MemberVO();
+		modMemberVO.setNickname(memberVO.getNickname());
+		modMemberVO.setPhone(phone);
+		modMemberVO.setAddress1(address1);
+		modMemberVO.setAddress2(address2);
+
+		memberService.updateMember(modMemberVO);
+
+		modMemberVO = memberService.selectMember(memberVO);
+
+//		session.removeAttribute("memberVO");
+		session.setAttribute("memberVO", modMemberVO);
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 		return "redirect:/myInfo";
 	}

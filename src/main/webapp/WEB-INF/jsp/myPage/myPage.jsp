@@ -9,7 +9,10 @@
 <title>하피 - 모두를 위한 경매</title>
     <link href="${pageContext.request.contextPath }/resources/bootstrap-4.0.0/docs/4.0/examples/navbar-fixed/navbar-top-fixed.css" rel="stylesheet">
 <!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
+<<<<<<< HEAD
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/wow/css/libs/animate.css">
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 <style type="text/css">
 a {
 	text-decoration: none !important;
@@ -244,7 +247,13 @@ input[type="datetime-local"]:valid::before {
 <!--       		<a href="#" style="float: right; color:black;" ><i class="fa fa-bell-o fa-lg" aria-hidden="true"></i></a> -->
 			<a href="${pageContext.request.contextPath}/noticeContent" style="float: right; color:black;" ><i class="fa fa-bell-o fa-lg material-ripple" style="overflow:unset;" aria-hidden="true"></i>
       			
+<<<<<<< HEAD
 	      		<span id="noticeCnt" style="display:inline-block; background: red; color: white;"></span>
+=======
+      			<c:if test="${unreadNotiCnt != 0 }">
+	      			<span id="noticeCnt" style="background: red; color: white;">${unreadNotiCnt }</span>
+      			</c:if>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
       			</a>
 		</div>
     </nav>
@@ -370,11 +379,16 @@ input[type="datetime-local"]:valid::before {
     </nav>
 
     <jsp:include page="/WEB-INF/jsp/include/lib/botLibs.jsp"></jsp:include>
+<<<<<<< HEAD
     <script src="${pageContext.request.contextPath }/resources/wow/dist/wow.min.js"></script>
+=======
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script> -->
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
       <script type="text/javascript">
       
 //       $("table").removeClass("table-hover")
 //       $("tr").addClass("material-ripple")
+<<<<<<< HEAD
 
 // 알림개수 불러오기
 new WOW().init();
@@ -418,6 +432,8 @@ new WOW().init();
 			
 			}, 3000);
 
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
       
       function goDisplayClosed() {
     	  location.href = "${pageContext.request.contextPath}/displayClosed"

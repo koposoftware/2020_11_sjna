@@ -38,11 +38,22 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		
 		if (memberVO == null) {
 			
+<<<<<<< HEAD
 			String uri = request.getRequestURI();
 			uri = uri.substring(request.getContextPath().length());
 			
 			String query = request.getQueryString();
 //			System.out.println(query);
+=======
+			System.out.println("로그인인터셉터 거치긴 하지?");
+			
+			String uri = request.getRequestURI();
+			System.out.println("request.getContextPath() " + request.getContextPath());
+			uri = uri.substring(request.getContextPath().length());
+			
+			String query = request.getQueryString();
+			System.out.println(query);
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 			
 			if(query != null && query.length() != 0) {
 				uri = uri + "?" + query;

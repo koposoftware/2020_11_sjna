@@ -22,7 +22,10 @@
 	<result column="seller_like_notice" property="sellerLikeNotice" />
 	<result column="seller_closed_notice" property="sellerClosedNotice" />
 	<result column="seller_purchase_confirm_notice" property="sellerPurchaseConfirmNotice" />
+<<<<<<< HEAD
 	<result column="sms_notice" property="SMSNotice" />
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 </resultMap>
 

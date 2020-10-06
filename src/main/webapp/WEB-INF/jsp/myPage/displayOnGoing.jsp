@@ -142,9 +142,12 @@ background: rgb(190, 190, 190);
     top: .25rem;
     }
  
+<<<<<<< HEAD
  a:not([href]):not([tabindex]) {
      color: #8f8f8f;
  }
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 
 </style>

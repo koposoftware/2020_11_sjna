@@ -27,6 +27,7 @@ public class AucGoodsDAOImpl implements AucGoodsDAO{
 	
 	
 	@Override
+<<<<<<< HEAD
 	public int selectWinningBidByNo(int aucNo) {
 		// TODO Auto-generated method stub
 		int winningBid = sqlSession.selectOne("auction.dao.AucGoodsDAO.selectWinningBidByNo", aucNo);
@@ -34,6 +35,8 @@ public class AucGoodsDAOImpl implements AucGoodsDAO{
 	}
 
 	@Override
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	public void updateNotiReadDatetime(String memberNick) {
 		// TODO Auto-generated method stub
 		sqlSession.update("auction.dao.AucGoodsDAO.updateNotiReadDatetime",memberNick);

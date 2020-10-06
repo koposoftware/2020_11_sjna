@@ -81,5 +81,8 @@ public interface AucGoodsDAO {
 	
 	// 낙찰일로부터 confirmDay일 지난 경매건 리스트 구하기
 	List<AucGoodsVO> selectNotPurchaseConfirmList(int confirmDay);
+<<<<<<< HEAD
 	int selectWinningBidByNo(int aucNo);
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 }

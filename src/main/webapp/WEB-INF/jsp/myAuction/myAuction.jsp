@@ -9,17 +9,23 @@
 	<jsp:include page="/WEB-INF/jsp/include/lib/topLibs.jsp"></jsp:include>
 <title>하피 - 모두를 위한 경매</title>
     <link href="${pageContext.request.contextPath }/resources/bootstrap-4.0.0/docs/4.0/examples/navbar-fixed/navbar-top-fixed.css" rel="stylesheet">
+<<<<<<< HEAD
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/wow/css/libs/animate.css">
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 <style type="text/css">
 a {
 	text-decoration: none !important;
 }
 
+<<<<<<< HEAD
  a:not([href]):not([tabindex]) {
      color: #8f8f8f;
  }
 
 
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 body {
 	min-height: 0;
 }
@@ -99,7 +105,11 @@ body {
 
 .table th {
 	width: 40%;
+<<<<<<< HEAD
 	height: 5.3rem;
+=======
+	height: 5rem;
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
  	vertical-align: middle; 
  	padding: 0; 
 	text-align: center;
@@ -178,7 +188,13 @@ color: white;
 <!--       			<a href="#" style="float: right; color:black;" ><i class="fa fa-bell-o fa-lg" aria-hidden="true"></i></a> -->
 				<a href="${pageContext.request.contextPath}/noticeContent" style="float: right; color:black;" ><i class="fa fa-bell-o fa-lg material-ripple" style="overflow:unset;" aria-hidden="true"></i>
       			
+<<<<<<< HEAD
 	      		<span id="noticeCnt" style="display:inline-block; background: red; color: white;"></span>
+=======
+      			<c:if test="${unreadNotiCnt != 0 }">
+	      			<span id="noticeCnt" style="background: red; color: white;">${unreadNotiCnt }</span>
+      			</c:if>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
       			</a>
 		</div>
       
@@ -319,6 +335,7 @@ color: white;
 
 
     <jsp:include page="/WEB-INF/jsp/include/lib/botLibs.jsp"></jsp:include>
+<<<<<<< HEAD
     <script src="${pageContext.request.contextPath }/resources/wow/dist/wow.min.js"></script>
     
     <script type="text/javascript">
@@ -365,6 +382,9 @@ color: white;
 		
 		}, 3000);
 	
+=======
+    <script type="text/javascript">
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 //     var currentURL = window.location.href
 <%--     console.log(<%= request.getServletPath() %>) --%>
 <%--     console.log(<%= request.getContextPath() %>) --%>

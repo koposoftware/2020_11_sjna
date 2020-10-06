@@ -117,7 +117,11 @@ position: relative;
  
  table th {
 	width: 15%;
+<<<<<<< HEAD
 	height: 3.5rem;
+=======
+	height: 1.8rem;
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 /* 	padding-left: 3%; */
 	text-align: center;
 	vertical-align: middle;
@@ -194,16 +198,25 @@ table th img {
     <c:choose>
     <%--    입찰내역된 적이 없으면 --%>
 	     	<c:when test="${aucGoodsVO.winningBid == 0 }">
+<<<<<<< HEAD
 	     		<div id="startPriceTag">
 	     			<div style="text-decoration: underline;"><div>경매시작가</div></div>
 	    			<div style="font-size: 1.5rem; font-weight: bold;">&nbsp;<fmt:formatNumber value="${aucGoodsVO.startPrice }" pattern="#,###"/> 원 </div>
 	     		</div>
 	     	</c:when>
 	    <c:otherwise>
+=======
+	     			<div style="text-decoration: underline;"><div>경매시작가</div></div>
+	    			<div style="font-size: 1.5rem; font-weight: bold;">&nbsp;<fmt:formatNumber value="${aucGoodsVO.startPrice }" pattern="#,###"/> 원 </div>
+	     	</c:when>
+	    <c:otherwise>
+     
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		     <c:forEach items="${bidResult}" var="result" end="0">
 			     	<%-- 마감전이면 최고입찰가 / 후면 낙찰가 --%>
 			    	<c:choose>
 			    		<c:when test="${nowTime < aucGoodsVO.endDate }">
+<<<<<<< HEAD
 			    			<div id="oriPriceTag">
 			    				<div style="text-decoration: underline;"><div>최고입찰가</div></div>
 			    				<div style="font-size: 1.5rem; font-weight: bold;">&nbsp;<span id="curPrice2"><fmt:formatNumber value="${result.memberBalance }" pattern="#,###"/></span> 원 (${result.tranzMemberNick }) </div>
@@ -214,11 +227,20 @@ table th img {
 			    			<div style="text-decoration: underline;"><div>낙찰가</div></div>
 			    			<div style="font-size: 1.5rem; font-weight: bold; background: rgb(26, 188, 156); display: inline-block;">&nbsp;<fmt:formatNumber value="${result.memberBalance }" pattern="#,###"/> 원 (${result.tranzMemberNick })&nbsp;</div>
 			    		</div>
+=======
+			    			<div style="text-decoration: underline;"><div>최고입찰가</div></div>
+			    			<div style="font-size: 1.5rem; font-weight: bold;">&nbsp;<fmt:formatNumber value="${result.memberBalance }" pattern="#,###"/> 원 (${result.tranzMemberNick }) </div>
+			    		</c:when>
+			    		<c:otherwise>
+			    			<div style="text-decoration: underline;"><div>낙찰가</div></div>
+			    			<div style="font-size: 1.5rem; font-weight: bold; background: rgb(26, 188, 156); display: inline-block;">&nbsp;<fmt:formatNumber value="${result.memberBalance }" pattern="#,###"/> 원 (${result.tranzMemberNick })&nbsp;</div>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 			    		</c:otherwise>
 			    	</c:choose>
 		    	</c:forEach>
 	    </c:otherwise>	
      </c:choose>
+<<<<<<< HEAD
      
 	     <div id="priceTag" style="display: none;">
 	     	<div style="text-decoration: underline;"><div>최고입찰가</div></div>
@@ -230,11 +252,18 @@ table th img {
 <!-- 		</div> -->
 	
 	
+=======
+
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	</div>
 	
 	<nav class="na-nav">
 			<div>
+<<<<<<< HEAD
 				<a class="top-on material-ripple" onclick="showRank()"><span>경매참여자</span></a> 
+=======
+				<a class="top-on material-ripple" href="#" onclick="showRank()"><span>경매참여자</span></a> 
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 				<a class="material-ripple" onclick="showHistory()" ><span>입/출금</span></a> 
 				<a class="material-ripple" onclick="result()" ><span>경매결과</span></a> 
 				<span></span>
@@ -243,6 +272,7 @@ table th img {
 	</nav>
 	
 	
+<<<<<<< HEAD
 <%-- 	 <c:choose> --%>
 <%--        입찰내역된 적이 없으면 --%>
 <%-- 	     	<c:when test="${aucGoodsVO.winningBid == 0 }"> --%>
@@ -268,6 +298,37 @@ table th img {
 		<%-- 경매참여자 탭 --%>
 		<table class="table table-hover rank" style="margin-bottom: 0rem; font-weight: bold; margin: 0 auto; width: 96%; margin-top: .5rem;">
 			<tbody id="bidderListBody">
+=======
+	 <c:choose>
+    <%--    입찰내역된 적이 없으면 --%>
+	     	<c:when test="${aucGoodsVO.winningBid == 0 }">
+	     		<div class="history" style="text-align: center;margin-top: 1rem;">
+	     		 	<img style="width: 6rem; margin-top: 6%; margin-bottom: .5rem; " src="${pageContext.request.contextPath}/resources/img/hafy.png">
+	     			<div>아직 입찰 내역이 없습니다.</div>
+	     			<div>해당 경매에 한번 입찰을 해보세요!</div>
+	     		</div>
+	     		<div class="rank" style="display: none;text-align: center;margin-top: 1rem;">
+	     			<img style="width: 6rem; margin-top: 6%; margin-bottom: .5rem; " src="${pageContext.request.contextPath}/resources/img/hafy.png">
+	     			<div>아직 입찰 내역이 없습니다.</div>
+	     			<div>해당 경매에 한번 입찰을 해보세요!</div>
+	     		</div>
+	     		<div class="result" style="display: none;text-align: center;margin-top: 1rem;">
+	     			<img style="width: 6rem; margin-top: 6%; margin-bottom: .5rem; " src="${pageContext.request.contextPath}/resources/img/hafy.png">
+	     			<div>아직 진행 중인 경매입니다.</div>
+	     		</div>
+	     	</c:when>
+	     	<c:otherwise>
+	
+	
+<%-- 	입/출금내역 탭 --%>
+		<table id="bidHistory" class="table table-hover history" style="display:none; margin: 0 auto; width: 96%; margin-top: .5rem;margin-bottom: 3.5rem; ">
+			
+		</table>
+
+		<%-- 경매참여자 탭 --%>
+		<table class="table table-hover rank" style="margin-bottom: 0rem; font-weight: bold; margin: 0 auto; width: 96%; margin-top: .5rem;">
+			<tbody>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 			 <c:forEach items="${bidderList}" var="bidder" varStatus="i">
 				<tr>
 					<th scope="row">${i.count }</th>
@@ -282,6 +343,7 @@ table th img {
 			</tbody>
 		</table>
 		
+<<<<<<< HEAD
 		<%-- 	입/출금내역 탭 --%>
 		<table id="bidHistory" class="table table-hover history" style="display:none; margin: 0 auto; width: 96%; margin-top: .5rem;margin-bottom: 3.5rem; ">
 			<tbody id="historyTbody">
@@ -289,6 +351,8 @@ table th img {
 			</tbody>
 		</table>
 		
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		
 		<%-- 경매 결과 탭... 마감 전/후 --%> 
 	<div class="result" style="display:none;">
@@ -333,18 +397,31 @@ table th img {
 			</c:otherwise>		
 		</c:choose>
 	</div>
+<<<<<<< HEAD
 <%-- 	</c:otherwise> --%>
 <%-- 	</c:choose> --%>
+=======
+	</c:otherwise>
+	</c:choose>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		
 	<nav class="na-nav2 navbar fixed-bottom navbar-expand-sm "
 		style="display: unset; background: white; padding:0; padding-top:0.2rem; text-align: center;">
 
 
+<<<<<<< HEAD
 				<button type="button" class="btn btn-success" onclick="goGoodsDetail()"
 					style="background: rgb(46, 204, 113); border:rgb(46, 204, 113); font-weight: bold; width: 35%;">상품보기</button>
 <%-- 			마감시간 전이면  / 후면--%>
 		<c:choose>
 			<c:when test="${nowTime < aucGoodsVO.endDate }">
+=======
+<%-- 			마감시간 전이면  / 후면--%>
+		<c:choose>
+			<c:when test="${nowTime < aucGoodsVO.endDate }">
+				<button type="button" class="btn btn-success" onclick="goGoodsDetail()"
+					style="background: rgb(46, 204, 113); border:rgb(46, 204, 113); font-weight: bold; width: 35%;">상품보기</button>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<button type="button" class="btn btn-success" onclick="goBid()"
 					style="background: rgb(22, 160, 133); font-weight: bold; width: 35%;">입찰하기</button>
@@ -362,6 +439,7 @@ table th img {
     <script type="text/javascript">
     
 	new WOW().init();
+<<<<<<< HEAD
 	
 	function comma(num){
 	    var len, point, str; 
@@ -484,6 +562,8 @@ table th img {
 //     	}
 			}, 3000);
     
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 	function goGoodsDetail() {
 		location.href= "${pageContext.request.contextPath}/goodsDetail/" + ${aucNo};
@@ -496,6 +576,7 @@ table th img {
 		
 	}
 	
+<<<<<<< HEAD
 // 	let historyScrollCnt = 1;
 // 	let loadCnt = 6;
 // 	let historyScrollLocation = 0;
@@ -527,11 +608,32 @@ table th img {
 		})
 	}
 	
+=======
+	let historyScrollCnt = 1;
+	let loadCnt = 6;
+	let historyScrollLocation = 0;
+	
+	function loadBidHistory() {
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/loadBidHistory/" + historyScrollCnt + "/" + loadCnt + "/" + ${aucNo},
+			type : 'get',
+			success: function(data) {
+				
+				$("#loading").show
+				$("#bidHistory").append(data)
+				historyScrollCnt += 1;
+				console.log("historyScrollCnt " + historyScrollCnt )
+			}
+		})
+	}
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	function showHistory() {
 		$(".history").show();
 		$(".rank").hide()
 		$(".result").hide();
 		
+<<<<<<< HEAD
 		loadBidHistory2()
 		
 // 		window.addEventListener('scroll', () => {
@@ -552,6 +654,27 @@ table th img {
 // 			})
 	}
 	
+=======
+		loadBidHistory()
+		
+		window.addEventListener('scroll', () => {
+				historyScrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
+				let windowHeight = window.innerHeight; // 스크린 창
+				let fullHeight = document.body.scrollHeight; //  margin 값은 포함 x
+				console.log("historyScrollLocation " + historyScrollLocation )
+				console.log("historyScrollLocation + windowHeight " + (historyScrollLocation + windowHeight ))
+				console.log("fullHeight " + fullHeight )
+				
+				if(Math.ceil(historyScrollLocation + windowHeight) == fullHeight){
+					console.log('끝')
+					setTimeout(function() {  
+						loadBidHistory()
+					}, 
+					500);
+				}
+			})
+	}
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	function showRank() {
 		$(".history").hide();
 		$(".rank").show();

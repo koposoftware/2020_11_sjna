@@ -204,6 +204,7 @@ float: ri
     </nav>
 
 
+<<<<<<< HEAD
 	
 	<div class="na-content" style="    margin-bottom: 1.6rem;">
 		<div>SMS수신</div>
@@ -212,6 +213,11 @@ float: ri
 			<span id="smsToggle" style="float: right;"><input id="SMSNotice" type="checkbox"  checked data-toggle="toggle" data-onstyle="success"></span>
 		</div>
 	
+=======
+
+	<div class="na-content" style="    margin-bottom: 1.6rem;">
+
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	<div>입찰자 알림</div>	
 	<table class="table-hover">
 		<tr>
@@ -255,7 +261,10 @@ float: ri
 	<div>출품자 알림</div>
 	
 	<table class="table-hover">
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		<tr>
 			<th>입찰자의 입찰</th>
 			<td><input id="sellerBidNotice" type="checkbox" checked data-toggle="toggle" data-onstyle="success"></td>
@@ -273,7 +282,10 @@ float: ri
 			<td><input id="sellerPurchaseConfirmNotice" type="checkbox" checked data-toggle="toggle" data-onstyle="success"></td>
 		</tr>
 	</table>
+<<<<<<< HEAD
 	</div>
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	
     
 	<nav class="na-nav2 navbar fixed-bottom navbar-expand-sm navbar-dark" style="background: #27b2a5; padding: .1rem 0rem; height: 3rem;">
@@ -295,12 +307,15 @@ float: ri
 
       
       // checked true or false ?
+<<<<<<< HEAD
   	if(${noticeSettingVO.SMSNotice == 'true'}) {
       $("input:checkbox[id='SMSNotice']").prop("checked", true); /* by ID */
   	} else {
       $("input:checkbox[id='SMSNotice']").prop("checked", false); /* by ID */
   	}
       
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
   	if(${noticeSettingVO.bidderBidNotice == 'true'}) {
       $("input:checkbox[id='bidderBidNotice']").prop("checked", true); /* by ID */
   	} else {
@@ -371,7 +386,10 @@ float: ri
 	})
 	
 		// 변경된 세팅값 가져오기
+<<<<<<< HEAD
 		let SMSNotice = ${noticeSettingVO.SMSNotice}
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		let bidderBidNotice = ${noticeSettingVO.bidderBidNotice}
       console.log("기존 bidderBidNotice : " + bidderBidNotice)
 		let bidderImminentNotice = ${noticeSettingVO.bidderImminentNotice};
@@ -384,11 +402,14 @@ float: ri
 		let sellerClosedNotice = ${noticeSettingVO.sellerClosedNotice};
 		let sellerPurchaseConfirmNotice = ${noticeSettingVO.sellerPurchaseConfirmNotice};
 		
+<<<<<<< HEAD
 		 $("#SMSNotice").change(function(event) {
 			 SMSNotice = event.currentTarget.checked;
       console.log("변경된 SMSNotice : " + SMSNotice)
       changeNoticeSetting()
 	  	})
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		 $("#bidderBidNotice").change(function(event) {
 	    	  bidderBidNotice = event.currentTarget.checked;
       console.log("변경된 bidderBidNotice : " + bidderBidNotice)
@@ -428,7 +449,10 @@ float: ri
 		  	url : "${pageContext.request.contextPath}/noticeSettingProcess",
 		  	type : 'post',
 		  	data : {
+<<<<<<< HEAD
 		  		SMSNotice : SMSNotice,
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		  		bidderBidNotice : bidderBidNotice,
 		  		bidderImminentNotice : bidderImminentNotice,
 		  		bidderImminentTime : bidderImminentTime,

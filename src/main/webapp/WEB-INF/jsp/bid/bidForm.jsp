@@ -11,7 +11,10 @@
 <title>하피 - 모두를 위한 경매</title>
 
     <link href="${pageContext.request.contextPath }/resources/bootstrap-4.0.0/docs/4.0/examples/navbar-fixed/navbar-top-fixed.css" rel="stylesheet">
+<<<<<<< HEAD
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/wow/css/libs/animate.css">
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 <style type="text/css">
 a {
 	text-decoration: none !important;
@@ -189,7 +192,11 @@ table th img {
               	<table>
               		<tr>
               			<th>경매번호</th>
+<<<<<<< HEAD
 						<td >${aucGoodsVO.no }</td>
+=======
+						<td>${aucGoodsVO.no }</td>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 					</tr>
               		<tr>
               			<th>상품명</th>
@@ -215,6 +222,7 @@ table th img {
               	
               	입찰하기
 		<table>
+<<<<<<< HEAD
 			<tr id="highestBidTag">
 				<th>현 최고입찰가</th>
 				<td style="font-weight: bold;">
@@ -228,6 +236,19 @@ table th img {
 <!-- 							<i>아직 입찰된 내역이 없습니다.</i> -->
 <%-- 						</c:otherwise> --%>
 <%-- 					</c:choose> --%>
+=======
+			<tr>
+				<th>현 최고입찰가</th>
+				<td style="font-weight: bold;">
+					<c:choose>
+						<c:when test="${aucGoodsVO.winningBid != 0 }">
+							<fmt:formatNumber value="${aucGoodsVO.winningBid}" pattern="#,###"/> 원
+						</c:when>
+						<c:otherwise>
+							<i>아직 입찰된 내역이 없습니다.</i>
+						</c:otherwise>
+					</c:choose>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 				</td>
 			</tr>
 			
@@ -241,6 +262,7 @@ table th img {
 				<strong><fmt:formatNumber value="${pastBidMoney}" pattern="#,###"/></strong> 원 입니다.
 					</c:when>
 					<c:otherwise>
+<<<<<<< HEAD
 						<span id="noBidMsg2" style="display: none;">현재 시작가인 <strong><fmt:formatNumber value="${aucGoodsVO.startPrice}" pattern="#,###"/></strong> 원부터 <br>	입찰하실 수 있습니다.</span>
 						<div id="bidMsg" style="display: none;"><strong id="bidCons"><fmt:formatNumber value="${aucGoodsVO.winningBid}" pattern="#,###"/> 원</strong>을 초과하는 금액부터 <br>입찰이 가능합니다.</div>
 <%-- 						<c:choose> --%>
@@ -251,12 +273,26 @@ table th img {
 <%-- 								<span id="bidMsg"><strong><fmt:formatNumber value="${aucGoodsVO.winningBid}" pattern="#,###"/></strong></span> 원을 초과하는 금액부터 <br>입찰이 가능합니다. --%>
 <%-- 							</c:otherwise> --%>
 <%-- 						</c:choose> --%>
+=======
+						<c:choose>
+							<c:when test="${aucGoodsVO.winningBid == 0}">
+								현재 시작가인 <strong><fmt:formatNumber value="${aucGoodsVO.startPrice}" pattern="#,###"/></strong> 원부터 <br>	입찰하실 수 있습니다.
+							</c:when>
+							<c:otherwise>
+								<strong><fmt:formatNumber value="${aucGoodsVO.winningBid}" pattern="#,###"/></strong> 원을 초과하는 금액부터 <br>입찰이 가능합니다.
+							</c:otherwise>
+						</c:choose>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 					</c:otherwise>
 				</c:choose>
 					
 						<div class="input-group" style="padding-top: 0.6rem;">
 							<!-- 				<span class="input-group-addon">\</span>  -->
+<<<<<<< HEAD
 							<input type="number" id="bidMoney" name="bidMoney" class="form-control" style="width: 80%; "
+=======
+							<input type="number" name="bidMoney" class="form-control" style="width: 80%; "
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 								placeholder="입찰가" onkeypress="modifyBid()"> &nbsp;&nbsp; 
 								<span style="margin-top: 1rem;">원</span>
 						</div>
@@ -265,7 +301,10 @@ table th img {
 			</tr>
 		</table>
 		
+<<<<<<< HEAD
 		<div id="typeBidMoney" style="color: orange; display: none; text-align: right;">입찰할 금액을<br> 입력하셔야합니다.</div>
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		<div id="startBidError" style="color: orange; display: none; text-align: right;">시작가 이상의 금액을<br> 입찰하셔야합니다.</div>
 		<div id="bidError" style="color: orange; display: none; text-align: right;">최고입찰가를 초과하는 금액을<br> 입찰하셔야합니다.</div>
 		
@@ -287,6 +326,7 @@ table th img {
 
 
     <jsp:include page="/WEB-INF/jsp/include/lib/botLibs.jsp"></jsp:include>
+<<<<<<< HEAD
 	<script src="${pageContext.request.contextPath }/resources/wow/dist/wow.min.js"></script>
     
     <script type="text/javascript">
@@ -372,11 +412,16 @@ function comma(num){
 		}, 3000);
     
     
+=======
+    
+    <script type="text/javascript">
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
   
 	function checkBidMoney(winningBid, startPrice) {
 		
 		let bidMoney = document.bForm.bidMoney.value
 		
+<<<<<<< HEAD
 		if (bidMoney == '') {
 			$("#typeBidMoney").show()
 			return false;
@@ -384,17 +429,27 @@ function comma(num){
 		
 		
 		if (hBid == 0) {
+=======
+		if (winningBid == 0) {
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 			if (parseInt(bidMoney) < startPrice) {
 				$("#startBidError").show();
 				return false;
 			}	
 		} else {
+<<<<<<< HEAD
 			if (parseInt(bidMoney) <= hBid) {
+=======
+			if (parseInt(bidMoney) <= winningBid) {
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 // 			if (parseInt(bidMoney) + ${pastBidMoney} <= winningBid) { (과거버전)
 				$("#bidError").show();
 				return false;
 			}
+<<<<<<< HEAD
 			}
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	}
 	return true;
 }
@@ -402,7 +457,10 @@ function comma(num){
 	function modifyBid() {
 		$("#startBidError").hide();
 		$("#bidError").hide();
+<<<<<<< HEAD
 		$("#typeBidMoney").hide()
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	}
 
 	  

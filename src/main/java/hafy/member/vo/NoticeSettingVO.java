@@ -13,7 +13,10 @@ public class NoticeSettingVO {
 	private String sellerClosedNotice;
 	private String sellerPurchaseConfirmNotice;
 	private String sellerReturnRequestNotice;
+<<<<<<< HEAD
 	private String SMSNotice;
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	
 	
 	public NoticeSettingVO() {
@@ -21,12 +24,19 @@ public class NoticeSettingVO {
 		// TODO Auto-generated constructor stub
 	}
 
+<<<<<<< HEAD
 	
 	
 	public NoticeSettingVO(String memberNick, String bidderBidNotice, String bidderImminentNotice,
 			int bidderImminentTime, String bidderClosedNotice, String bidderReturnApproveNotice, String sellerBidNotice,
 			String sellerLikeNotice, String sellerClosedNotice, String sellerPurchaseConfirmNotice,
 			String sellerReturnRequestNotice, String sMSNotice) {
+=======
+	public NoticeSettingVO(String memberNick, String bidderBidNotice, String bidderImminentNotice,
+			int bidderImminentTime, String bidderClosedNotice, String bidderReturnApproveNotice, String sellerBidNotice,
+			String sellerLikeNotice, String sellerClosedNotice, String sellerPurchaseConfirmNotice,
+			String sellerReturnRequestNotice) {
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		super();
 		this.memberNick = memberNick;
 		this.bidderBidNotice = bidderBidNotice;
@@ -39,6 +49,7 @@ public class NoticeSettingVO {
 		this.sellerClosedNotice = sellerClosedNotice;
 		this.sellerPurchaseConfirmNotice = sellerPurchaseConfirmNotice;
 		this.sellerReturnRequestNotice = sellerReturnRequestNotice;
+<<<<<<< HEAD
 		SMSNotice = sMSNotice;
 	}
 
@@ -56,6 +67,10 @@ public class NoticeSettingVO {
 
 
 
+=======
+	}
+	
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	public String getBidderReturnApproveNotice() {
 		return bidderReturnApproveNotice;
 	}
@@ -125,8 +140,11 @@ public class NoticeSettingVO {
 		this.sellerPurchaseConfirmNotice = sellerPurchaseConfirmNotice;
 	}
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	@Override
 	public String toString() {
 		return "NoticeSettingVO [memberNick=" + memberNick + ", bidderBidNotice=" + bidderBidNotice
@@ -134,11 +152,17 @@ public class NoticeSettingVO {
 				+ ", bidderClosedNotice=" + bidderClosedNotice + ", bidderReturnApproveNotice="
 				+ bidderReturnApproveNotice + ", sellerBidNotice=" + sellerBidNotice + ", sellerLikeNotice="
 				+ sellerLikeNotice + ", sellerClosedNotice=" + sellerClosedNotice + ", sellerPurchaseConfirmNotice="
+<<<<<<< HEAD
 				+ sellerPurchaseConfirmNotice + ", sellerReturnRequestNotice=" + sellerReturnRequestNotice
 				+ ", SMSNotice=" + SMSNotice + "]";
 	}
 
 
+=======
+				+ sellerPurchaseConfirmNotice + ", sellerReturnRequestNotice=" + sellerReturnRequestNotice + "]";
+	}
+
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	
 	
 

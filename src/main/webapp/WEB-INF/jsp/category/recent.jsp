@@ -93,7 +93,11 @@ body {
 
 .table th {
 	width: 40%;
+<<<<<<< HEAD
 	height: 5.3rem;
+=======
+	height: 5rem;
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
  	vertical-align: middle; 
  	padding: 0; 
 	text-align: center;

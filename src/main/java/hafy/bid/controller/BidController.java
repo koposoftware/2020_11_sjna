@@ -1,6 +1,7 @@
 package hafy.bid.controller;
 
 import java.text.DecimalFormat;
+<<<<<<< HEAD
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,6 +13,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+=======
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,6 +33,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+<<<<<<< HEAD
+=======
+import org.springframework.web.bind.annotation.RequestMapping;
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -60,34 +74,56 @@ public class BidController {
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		String nowTime = now.format(formatter);
+<<<<<<< HEAD
 
 		System.out.println("매분 10초에 환급 알고리즘 도는중..." + " (현재시각:" + nowTime + ")");
+=======
+		
+		System.out.println("매분 10초에 환급 알고리즘 도는중..." + " (현재시각:" + nowTime +")");
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		// 마감된 경매 환급
 		bidService.refundBidMoney();
 	}
 
 	// 스케쥴러로 알림메세지 보내기
+<<<<<<< HEAD
 	@Scheduled(cron = "5 * * * * *")
+=======
+	@Scheduled(cron = "0 * * * * *")
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	public void noticeWithScheduler() {
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		String nowTime = now.format(formatter);
+<<<<<<< HEAD
 		System.out.println("매분 5초에 경매마감/경매마감임박 알림 알고리즘 도는중..." + " (현재시각:" + nowTime + ")");
 		// 마감임박한 경매 알림 (bidders)
 		bidService.noticeImminentAucs();
 
 		// 마감된 경매 sms/app 알림 (seller, bidders(winner, losers))
 //		String url = request.getContextPath();
+=======
+		System.out.println("매분 0초에 경매마감/경매마감임박 알림 알고리즘 도는중..." + " (현재시각:" + nowTime +")");
+		// 마감임박한 경매 알림 (bidders)
+		bidService.noticeImminentAucs();
+
+		// 마감된 경매 알림 (seller, bidders(winner, losers))
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		bidService.noticeClosedBid();
 	}
 
 	@Scheduled(cron = "0 * * * * *")
 	public void autoPurchaseConfirm() {
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		int confirmDay = 2;
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		String nowTime = now.format(formatter);
+<<<<<<< HEAD
 		System.out.println("매분 0초에 자동 매입확정 알고리즘 도는중..." + " (현재시각:" + nowTime + ")");
 
 		// 자동 매입확정 알고리즘 (낙찰액 전달 / 출품자에게 알림메세지) (낙찰된지 confirmDay일 지난 건들에 대해 매입확정 알고리즘)
@@ -179,6 +215,37 @@ public class BidController {
 
 		mav.addObject("bidderList", bidderList);
 		mav.setViewName("/aAccount/beforeLoadBidderList");
+=======
+		System.out.println("매분 0초에 자동 매입확정 알고리즘 도는중..." + " (현재시각:" + nowTime +")");
+
+		// 자동 매입확정 알고리즘 (낙찰액 전달 / 출품자에게 알림메세지) (낙찰된지 confirmDay일 지난  건들에 대해 매입확정 알고리즘)
+		bidService.autoPurchaseConfirm(confirmDay);
+	}
+	
+
+	@ResponseBody
+	@GetMapping("/loadBidHistory/{historyScrollCnt}/{loadCnt}/{aucNo}")
+	public ModelAndView loadBidHistory(@PathVariable("historyScrollCnt") int historyScrollCnt,
+			@PathVariable("loadCnt") int loadCnt, @PathVariable("aucNo") int aucNo) {
+
+		ModelAndView mav = new ModelAndView();
+
+		AucGoodsVO aucGoodsVO = aucGoodsService.selectAucGoodsByNo(aucNo);
+		if (aucGoodsVO.getWinningBid() != 0) {
+
+			Map<String, Object> loadInfo = new HashMap<String, Object>();
+			loadInfo.put("scrollCnt", historyScrollCnt);
+			loadInfo.put("loadCnt", loadCnt);
+			loadInfo.put("aucNo", aucNo);
+
+			// 특정 경매의 입출금 탭 정보 구하기
+			List<ATranzVO> aTranzList = new ArrayList<ATranzVO>();
+			aTranzList = bidService.selectATranzLazyLoadByAucNo(loadInfo);
+
+			mav.addObject("aTranzList", aTranzList);
+		}
+		mav.setViewName("/aAccount/beforeLoadBidHistory");
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 		return mav;
 	}
@@ -191,9 +258,15 @@ public class BidController {
 
 		if (aucGoodsVO.getWinningBid() != 0) {
 
+<<<<<<< HEAD
 			// 특정 경매의 입출금 탭 정보 구하기 (ajax 레이지로딩으로 대체)
 //			List<ATranzVO> aTranzList = new ArrayList<ATranzVO>();
 //			aTranzList = bidService.selectATranzByAucNo(aucNo);
+=======
+			// 특정 경매의 입출금 탭 정보 구하기
+			List<ATranzVO> aTranzList = new ArrayList<ATranzVO>();
+			aTranzList = bidService.selectATranzByAucNo(aucNo);
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 			// 특정 경매의 모임통장 정보 가져오기 (경매자, 입찰액) / 경매참여자 탭에서 필요한 정도
 			List<AAccountVO> bidderList = new ArrayList<AAccountVO>();
@@ -203,12 +276,17 @@ public class BidController {
 			List<ATranzVO> bidResult = new ArrayList<ATranzVO>();
 			bidResult = bidService.selectBidResult(aucNo);
 
+<<<<<<< HEAD
 //			request.setAttribute("aTranzList", aTranzList);
+=======
+			request.setAttribute("aTranzList", aTranzList);
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 			request.setAttribute("bidderList", bidderList);
 			request.setAttribute("bidResult", bidResult);
 
 		}
 
+<<<<<<< HEAD
 		// 데이트포맷
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREA);
 		// 한국기준 날짜
@@ -216,6 +294,12 @@ public class BidController {
 		Date date = new Date(calendar.getTimeInMillis());
 		sdf.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
 		String nowTime = sdf.format(date);
+=======
+		// 현재시간 가져오기
+		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String nowTime = now.format(formatter);
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 		request.setAttribute("nowTime", nowTime);
 		request.setAttribute("aucGoodsVO", aucGoodsVO);
@@ -228,6 +312,10 @@ public class BidController {
 
 		// 상품 정보 불러오기
 		AucGoodsVO aucGoodsVO = aucGoodsService.selectAucGoodsByNo(aucNo);
+<<<<<<< HEAD
+=======
+		request.setAttribute("aucGoodsVO", aucGoodsVO);
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 		// 회원 계좌 목록 불러오기
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
@@ -254,6 +342,7 @@ public class BidController {
 		//// 입찰목록 불러오기
 //		System.out.println(bidderList);
 		//// 시작가
+<<<<<<< HEAD
 //		int startPrice = aucGoodsVO.getStartPrice();
 //
 //		double highestBid = 0;
@@ -276,10 +365,34 @@ public class BidController {
 		request.setAttribute("pastBidMoney", pastBidMoney);
 		request.setAttribute("mAccountList", mAccountList);
 //		request.setAttribute("highestBid", highestBid);
+=======
+		int startPrice = aucGoodsVO.getStartPrice();
+
+		double highestBid = 0;
+		if (bidderList.isEmpty()) {
+			highestBid = startPrice;
+//			System.out.println("시작가가 최고입찰가: " + highestBid);
+		} else {
+			highestBid = bidderList.get(0).getBidMoney();
+			for (int i = 1; i < bidderList.size(); i++) {
+				if (bidderList.get(i).getBidMoney() >= highestBid) {
+
+					highestBid = bidderList.get(i).getBidMoney();
+				}
+			}
+//			System.out.println("쌓아둔게 최고입찰가: " + highestBid);
+		}
+
+//		System.out.println("과거 입찰액: " + pastBidMoney);
+		request.setAttribute("pastBidMoney", pastBidMoney);
+		request.setAttribute("mAccountList", mAccountList);
+		request.setAttribute("highestBid", highestBid);
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 		return "/bid/bidForm";
 	}
 
+<<<<<<< HEAD
 	@ResponseBody
 	@GetMapping("/getHighestBid/{aucNo}")
 	public int getHighestBid(@PathVariable("aucNo") int aucNo) {
@@ -289,6 +402,8 @@ public class BidController {
 		return highestBid;
 	}
 
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	@PostMapping("/bidConfirm/{aucNo}")
 	public String bidConfirm(@PathVariable("aucNo") int aucNo, HttpServletRequest request, HttpSession session) {
 

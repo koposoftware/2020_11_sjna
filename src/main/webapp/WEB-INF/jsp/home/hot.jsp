@@ -9,7 +9,11 @@
 <title>하피 - 모두를 위한 경매</title>
     <link href="${pageContext.request.contextPath }/resources/bootstrap-4.0.0/docs/4.0/examples/navbar-fixed/navbar-top-fixed.css" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/wow/css/libs/animate.css">
+<<<<<<< HEAD
 <!--     <script src="/install.js"></script> -->
+=======
+    
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 <style type="text/css">
 a {
 	text-decoration: none !important;
@@ -95,7 +99,11 @@ body {
 
 .table th {
 	width: 40%;
+<<<<<<< HEAD
 	height: 5.3rem;
+=======
+	height: 5rem;
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
  	vertical-align: middle; 
  	padding: 0; 
 	text-align: center;
@@ -183,10 +191,13 @@ background: rgb(190, 190, 190);
 
 }
 
+<<<<<<< HEAD
 a:not([href]):not([tabindex]) {
 	color: #8f8f8f;
 }
 
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 </style>
 
@@ -196,15 +207,27 @@ a:not([href]):not([tabindex]) {
   <nav class="navbar fixed-top" style="height:3rem; background:white; color:black; padding: .5rem 1rem;">
    		<div style="float: left;">
 <!--     	  <a href="#" style="color: black; margin-right: -3rem;"><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></a> -->
+<<<<<<< HEAD
     	  <span style="font-size: 1.25rem; position:relative; top:0.2rem; /* left: 4rem; */ font-weight: bold; color:black;">홈</span>
+=======
+    	  <span  style="font-size: 1.25rem; position:relative; top:0.2rem; /* left: 4rem; */ font-weight: bold; color:black;">홈</span>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
   	 	</div>
   	 	<div class="col-4 d-flex justify-content-end align-items-right" style="margin-top: 0.5rem; margin-right: -1rem;">
       			<a href="${pageContext.request.contextPath}/aucSearch" style="float: right; color:black;" ><i class="fa fa-search fa-lg material-ripple " aria-hidden="true" style="overflow:unset; position: fixed;right: 2.7rem; top: 1.3rem;"></i></a>
       			&nbsp;&nbsp;&nbsp;
+<<<<<<< HEAD
       			
       			<a href="${pageContext.request.contextPath}/noticeContent" style="float: right; color:black; " ><i class="fa fa-bell-o fa-lg material-ripple" style="overflow:unset;" aria-hidden="true"></i>
       			
 	      		<span id="noticeCnt" style="display:inline-block; background: red; color: white;"></span>
+=======
+      			<a href="${pageContext.request.contextPath}/noticeContent" style="float: right; color:black;" ><i class="fa fa-bell-o fa-lg material-ripple" style="overflow:unset;" aria-hidden="true"></i>
+      			
+      			<c:if test="${unreadNotiCnt != 0 }">
+	      			<span id="noticeCnt" style="background: red; color: white;">${unreadNotiCnt }</span>
+      			</c:if>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
       			</a>
 		</div>
       
@@ -212,7 +235,11 @@ a:not([href]):not([tabindex]) {
     
     <nav class="na-nav">
     	<div>
+<<<<<<< HEAD
     		<a  id="hotContents" class="top-on wow rubberBand" onclick="showHot()"><span style="display: block;" class="material-ripple">인기 경매</span></a>
+=======
+    		<a  id="hotContents" class="top-on" onclick="showHot()"><span style="display: block;" class="material-ripple">인기 경매</span></a>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
     		<a  id="recentContents" onclick="showRecent()"><span style="display: block;" class="material-ripple">최신 경매</span></a>
     		<span></span>
     	</div>
@@ -228,10 +255,13 @@ a:not([href]):not([tabindex]) {
 	<table id="recentAucBody" class="table table-hover" style="display:none; margin-top: 0.7rem;">
 		
 	</table>
+<<<<<<< HEAD
 	
 	<div id="install-button" hidden>
 		<i class="fa fa-download" aria-hidden="true" style="color:darkorange; font-size:4.5rem; position: fixed;bottom: 3.2rem; right: .8rem;"></i>
 	</div>
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 	<nav class="na-nav2 navbar fixed-bottom navbar-expand-sm navbar-dark" style="background: #27b2a5; padding: .1rem 0rem; height: 3rem;">
 
@@ -250,6 +280,7 @@ a:not([href]):not([tabindex]) {
   
 		new WOW().init();
 		
+<<<<<<< HEAD
 		// 알림개수 불러오기
 		function getNotiCnt() {
 			let notiCnt;
@@ -292,6 +323,10 @@ a:not([href]):not([tabindex]) {
 		
 		
 		const loadCnt = 7; 
+=======
+		
+		const loadCnt = 10; 
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		let hotScrollCnt = 1;
 		let recentScrollCnt = 1;
 		let hotTrCnt = 0;

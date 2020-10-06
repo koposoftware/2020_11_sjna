@@ -10,7 +10,10 @@ public class NoticeVO {
 	private String notiUrl;
 	private String notiDatetime;
 	private String notiReadDatetime;
+<<<<<<< HEAD
 	private String notiMethod;
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	
 	
 	public NoticeVO() {
@@ -24,6 +27,7 @@ public class NoticeVO {
 		this.notiContentNo = notiContentNo;
 		this.notiMsg = notiMsg;
 	}
+<<<<<<< HEAD
 	public NoticeVO(String notiMemberNick, String notiType, int notiContentNo, String notiMsg, String notiMethod) {
 		super();
 		this.notiMemberNick = notiMemberNick;
@@ -46,6 +50,8 @@ public class NoticeVO {
 	public void setNotiMethod(String notiMethod) {
 		this.notiMethod = notiMethod;
 	}
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	public int getNotiNo() {
 		return notiNo;
 	}
@@ -98,8 +104,12 @@ public class NoticeVO {
 	public String toString() {
 		return "NoticeVO [notiNo=" + notiNo + ", notiMemberNick=" + notiMemberNick + ", notiType=" + notiType
 				+ ", notiContentNo=" + notiContentNo + ", notiMsg=" + notiMsg + ", notiUrl=" + notiUrl
+<<<<<<< HEAD
 				+ ", notiDatetime=" + notiDatetime + ", notiReadDatetime=" + notiReadDatetime + ", notiMethod="
 				+ notiMethod + "]";
+=======
+				+ ", notiDatetime=" + notiDatetime + ", notiReadDatetime=" + notiReadDatetime + "]";
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	}
 	
 	

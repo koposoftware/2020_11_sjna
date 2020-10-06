@@ -4,9 +4,13 @@
 
 <!DOCTYPE html>
 <tbody id="notiTbody" class="wow bounceInUp">
+<<<<<<< HEAD
 
 			<c:forEach items="${noticeMap }" var="notice">
 			<tr>
+=======
+			<c:forEach items="${noticeMap }" var="notice">
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 				<c:choose>
 					<c:when test="${notice.key.notiReadDatetime eq null}">
 						<tr class="unRead" onclick="goDetail('${notice.key.notiType}',${notice.key.notiContentNo },${notice.key.notiNo })">

@@ -4,11 +4,19 @@
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+<<<<<<< HEAD
+=======
+<tbody id="historyTbody" class="wow fadeInUp" >
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 				
 	  <c:forEach items="${aTranzList }" var="aTranzVO" >
 					<c:set value="${aTranzVO.tranzDate }" var="tranzDate" scope="page"></c:set>
 				<tr>
+<<<<<<< HEAD
 					<th scope="row" style="padding: 0.75rem 0rem; height: 4.5rem">${fn:substring(tranzDate,5,10) }</th>
+=======
+					<th scope="row" style="padding: 0.75rem 0rem;">${fn:substring(tranzDate,5,10) }</th>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 					<td style="width: 40%;">
 						<div style="font-weight: bold;">${aTranzVO.tranzMemberNick }</div>
 						<div style="font-size:0.8rem; color:#8f8f8f">${fn:substring(tranzDate,11,19) } | ${aTranzVO.tranzType }</div>
@@ -32,11 +40,20 @@
 					
 				
 				
+<<<<<<< HEAD
 			
 			<script>
 // 			if(historyScrollCnt == 1) {
 // 				$("#historyTbody").removeClass("wow bounceInUp")
 // 			}
+=======
+			</tbody>
+			
+			<script>
+			if(historyScrollCnt == 1) {
+				$("#historyTbody").removeClass("wow bounceInUp")
+			}
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 			
 			</script>
 			

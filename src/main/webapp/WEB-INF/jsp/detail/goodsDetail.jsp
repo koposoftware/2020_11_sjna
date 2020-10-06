@@ -12,8 +12,11 @@
     <link href="${pageContext.request.contextPath }/resources/bootstrap-4.0.0/docs/4.0/examples/navbar-fixed/navbar-top-fixed.css" rel="stylesheet">
 <!--     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<<<<<<< HEAD
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/wow/css/libs/animate.css">
     
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 <%--     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/slick/slick.css"/> --%>
 <%-- 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/slick/slick-theme.css"/> --%>
 <style type="text/css">
@@ -256,10 +259,21 @@ height: 16rem!important;
               	<div style="float: right;margin-right: -1rem;">
               	<c:choose>
               		<c:when test="${auc.key.endDate > nowTime }">
+<<<<<<< HEAD
               			<c:if test="${auc.key.winningBid eq 0 }">
 			              <div id="startPriceTag"style="" ><span style="font-size: 0.6rem;">시작가 </span><strong><span id="startPrice"><fmt:formatNumber value="${auc.key.startPrice}" pattern="#,###"/></span> 원</strong> | <span style="color: red;"><span class="bidderCnt"></span>명 입찰중&nbsp;&nbsp;</span></div>
               			</c:if>
 			              <div id="curPriceTag" style="display:none;" ><span style="font-size: 0.6rem;">현재가 </span><strong><span id="curPrice"><fmt:formatNumber value="${auc.key.winningBid}" pattern="#,###"/></span> 원</strong> | <span style="color: red;"><span class="bidderCnt"></span>명 입찰중&nbsp;&nbsp;</span></div>
+=======
+              			<c:choose>
+							<c:when test="${auc.key.winningBid == 0}">
+			              		<span style="font-size: 0.6rem;">현재가 </span><strong><fmt:formatNumber value="${auc.key.startPrice}" pattern="#,###"/> 원</strong> | <span id="bidderCnt" style="color: red;">${bidderCnt}명 입찰중&nbsp;&nbsp;</span>
+							</c:when>
+							<c:otherwise>
+			              		<span style="font-size: 0.6rem;">현재가 </span><strong><fmt:formatNumber value="${auc.key.winningBid}" pattern="#,###"/> 원</strong> | <span id="bidderCnt" style="color: red;">${bidderCnt}명 입찰중&nbsp;&nbsp;</span>
+							</c:otherwise>              			
+              			</c:choose>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
               		</c:when>
               		<c:otherwise>
 	              		<span style="font-size: 0.6rem;">낙찰가 </span><strong><fmt:formatNumber value="${auc.key.winningBid}" pattern="#,###"/> 원</strong> | <span id="bidderCnt" style="color: red;">${bidderCnt}명 입찰&nbsp;&nbsp;</span>
@@ -344,6 +358,7 @@ height: 16rem!important;
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 <!--     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> -->
 <%--     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/slick/slick.min.js"></script> --%>
+<<<<<<< HEAD
     <script src="${pageContext.request.contextPath }/resources/wow/dist/wow.min.js"></script>
     
       <script type="text/javascript">
@@ -411,6 +426,10 @@ height: 16rem!important;
     	  getBidInfo()
 			}, 3000);
       
+=======
+    
+      <script type="text/javascript">
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
       
       
 //       $(document).ready(function(){

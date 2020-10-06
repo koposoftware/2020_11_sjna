@@ -31,6 +31,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+<<<<<<< HEAD
+=======
+import org.springframework.web.bind.annotation.PutMapping;
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -135,11 +139,14 @@ public class AucGoodsController {
 
 		noticeMap = aucGoodsService.selectNoticeLazyLoad(loadInfo);
 
+<<<<<<< HEAD
 //		for (NoticeVO key : noticeMap.keySet()) {
 //			String value = noticeMap.get(key);
 //			System.out.println("key: " + key + "value: " + value);
 //		}
 
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/notice/beforeLoadNotice");
 		mav.addObject("noticeMap", noticeMap);
@@ -549,6 +556,7 @@ public class AucGoodsController {
 
 //		System.out.println("hot에서 멤버"+memberVO);
 
+<<<<<<< HEAD
 		return "/myAuction/myAuction";
 	}
 
@@ -569,6 +577,30 @@ public class AucGoodsController {
 	public String goodsCategory(Model model) {
 		List<CodeVO> goodsCategory = aucGoodsService.selectGoodsCategory("gc");
 
+=======
+		int unreadNotiCnt = 0;
+		String memberNick = memberVO.getNickname();
+//		System.out.println("memberNick" + memberNick);
+		unreadNotiCnt = aucGoodsService.selectUnreadNotiCnt(memberNick);
+
+		request.setAttribute("unreadNotiCnt", unreadNotiCnt);
+
+		return "/myAuction/myAuction";
+	}
+
+	@GetMapping("/goodsCategory")
+	public String goodsCategory(Model model, HttpSession session) {
+		List<CodeVO> goodsCategory = aucGoodsService.selectGoodsCategory("gc");
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+//		System.out.println("hot에서 멤버"+memberVO);
+
+		int unreadNotiCnt = 0;
+		String memberNick = memberVO.getNickname();
+//		System.out.println("memberNick" + memberNick);
+		unreadNotiCnt = aucGoodsService.selectUnreadNotiCnt(memberNick);
+
+		model.addAttribute("unreadNotiCnt", unreadNotiCnt);
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		model.addAttribute("goodsCategory", goodsCategory);
 
 		return "/category/goodsCategory";
@@ -670,7 +702,10 @@ public class AucGoodsController {
 
 		return "/myPage/returnDetail";
 	}
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 	@Transactional
 	@GetMapping("goodsDetail/{aucNo}")
@@ -701,6 +736,13 @@ public class AucGoodsController {
 			isBid = true;
 		}
 
+<<<<<<< HEAD
+=======
+		// 입찰자 수 카운트 해주기
+		List<AAccountVO> bidderList = new ArrayList<AAccountVO>();
+		bidderList = bidService.selectAAccount(aucNo);
+
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		//// 시작 n분전 계산
 		// 데이트포맷
 		String startLeftTime = null;
@@ -767,15 +809,23 @@ public class AucGoodsController {
 		request.setAttribute("nowTime", nowTime);
 
 //		request.setAttribute("highestBid", highestBid);
+<<<<<<< HEAD
 		
 		request.setAttribute("startLeftTime", startLeftTime);
 		request.setAttribute("isLike", isLike);
 		request.setAttribute("isBid", isBid);
 		request.setAttribute("aucNo", aucNo);
+=======
+		request.setAttribute("bidderCnt", bidderList.size());
+		request.setAttribute("startLeftTime", startLeftTime);
+		request.setAttribute("isLike", isLike);
+		request.setAttribute("isBid", isBid);
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 		return "/detail/goodsDetail";
 	}
 
+<<<<<<< HEAD
 	@ResponseBody
 	@GetMapping("/getBidInfo/{aucNo}")
 	public Map<String, Object> getBidderCnt(@PathVariable("aucNo") int aucNo, HttpServletRequest request) {
@@ -792,6 +842,8 @@ public class AucGoodsController {
 		return bidInfo;
 	}
 
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	@Transactional
 	@RequestMapping("/goodsCategory/{category}")
 	public String specificCategory(@PathVariable("category") String category, HttpServletRequest request) {
@@ -874,8 +926,19 @@ public class AucGoodsController {
 	@RequestMapping("/hot")
 	public String mainHot(HttpServletRequest request, HttpSession session) {
 
+<<<<<<< HEAD
 //		System.out.println("hot에서 멤버"+memberVO);
 
+=======
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+//		System.out.println("hot에서 멤버"+memberVO);
+
+		int unreadNotiCnt = 0;
+		String memberNick = memberVO.getNickname();
+//		System.out.println("memberNick" + memberNick);
+		unreadNotiCnt = aucGoodsService.selectUnreadNotiCnt(memberNick);
+
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 //		Map<String, AucGoodsVO> hotAucMap = new LinkedHashMap<String, AucGoodsVO>();
 //		hotAucMap = aucGoodsService.selectHotAuc();
 //
@@ -898,6 +961,10 @@ public class AucGoodsController {
 //		System.out.println("After : " + nowTime);
 //		request.setAttribute("nowTime", nowTime);
 
+<<<<<<< HEAD
+=======
+		request.setAttribute("unreadNotiCnt", unreadNotiCnt);
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 //		request.setAttribute("hotTotalCnt", hotTotalCnt);
 //		request.setAttribute("hotAucMap", hotAucMap);
 //		request.setAttribute("recentAucMap", recentAucMap);

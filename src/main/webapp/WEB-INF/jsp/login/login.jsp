@@ -25,7 +25,11 @@
       <h2 style="font-weight: bold;">H A F Y</h2>
     </div>
       <label for="inputEmail" class="sr-only">Email address</label>
+<<<<<<< HEAD
       <input type="text" id="inputEmail" class="form-control" name="nickname" placeholder="ID" autofocus="autofocus" autocomplete="on">
+=======
+      <input type="text" id="inputEmail" class="form-control" name="nickname" placeholder="ID" autofocus="autofocus" autocomplete="off">
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" class="form-control" name="tranzPwd" placeholder="Password" >
       <div class="checkbox mb-3">

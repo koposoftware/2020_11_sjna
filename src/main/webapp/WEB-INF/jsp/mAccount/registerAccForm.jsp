@@ -23,7 +23,11 @@
       </div>
     </nav>
     
+<<<<<<< HEAD
     <form class="needs-validation" onsubmit="return checkValid()" action="${pageContext.request.contextPath }/registerAccSuccess" name="aForm" method="post">
+=======
+    <form class="needs-validation" action="${pageContext.request.contextPath }/registerAccSuccess" name="aForm" method="post">
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
      <div class="col-md-8 order-md-1">
           <h5 class="mb-3"> </h5>
             <div class="row">
@@ -63,8 +67,11 @@
 						</tbody>
 					</table>
 					
+<<<<<<< HEAD
 					<div id="checkBank" style="display:none; color: red;">은행을 선택해주세요.</div>
 					
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 					<input type="hidden" name="bank" id="bank">
 
 				</div>
@@ -74,7 +81,10 @@
                 <div class="invalid-feedback">
                   Valid 계좌번호 is required.
                 </div>
+<<<<<<< HEAD
                 <div id="checkAccountNo" style="display:none; color: red;">계좌번호를 입력해주세요.</div>
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
               </div>
             </div>
 
@@ -82,7 +92,11 @@
         
         <div class="footer" style="background: white;">
       		<div class="container">
+<<<<<<< HEAD
             	<button class="btn btn-primary btn-lg btn-block" type="submit" style="font-weight:bold; border:#27b2a5; background: #27b2a5; color: white;">계좌등록하기</button>
+=======
+            	<button class="btn btn-primary btn-lg btn-block" type="submit" style="font-weight:bold; border:#27b2a5; background: #27b2a5; color: white;">인증하기</button>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
       		</div>
     	</div>
     	
@@ -91,6 +105,7 @@
     <jsp:include page="/WEB-INF/jsp/include/lib/botLibs.jsp"></jsp:include>
     <script>
     
+<<<<<<< HEAD
     
     function checkValid() {
     	
@@ -106,6 +121,8 @@
 		
 	}
     
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 //    function turnGray(id) {
 //   	  $("#"+id).hover(function() {
 //   		  $(this).addClass('bankHover');
@@ -114,18 +131,28 @@
 // 	});
 	
 // }
+<<<<<<< HEAD
 
 
    
     let selectedBank = '';
     function selectBank(id) {
     	$("#checkBank").hide()
+=======
+   
+    
+    function selectBank(id) {
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 //   	  	$("#"+id).removeClass('bankHover');
 //   	  	$(".bank").css('background','white');
   	  	$(".bank").removeClass('bankHover');
   	  	$("#"+id).addClass('bankHover');
   	  
+<<<<<<< HEAD
 		selectedBank = $("#"+id).text()
+=======
+		let selectedBank = $("#"+id).text()
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
   	 	$("#bank").val(selectedBank);
 	}
       Holder.addTheme('thumb', {

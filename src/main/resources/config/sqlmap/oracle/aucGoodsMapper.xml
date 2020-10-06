@@ -55,7 +55,10 @@
 		<result column="noti_url" property="notiUrl" />
 		<result column="noti_datetime" property="notiDatetime" />
 		<result column="noti_read_datetime" property="notiReadDatetime" />
+<<<<<<< HEAD
 		<result column="noti_method" property="notiMethod" />
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	</resultMap>
 
 	<select id="selectCodeVO" parameterType="String"
@@ -214,12 +217,15 @@
 		)
 	</insert>
 
+<<<<<<< HEAD
 	<select id="selectWinningBidByNo" parameterType="int" resultType="int">
 		select winning_bid 
 		from hf_auc_goods
 		where no = #{aucNo}
 	</select>
 	
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	<select id="genAucNo" parameterType="int" resultType="int">
 		select
 		seq_hf_auc_goods_no.nextval from dual
@@ -245,7 +251,11 @@
 		) as category
 		, reg_date, to_date(start_date,'yyyy-mm-dd hh24:mi:ss') as start_date, to_date(end_date,'yyyy-mm-dd hh24:mi:ss') as end_date, start_price, member_nick, method,
 		detail,
+<<<<<<< HEAD
 		view_cnt, like_cnt, winning_bid, purchase_confirm, refund_status
+=======
+		view_cnt, like_cnt, winning_bid, purchase_confirm
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		from hf_auc_goods
 		where no = #{aucNo}
 	</select>
@@ -283,12 +293,21 @@
 		FROM (
 		select *
 		from HF_AUC_GOODS g,
+<<<<<<< HEAD
 		(select auc_no, first_bid_date
 		from hf_a_account
 		where bidder_nick = #{nickname}
 		) a
 		where a.auc_no = g.no and end_date > to_char(sysdate, 'yyyy-mm-dd hh24:mi')
 		order by a.first_bid_date desc
+=======
+		(select auc_no
+		from hf_a_account
+		where bidder_nick = #{nickname}
+		order by first_bid_date desc
+		) a
+		where a.auc_no = g.no and end_date > to_char(sysdate, 'yyyy-mm-dd hh24:mi')
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		)
 		union all
 		SELECT 
@@ -299,12 +318,20 @@
 		select *
 		from
 		HF_AUC_GOODS g,
+<<<<<<< HEAD
 		(select auc_no, first_bid_date
 		from hf_a_account
 		where bidder_nick = #{nickname}
 		) a
 		where a.auc_no = g.no and end_date <![CDATA[ <= ]]> to_char(sysdate, 'yyyy-mm-dd hh24:mi')
 		order by a.first_bid_date desc 
+=======
+		(select auc_no
+		from hf_a_account
+		where bidder_nick = #{nickname}
+		order by first_bid_date desc) a
+		where a.auc_no = g.no and end_date <![CDATA[ <= ]]> to_char(sysdate, 'yyyy-mm-dd hh24:mi') 
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		)
 	</select>
 
@@ -360,12 +387,21 @@
 		member_nick, method, detail,
 		view_cnt, like_cnt , winning_bid
 		from HF_AUC_GOODS g,
+<<<<<<< HEAD
 		(select auc_no, first_bid_date
 		from hf_a_account
 		where bidder_nick = #{memberNick}
 		) a
 		where a.auc_no = g.no and end_date > to_char(sysdate, 'yyyy-mm-dd hh24:mi')
 		order by a.first_bid_date desc
+=======
+		(select auc_no
+		from hf_a_account
+		where bidder_nick = #{memberNick}
+		order by first_bid_date desc
+		) a
+		where a.auc_no = g.no and end_date > to_char(sysdate, 'yyyy-mm-dd hh24:mi')
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	</select>
 
 	<select id="selectDisplayClosedAucContents" parameterType="String"
@@ -412,7 +448,11 @@
 		FROM (
 		select *
 		from hf_notice
+<<<<<<< HEAD
 		where noti_member_nick = #{memberNick} and noti_method = 'app'
+=======
+		where noti_member_nick = #{memberNick}
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		order by noti_datetime desc
 		) A
 		WHERE ROWNUM  <![CDATA[ <= ]]>

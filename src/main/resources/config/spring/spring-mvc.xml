@@ -69,6 +69,10 @@
 		<property name="url" value="jdbc:oracle:thin:@oracle11gdb.c0yypnp9n0w2.ap-northeast-2.rds.amazonaws.com:1521:ORCL"/>
 		<property name="username" value="admin"></property>
 		<property name="password" value="qwert12345"></property>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	</bean>
 
 
@@ -79,6 +83,10 @@
 <!-- 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:ORCL"/> -->
 <!-- 		<property name="username" value="system"></property> -->
 <!-- 		<property name="password" value="Qwert12345"></property> -->
+<<<<<<< HEAD
+=======
+
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 <!-- 	</bean> -->
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -123,7 +131,11 @@
 			<mvc:exclude-mapping path="/login"/>
 			<mvc:exclude-mapping path="/"/>
 			<mvc:exclude-mapping path="/cover"/>
+<<<<<<< HEAD
 <!-- 			<mvc:exclude-mapping path="/logout"/> login uri를 제외하고 인터셉터로 거치게끔 -->
+=======
+			<mvc:exclude-mapping path="/logout"/> <!-- login uri를 제외하고 인터셉터로 거치게끔 -->
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 			<mvc:exclude-mapping path="/resources/**"/> <!-- login uri를 제외하고 인터셉터로 거치게끔 -->
 			<mvc:exclude-mapping path="/jsp/include/**"/> <!-- login uri를 제외하고 인터셉터로 거치게끔 -->
 			<mvc:exclude-mapping path="/pwdSetting"/> <!-- login uri를 제외하고 인터셉터로 거치게끔 -->
@@ -132,9 +144,12 @@
 			<mvc:exclude-mapping path="/signUpForm"/> <!-- login uri를 제외하고 인터셉터로 거치게끔 -->
 			<mvc:exclude-mapping path="/signUpSuccess"/> <!-- login uri를 제외하고 인터셉터로 거치게끔 -->
 			<mvc:exclude-mapping path="/checkID"/> <!-- login uri를 제외하고 인터셉터로 거치게끔 -->
+<<<<<<< HEAD
 			<mvc:exclude-mapping path="/getAuthNo"/> <!-- login uri를 제외하고 인터셉터로 거치게끔 -->
 			<mvc:exclude-mapping path="/submitAuthNo"/> <!-- login uri를 제외하고 인터셉터로 거치게끔 -->
 			<mvc:exclude-mapping path="/favicon.ico"/> <!-- login uri를 제외하고 인터셉터로 거치게끔 -->
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 			<ref bean="loginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>

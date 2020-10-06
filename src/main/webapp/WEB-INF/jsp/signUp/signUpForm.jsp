@@ -119,6 +119,7 @@
             </div>
             
             <div class="mb-3">
+<<<<<<< HEAD
               <label for="phone">핸드폰 번호<!--  <span class="text-muted">(Optional)</span> --></label><br>
               <input type="text" class="form-control"  name="phone" id="phone"
               		style="width: 63%; display: inline-block;margin-bottom: .4rem;" placeholder="'-' 를 제외하고 입력해주세요." onkeydown="hideCheck()">
@@ -141,22 +142,36 @@
               </div>
               
               
+=======
+              <label for="phone">전화번호<!--  <span class="text-muted">(Optional)</span> --></label>
+              <input type="text" class="form-control" name="phone" placeholder="'-' 를 제외하고 입력해주세요." onkeydown="hideCheck()">
+              <div class="check" id="phoneCheck" style="color: red; display: none;">
+               	전화번호를 입력해주세요.
+              </div>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
             </div>
 
             
         </div>
         
+<<<<<<< HEAD
 <!--         <button onclick="phoneCheck()">핸드폰 인증</button> -->
         
         <div class="footer" style="background: white;">
       		<div class="container" style="margin-bottom: 1rem;">
             	<button class="btn btn-primary btn-lg btn-block" type="submit" style="font-weight:bold; border:#27b2a5; background: #27b2a5; color: white;">회원가입하기</button>
+=======
+        <div class="footer" style="background: white;">
+      		<div class="container" style="margin-bottom: 1rem;">
+            	<button class="btn btn-primary btn-lg btn-block" type="submit" style="font-weight:bold; border:#27b2a5; background: #27b2a5; color: white;">인증하기</button>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
       		</div>
     	</div>
      </form>
 
     <jsp:include page="/WEB-INF/jsp/include/lib/botLibs.jsp"></jsp:include>
     <script>
+<<<<<<< HEAD
     
     var isAuthSuccess = false;
     var isAuthType = false;
@@ -222,6 +237,8 @@
     	
 		
 	}
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
       Holder.addTheme('thumb', {
         bg: '#55595c',
         fg: '#eceeef',
@@ -326,6 +343,19 @@
     				f.nickname.focus()
 					return false						
 				}
+<<<<<<< HEAD
+=======
+//     			if (f.password.value == "") {
+//     				f.password.focus()
+//     				$("#passwordCheck").show();
+//     				return false
+//     			}
+//     			if (f.password.value != f.password2.value) {
+//     				f.password2.focus()
+//     				$("#passwordCheck2").show();
+//     				return false
+//     			}
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
     			
     			if (f.name.value == "") {
     				f.name.focus()
@@ -364,6 +394,7 @@
     				return false
     			}
 
+<<<<<<< HEAD
     			if (isAuthSuccess == false) {
 //     				alert("인증실패")
     				$("#authNeed").show();
@@ -371,6 +402,27 @@
     				return false
     			}
     			
+=======
+    			
+    			if (click == false) {
+    				alert("아이디 중복체크를 해주세요.")
+    				f.idCheck.focus();
+    				return false;
+    			}
+
+    			if (tMsg == "unavailable") {
+    				alert("아이디가 중복됩니다. 아이디를 확인해주세요.")
+    				f.id.focus()
+    				return false
+    			}
+    			
+
+    			if (f.post.value == "") {
+    				alert("우편번호를 입력하세요")
+    				f.post.focus()
+    				return false
+    			}
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
     			return true;
     		}
     		

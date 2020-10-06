@@ -8,15 +8,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+<<<<<<< HEAD
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.javassist.compiler.ast.Member;
 import org.json.simple.JSONObject;
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+<<<<<<< HEAD
 import hafy.SMSUtil.Coolsms;
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 import hafy.aucGoods.dao.AucGoodsDAO;
 import hafy.aucGoods.vo.AucGoodsVO;
 import hafy.bid.dao.BidDAO;
@@ -26,7 +32,10 @@ import hafy.bid.vo.NoticeVO;
 import hafy.mAccount.dao.MAccountDAO;
 import hafy.mAccount.vo.MAccountVO;
 import hafy.member.dao.MemberDAO;
+<<<<<<< HEAD
 import hafy.member.vo.MemberVO;
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 import hafy.member.vo.NoticeSettingVO;
 
 @Service
@@ -190,8 +199,11 @@ public class BidServiceImpl implements BidService {
 
 		if (notRefundAucList.size() > 0) {
 			for (Integer aucNo : notRefundAucList) {
+<<<<<<< HEAD
 				
 				// 해당 경매의 경매결과 (멤버닉, 멤버의 최종입찰액) 가져오기
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 				List<ATranzVO> bidResult = new ArrayList<ATranzVO>();
 				bidResult = bidDAO.selectBidResult(aucNo);
 
@@ -205,12 +217,17 @@ public class BidServiceImpl implements BidService {
 				NoticeSettingVO sellerNoticeSettingVO = memberDAO
 						.selectNoticeSettingVOByNick(aucGoodsVO.getMemberNick());
 				String sellerClosedNotice = sellerNoticeSettingVO.getSellerClosedNotice();
+<<<<<<< HEAD
 				
+=======
+
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 				if (sellerClosedNotice.equals("true")) {
 					String notiSellerMsg = "회원님이 출품하신 '" + aucGoodsVO.getName() + "' 경매" + "(번호: " + aucNo + ")가 "
 							+ rfWinningMoney + " 원에 낙찰되었습니다!";
 					NoticeVO sellerNoticeVO = new NoticeVO(aucGoodsVO.getMemberNick(), "bidHistory", aucNo,
 							notiSellerMsg);
+<<<<<<< HEAD
 					System.out.println(notiSellerMsg);
 					bidDAO.insertNoti(sellerNoticeVO);
 				}
@@ -327,12 +344,28 @@ public class BidServiceImpl implements BidService {
 					String bidderClosedNotice = bidderNoticeSettingVO.getBidderClosedNotice();
 					if (bidderClosedNotice.equals("true")) {
 						if (i == 0) {
+=======
+					bidDAO.insertNoti(sellerNoticeVO);
+				}
+
+				for (int i = 0; i < bidResult.size(); i++) {
+
+					NoticeSettingVO bidderNoticeSettingVO = memberDAO.selectNoticeSettingVOByNick(bidResult.get(i).getTranzMemberNick());
+					String bidderClosedNotice = bidderNoticeSettingVO.getBidderClosedNotice();
+
+					if (bidderClosedNotice.equals("true")) {
+						if (i == 0) {
+
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 							// 낙찰자에게 낙찰 알림
 							String notiWinnerMsg = "축하합니다! '" + aucGoodsVO.getName() + "' 경매" + "(번호: " + aucNo + ")의 "
 									+ " 낙찰자로 선정되셨습니다!";
 							NoticeVO winnerNoticeVO = new NoticeVO(bidResult.get(0).getTranzMemberNick(), "bidHistory",
 									aucNo, notiWinnerMsg);
+<<<<<<< HEAD
 							System.out.println(notiWinnerMsg);
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 							bidDAO.insertNoti(winnerNoticeVO);
 
 						} else {
@@ -341,7 +374,10 @@ public class BidServiceImpl implements BidService {
 									+ " 낙찰자로 선정되지 못했습니다.";
 							NoticeVO loserNoticeVO = new NoticeVO(bidResult.get(i).getTranzMemberNick(), "bidHistory",
 									aucNo, notiLoserMsg);
+<<<<<<< HEAD
 							System.out.println(notiLoserMsg);
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 							bidDAO.insertNoti(loserNoticeVO);
 						}
 					}

@@ -8,6 +8,7 @@
 	<packaging>war</packaging>
 
 	<dependencies>
+<<<<<<< HEAD
 	
 <!-- 	SMS 문자보내기 -->
 	  <dependency>
@@ -15,6 +16,8 @@
     <artifactId>javaSDK</artifactId>
     <version>2.2</version>
   </dependency>
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 
 		<!-- 게시글 등록폼 null체크하기 위한 -->
 		<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->

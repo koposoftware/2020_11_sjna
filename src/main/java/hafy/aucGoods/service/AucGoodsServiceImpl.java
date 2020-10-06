@@ -336,6 +336,7 @@ public class AucGoodsServiceImpl implements AucGoodsService {
 		return returnMap;
 	}
 
+<<<<<<< HEAD
 	
 	@Override
 	public int selectWinningBidByNo(int aucNo) {
@@ -344,6 +345,8 @@ public class AucGoodsServiceImpl implements AucGoodsService {
 		return winningBid;
 	}
 
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	@Transactional
 	@Override
 	public Map<AucGoodsVO, List<GoodsPhotoVO>> selectAucByNo(int aucNo, String memberNick) {

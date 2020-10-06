@@ -64,6 +64,10 @@
 <select id="selectBidResult" parameterType="int" resultMap="aTranzMap">
 	select tranz_member_nick, sum(tranz_money) as member_balance
 	from hf_a_tranz	
+<<<<<<< HEAD
+=======
+<!-- 	where auc_no = #{aucNo} and to_char(tranz_date,'YYYY-MM-DD HH24:MI') <![CDATA[<]]> TO_CHAR((select end_date from hf_auc_goods where no = #{aucNo}),'YYYY-MM-DD HH24:MI') -->
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	where auc_no = #{aucNo} and to_char(tranz_date,'YYYY-MM-DD HH24:MI') <![CDATA[<]]> (select end_date from hf_auc_goods where no = #{aucNo})
 	group by tranz_member_nick
 	order by sum(tranz_money) desc
@@ -83,6 +87,7 @@
 </insert>
 
 <insert id="insertNoti" parameterType="noticeVO">
+<<<<<<< HEAD
 	
 	<choose>
 	    <when test="notiMethod != null">
@@ -95,6 +100,10 @@
 	    </otherwise>
   </choose>
 
+=======
+	insert into hf_notice(noti_no, noti_member_nick, noti_type, noti_content_no, noti_msg)
+		values(seq_hf_notice_no.nextval, #{notiMemberNick}, #{notiType}, #{notiContentNo}, #{notiMsg})
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 </insert>
 
 
@@ -121,13 +130,22 @@
 <!-- 		 ) -->
 <!-- </insert> -->
 
+<<<<<<< HEAD
 <!-- 입찰기록이 있을때 입출금 기록 남기기 (차액으로 입찰하는 버전)-->
+=======
+<!-- 입찰기록이 있을때 입출금 기록 남기기 (차액으로 입찰하던 버전)-->
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 <insert id="insertBidTranz" parameterType="aTranzVO">
 	insert into hf_a_tranz(tranz_account_no, tranz_money, tranz_member_nick, tranz_type, auc_no, member_balance)
 		values(
 		#{tranzAccountNo}, #{tranzMoney}, #{tranzMemberNick}, #{tranzType}, #{aucNo},
+<<<<<<< HEAD
 			(select bid_money from hf_a_account where bidder_nick = #{tranzMemberNick} and auc_no = #{aucNo} ) + #{tranzMoney}
 			)
+=======
+			(select bid_money from hf_a_account where bidder_nick = #{tranzMemberNick} and auc_no = #{aucNo} ) + #{tranzMoney} 
+		 )
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 </insert>
 
 <!-- 입찰기록이 있을때 입출금 기록 남기기 ()-->
@@ -144,8 +162,12 @@
 <insert id="insertBidTranzNoBalance" parameterType="aTranzVO">
 	insert into hf_a_tranz(tranz_account_no, tranz_money, tranz_member_nick, tranz_type, auc_no, member_balance)
 		values(
+<<<<<<< HEAD
 		#{tranzAccountNo}, #{tranzMoney}, #{tranzMemberNick}, #{tranzType}, #{aucNo}, #{tranzMoney}
 		 
+=======
+		#{tranzAccountNo}, #{tranzMoney}, #{tranzMemberNick}, #{tranzType}, #{aucNo}, #{tranzMoney} 
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		 )
 </insert>
 

@@ -169,8 +169,18 @@ input[type="datetime-local"]:focus::before, input[type="datetime-local"]:valid::
   margin-right: .3rem;
 }
 
+<<<<<<< HEAD
 </style>
 
+=======
+
+
+</style>
+
+
+
+
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 </head>
 <body>
 
@@ -179,11 +189,19 @@ input[type="datetime-local"]:focus::before, input[type="datetime-local"]:valid::
      <div class="col-md-8 order-md-1">
           <h5 class="mb-3"> </h5>
             <div class="row">
+<<<<<<< HEAD
               <div id="point" class="col-md-6 mb-3" style="margin-bottom: 0!important;">
                 <label for="firstName" style="color: rgb(158, 158, 158);">입찰방식</label>
                 &nbsp;&nbsp;&nbsp;
                 <label class="radio-inline">
 				  <input type="radio" name="method" id="methodOpen" checked="checked" value="공개"> 공개 입찰
+=======
+              <div class="col-md-6 mb-3" style="margin-bottom: 0!important;">
+                <label for="firstName" style="color: rgb(158, 158, 158);">입찰방식</label>
+                &nbsp;&nbsp;&nbsp;
+                <label class="radio-inline">
+				  <input type="radio" name="method" id="methodOpen" value="공개"> 공개 입찰
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 				</label>
 				&nbsp;
 				<label class="radio-inline">
@@ -204,13 +222,18 @@ input[type="datetime-local"]:focus::before, input[type="datetime-local"]:valid::
 				 <label class="material-ripple" style="overflow: unset;" for="photos" onclick="{photos.click}">
     				<i  class="fa fa-camera-retro fa-3x" style='margin-left:1rem; color:darkgray; cursor:pointer' aria-hidden="true"></i>
     			</label>
+<<<<<<< HEAD
     				<span id="imageNeed" style="position:absolute; margin-top:.6rem; margin-left:.6rem; "> 상품 이미지를 업로드해주세요.</span>
     				<span id="imageUploaded" style="position:absolute; color:green; margin-top:.6rem; margin-left:.6rem; "></span>
+=======
+    				<span style="position:absolute; margin-top:.6rem; margin-left:.6rem; "> 상품 이미지를 업로드해주세요.</span>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
  				</div>
  				   			
 				<div id="imgPreview" style=" background:rgb(230, 230, 230); border:.1rem solid rgb(200, 200, 200);  display:none; padding:.3rem; margin-top: .3rem;"></div>
 				<i id="deleteAll" onclick="deleteAllFiles()" class="fa fa-times fa-2x" style="margin-left:.6rem; display: none" aria-hidden="true"></i>
 
+<<<<<<< HEAD
 			<hr>
 
 			<div class="row">
@@ -221,10 +244,41 @@ input[type="datetime-local"]:focus::before, input[type="datetime-local"]:valid::
                   Valid 상품명 is required.
                 </div>
               <div id="nameNeed" style="display:none; color: red;">상품명을 입력해주세요.</div>
+=======
+<!-- <input id="myInput" type="file" style="display:none" onchange="myFunc.onFileSelect(event)" multiple="multiple"> -->
+<!--     <label for="myInput" onclick="{myInput.click}"> -->
+<!--     <i class="fa fa-camera-retro fa-3x" style='margin-right:1rem; cursor:pointer' aria-hidden="true"></i> -->
+<!--     </label> -->
+<!--     <div class="results" style="display: inline-block;"> -->
+    
+<!-- 				<input type="file" name="photo2"> <i onclick="cancelFile2()" class="fa fa-times" aria-hidden="true"></i> -->
+<!-- 				<input type="file" name="photo3"> <i onclick="cancelFile3()" class="fa fa-times" aria-hidden="true"></i> -->
+<!-- 				<div class="input-group input-file"  name="Fichier1"> -->
+<!-- 					<span class="input-group-btn"> -->
+<!-- 						<button class="btn btn-default btn-choose" type="button"><i class="fa fa-picture-o fa-lg" aria-hidden="true"></i></button> -->
+<!-- 					</span>  -->
+<!-- 						<input type="text" class="form-control" -->
+<!-- 							placeholder='사진 올리기' /> <span class="input-group-btn"> -->
+<!-- 						<button class="btn btn-danger" type="button">삭제</button> -->
+<!-- 					</span> -->
+<!-- 				</div> -->
+			
+			<hr>
+
+
+			<div class="row">
+              <div class="col-md-6 mb-3" style="margin-bottom: 0!important;">
+<!--                 <label for="lastName">상품명</label> -->
+                <input type="text" class="form-control" name="name" id="lastName" placeholder="상품명" value="" required autocomplete="off">
+                <div class="invalid-feedback">
+                  Valid 상품명 is required.
+                </div>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
               </div>
             </div>
             <hr>
 
+<<<<<<< HEAD
 			<select id="category" class="selectpicker" name="category" title="카테고리">
 					<option disabled="disabled" >---------------------</option>
 				<c:forEach items="${goodsCategory }" var="category" begin="2">
@@ -232,10 +286,19 @@ input[type="datetime-local"]:focus::before, input[type="datetime-local"]:valid::
 				</c:forEach>
 			</select>
 			<div id="categoryNeed" style="display:none;color: red;">카테고리를 선택해주세요.</div>
+=======
+			<select class="selectpicker" name="category" title="카테고리">
+					<option>---------------------</option>
+				<c:forEach items="${goodsCategory }" var="category" begin="2">
+					<option value="${category.uriName }">${category.codeName }</option>
+				</c:forEach>
+			</select>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 			<hr>
 
 			<div class="input-group">
 <!-- 				<span class="input-group-addon">\</span>  -->
+<<<<<<< HEAD
 			  <input id="startPrice" type="number"  class="form-control" style="width: 90%;" name="startPrice" placeholder="경매 시작가"> &nbsp;&nbsp;
 				<span style="margin-top: 1rem;">원</span>
 			</div>
@@ -251,6 +314,21 @@ input[type="datetime-local"]:focus::before, input[type="datetime-local"]:valid::
 
 			<textarea id="detail" class="form-control" name="detail" placeholder="상품 상세 설명" rows="5"></textarea>
 			<div id="detailNeed" style="display:none;color: red;">상품 상세 내용을 작성해주세요.</div>
+=======
+			  <input type="number" class="form-control" style="width: 90%;" name="startPrice" placeholder="경매 시작가"> &nbsp;&nbsp;
+				<span style="margin-top: 1rem;">원</span>
+			</div>
+			
+			<hr>
+			
+			<input type="datetime-local" class="form-control" name="startDate" style="margin-bottom: 0.5rem;" placeholder="경매 시작일시" required="required">
+			<input type="datetime-local" class="form-control" name="endDate" style="margin-bottom: 0.5rem;" placeholder="경매 마감일시" required="required">
+			
+            <hr>
+
+			<textarea class="form-control" name="detail" placeholder="상품 상세 설명" rows="5"></textarea>
+
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
         </div>
         
         <br>
@@ -270,6 +348,10 @@ input[type="datetime-local"]:focus::before, input[type="datetime-local"]:valid::
       			
 		</div>
     </nav>
+<<<<<<< HEAD
+=======
+    </div>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
      </form>
      
      <!-- 	마감 알림시간 설정완료 안내 -->
@@ -310,6 +392,7 @@ input[type="datetime-local"]:focus::before, input[type="datetime-local"]:valid::
     
 	<script type="text/javascript">
 	
+<<<<<<< HEAD
 	let currentTime = new Date().toISOString().slice(0, 11) + new Date().toLocaleString().slice(16,21)
 	
 	document.getElementById('startDate').min= currentTime
@@ -393,21 +476,30 @@ function openSubmitModal() {
 
 			
 	
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 // 	var uploadPhotos = [];
 
 // $('#photos').fileupload({
 // maxNumberOfFiles: 6
 // });
+<<<<<<< HEAD
 var imgFiles;
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	
 	$("#photos").change(function(event) {
 		
 		$("#deleteAll").show()
 		$("#imgPreview").show()
 		$("#imgPreview").css("display","inline-block")
+<<<<<<< HEAD
 		imgFiles = event.target.files
 		$("#imageNeed").hide()
 		$("#imageUploaded").text(imgFiles.length + "개 이미지 업로드 완료")
+=======
+		var imgFiles = event.target.files
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		
 // 		for (var i = 0; i < imgFiles.length; i++) {
 		for (var image of event.target.files) {
@@ -438,15 +530,63 @@ var imgFiles;
 		$("#imgPreview").html("")
 		$("#deleteAll").hide()
 		$("#imgPreview").hide()
+<<<<<<< HEAD
 		$("#imageNeed").show()
 		$("#imageUploaded").text("")
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 		
 		
 		
 	}
 	
 	
+<<<<<<< HEAD
 	
+=======
+// 	$("#photo").change(function(event) {
+// 		console.log(event.currentTarget)
+// 		console.log(event)
+// 		console.log(event.currentTarget.files)
+		
+// 		for (var i = 0; i < event.currentTarget.files.length; i++) {
+			
+// 			var reader = new FileReader();
+			
+// 			reader.onload = function(event) { 
+// 				var img = document.createElement("img"); 
+// 				img.setAttribute("src", event.target.result); 
+// 				document.querySelector("div#image_container").appendChild(img); 
+// 				};
+
+
+// 			console.log(event.currentTarget.files[i].name)
+// 			$("#uploadFile").append(event.currentTarget.files[i].name + '<i id="close' +i + '" class="close fa fa-times" style="float:right; margin-right:1.4rem;" aria-hidden="true"></i>' + "<br>")
+
+// 			$('#close' + i ).click(function() {
+// 			console.log("close" + i + "클릭 성공")
+			
+// 			})
+// 		}
+
+// 	})
+	
+// 			imgCnt = $(".close").length
+// 		console.log("upload 개수: " + imgCnt);
+		
+// 		for (var i = 0; i < imgCnt; i++) {
+// 			$('#close' + i ).click(function() {
+// 			console.log("close" + i + "클릭 성공")
+		
+// 			})
+		
+// 	}
+// 	var imgCnt;
+	function openSubmitModal() {
+		$(".modal").modal("show")
+		
+	}
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 	
 	function submit() {
 		document.dForm.submit();

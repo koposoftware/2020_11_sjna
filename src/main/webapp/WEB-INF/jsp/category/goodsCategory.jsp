@@ -8,7 +8,10 @@
 	<jsp:include page="/WEB-INF/jsp/include/lib/topLibs.jsp"></jsp:include>
 <title>하피 - 모두를 위한 경매</title>
     <link href="${pageContext.request.contextPath }/resources/bootstrap-4.0.0/docs/4.0/examples/navbar-fixed/navbar-top-fixed.css" rel="stylesheet">
+<<<<<<< HEAD
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/wow/css/libs/animate.css">
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
     <style type="text/css">
 a {
 	text-decoration: none !important;
@@ -100,7 +103,10 @@ body {
     padding-left: 10%;
     vertical-align: middle;
     border-top: 1px solid #dee2e6;
+<<<<<<< HEAD
     height: 3.6rem;
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 }
 
 table th {
@@ -149,7 +155,13 @@ table th img {
       			&nbsp;&nbsp;&nbsp;
       			<a href="${pageContext.request.contextPath}/noticeContent" style="float: right; color:black;" ><i class="fa fa-bell-o fa-lg material-ripple" style="overflow:unset;" aria-hidden="true"></i>
       			
+<<<<<<< HEAD
 	      		<span id="noticeCnt" style="display:inline-block; background: red; color: white;"></span>
+=======
+      			<c:if test="${unreadNotiCnt != 0 }">
+	      			<span id="noticeCnt" style="background: red; color: white;">${unreadNotiCnt }</span>
+      			</c:if>
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
       			</a>
 		</div>
     </nav>
@@ -180,6 +192,7 @@ table th img {
 
 
     <jsp:include page="/WEB-INF/jsp/include/lib/botLibs.jsp"></jsp:include>
+<<<<<<< HEAD
     <script src="${pageContext.request.contextPath }/resources/wow/dist/wow.min.js"></script>
     
     
@@ -226,6 +239,10 @@ table th img {
 			
 			}, 3000);
 		
+=======
+    
+     <script type="text/javascript">
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
      
      function goCategory(category) {
     	 location.href = "${pageContext.request.contextPath}/goodsCategory/"+category;

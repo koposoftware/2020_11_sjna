@@ -7,6 +7,7 @@
     <title>하피 - 모두를 위한 경매</title>
     <link href="${pageContext.request.contextPath }/resources/bootstrap-4.0.0/docs/4.0/examples/cover/cover.css" rel="stylesheet">
     
+<<<<<<< HEAD
 <!--     PWA 시작! -->
     <link rel="manifest" href="${pageContext.request.contextPath}/resources/pwa/manifest.json">
     <!-- CODELAB: Add iOS meta tags and icons -->
@@ -23,6 +24,8 @@
  <script src="${pageContext.request.contextPath}/resources/pwa/install.js"></script>
 
 
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
     <script>
     
     setTimeout(() => {

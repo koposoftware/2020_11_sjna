@@ -87,5 +87,8 @@ public interface AucGoodsService {
 	
 	void insertReturnGoods(ReturnGoodsVO returnGoodsVO);
 	void insertReturnPhoto(GoodsPhotoVO goodsPhotoVO);
+<<<<<<< HEAD
 	int selectWinningBidByNo(int aucNo);
+=======
+>>>>>>> 043d81d1783ccd2630b6ac8affdedf057002e7ca
 }
